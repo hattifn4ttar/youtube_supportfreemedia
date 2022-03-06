@@ -1,0 +1,23 @@
+{
+  "name": "YouTube - Support Independent Channels",
+  "description": "Support Independent YouTube channels that tell truth about the war in Ukraine - fight the army of Putin's internet bots",
+  "version": "1.01",
+  "manifest_version": 3,
+  "permissions": ["storage"],
+  "icons": {
+    "128": "/images/icon128_2.png"
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["https://www.youtube.com/*"],
+      "css": ["main.css"],
+      "js": ["script.js", "scriptPlaylist.js"]
+    }
+  ],
+
+  "action": {
+      "default_title": "Open YouTube Channels",
+      "default_popup": "popup.html"
+  }
+}
