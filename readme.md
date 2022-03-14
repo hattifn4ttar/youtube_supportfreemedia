@@ -10,7 +10,7 @@ These are the last few independent channels left in Russia.
 
 ### How to install 
 
-If you are comfortable using Chrome account and installing extension from the Chrome Store, use <a href="https://chrome.google.com/webstore/detail/youtube-support-independe/eebejapgbcnnodjkcnnbdloicadofnoe" id="youtubeLink">this link</a> and follow a standard installation procedure.  
+If you are comfortable using Chrome account and installing extension from the Chrome Store, use <a href="https://chrome.google.com/webstore/detail/youtube-support-independe/eebejapgbcnnodjkcnnbdloicadofnoe" id="youtubeLink">this link</a> and follow the standard installation procedure.  
 
 Otherwise you can install the extension locally:
 
