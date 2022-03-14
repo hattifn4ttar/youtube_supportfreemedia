@@ -8,4 +8,32 @@ Independent channels are DW, Radio Freedom, Max Katz, Vladimir Milov, Michael Na
 These are the last few independent channels left in Russia.
 
 
+### How to install 
+
+If you are comfortable using Chrome account and installing extension from the Chrome Store, use <a href="https://chrome.google.com/webstore/detail/youtube-support-independe/eebejapgbcnnodjkcnnbdloicadofnoe" id="youtubeLink">this link</a> and follow a standard installation procedure.  
+
+Otherwise you can install the extension locally:
+
+1. Download extension folder from GitHub - use *[this link](https://github.com/hattifn4ttar/youtube_supportfreemedia/zipball/master/)*.
+2. Unzip the archive in any location on your machine.
+3. Open Extentions manager in Chrome browser - copy this link to your browser *chrome://extensions/*
+(Edge browser: *edge://extensions/* )
+4. Enable developer mode in the top right corner - see the screenshot.
+5. Click "Load unpacked" button in the top left corner to upload extension, select the extension folder.
+6. Extension is ready to use. To bookmark the extension, click "Extensions" button in the top right corner in the browser, the "Pin" icon next to extension name.
+7. It is recommended to use *[YouTube AdBlock extension](https://chrome.google.com/webstore/detail/adblock-for-youtube/cmedhionkhpnakcndndgjdbohmhepckk?hl=en-US)* to skip ads.
+<br />**Chrome:**
+![alt text](/images/help_ext.png)
+**Edge:**
+![alt text](/images/help_edge.png)
+
+### How to use
+
+Click the extension button, then select number of tab that works for you. 
+
+If "Open Playlist" is selected, it will start playing *[Independent Russian Media playlist](https://www.youtube.com/playlist?list=PLQxYKug91T31ixyCs81TwIl8wAiD9AZAH)*.
+Otherwise it will open channels listed above and play latest uploads.
+![alt text](/images/ext_preview.png)
+
+Supported browsers are Chrome, Edge, Opera. You may need to update the browser if your current version doesn't support chrome Manifest V3.
 
