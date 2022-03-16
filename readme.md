@@ -10,9 +10,9 @@ These are the last few independent channels left in Russia.
 
 ### How to install 
 
-If you are comfortable using Chrome account and installing extension from the Chrome Store, use <a href="https://chrome.google.com/webstore/detail/youtube-support-independe/eebejapgbcnnodjkcnnbdloicadofnoe" id="youtubeLink">this link</a> and follow the standard installation procedure.  
+The extension is available in Chrome Store - see <a href="https://chrome.google.com/webstore/detail/youtube-support-independe/eebejapgbcnnodjkcnnbdloicadofnoe" id="youtubeLink">"YouTube - Support Independent Media"</a>.
 
-Otherwise you can install the extension locally:
+You can also install the extension locally:
 
 1. Download extension folder from GitHub - use *[this link](https://github.com/hattifn4ttar/youtube_supportfreemedia/zipball/master/)*.
 2. Unzip the archive in any location on your machine.
