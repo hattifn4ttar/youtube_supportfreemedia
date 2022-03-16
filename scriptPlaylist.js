@@ -126,8 +126,8 @@ function openFirstTab() {
 
     setTimeout(() => {
       console.log('open:', tabs[0][0].url);
-      // window.open(tabs[0][0].url); // for debugging
-      location.replace(tabs[0][0].url);
+      window.open(tabs[0][0].url); // for debugging
+      // location.replace(tabs[0][0].url);
     }, 100);
 
   }, 5000);

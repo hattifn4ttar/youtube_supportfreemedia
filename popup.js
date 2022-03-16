@@ -6,7 +6,7 @@ async function startScript(nTabs) {
   playType = playType.playType;
 
   if (playType === 'channels') {
-    window.open('https://www.youtube.com/watch?v=eTSipyTLSjo&openNew=1&channelIndex=none&channelUrl=none&nTabs=' + nTabs);
+    window.open('https://www.youtube.com/playlist?list=PLQxYKug91T31ixyCs81TwIl8wAiD9AZAH&openNew=1&channelIndex=none&channelUrl=none&nTabs=' + nTabs);
   } else {
     window.open('https://www.youtube.com/playlist?list=PLQxYKug91T31ixyCs81TwIl8wAiD9AZAH&openPlaylistFirstTab=1&nTabs=' + nTabs);
   }
