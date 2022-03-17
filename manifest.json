@@ -1,7 +1,7 @@
 {
   "name": "YouTube - Support Independent Media",
   "description": "Support Independent YouTube channels that tell truth about the war in Ukraine - fight Putin's propaganda",
-  "version": "1.03",
+  "version": "1.04",
   "manifest_version": 3,
   "permissions": ["storage"],
   "icons": {

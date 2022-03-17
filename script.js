@@ -6,13 +6,13 @@ const channelsOriginal = [
   { id: 5, url: 'https://www.youtube.com/c/NavalnyLiveChannel', videoDurationMin: 20, subsThousand: 2500 * 0.7, name: 'Навальный LIVE (Navalny LIVE)' },
   { id: 6, url: 'https://www.youtube.com/c/khodorkovskyru', videoDurationMin: 10, subsThousand: 1000, name: 'Михаил Ходорковский (Michail Khodorkovsky)' },
   { id: 7, url: 'https://www.youtube.com/channel/UCL1rJ0ROIw9V1qFeIN0ZTZQ', videoDurationMin: 20, subsThousand: 730, name: 'Екатерина Шульман (Ekaterina Shulman)' },
-  { id: 8, url: 'https://www.youtube.com/c/%D0%90%D0%BB%D0%B5%D0%BA%D1%81%D0%B5%D0%B9%D0%9D%D0%B0%D0%B2%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9', videoDurationMin: 5, subsThousand: 6400 * 0.25, name: 'Алексей Навальный (Aleksey Navalny)' },
-  { id: 9, url: 'https://www.youtube.com/channel/UCzaqqlriSjVyc795m86GVyg', videoDurationMin: 20, subsThousand: 300, name: 'Yulia Latynina' },
-  { id: 10, url: 'https://www.youtube.com/channel/UC54SBo5_usXGEoybX1ZVETQ', videoDurationMin: 15, subsThousand: 700, name: 'Дмитрий ПОТАПЕНКО' },
-  { id: 11, url: 'https://www.youtube.com/channel/UCoHH5raTevyI35tfb1YF6qA', videoDurationMin: 10, subsThousand: 950, name: 'Илья Яшин (Ilya Yashin)' },
-  { id: 12, url: 'https://www.youtube.com/channel/UC7Elc-kLydl-NAV4g204pDQ', videoDurationMin: 10, subsThousand: 600, name: 'Popular Politics' },
-  { id: 13, url: 'https://www.youtube.com/c/NovayagazetaRu', videoDurationMin: 5, subsThousand: 470, name: 'Новая газета' },
-  { id: 14, url: 'https://www.youtube.com/c/%D0%9E%D0%B1%D0%BC%D0%B0%D0%BD%D1%83%D1%82%D1%8B%D0%B9%D0%A0%D0%BE%D1%81%D1%81%D0%B8%D1%8F%D0%BD%D0%B8%D0%BD', videoDurationMin: 5, subsThousand: 600, name: 'Обманутый Россиянин' },
+  { id: 8, url: 'https://www.youtube.com/channel/UCzaqqlriSjVyc795m86GVyg', videoDurationMin: 20, subsThousand: 300, name: 'Yulia Latynina' },
+  { id: 9, url: 'https://www.youtube.com/channel/UC54SBo5_usXGEoybX1ZVETQ', videoDurationMin: 15, subsThousand: 700, name: 'Дмитрий ПОТАПЕНКО' },
+  { id: 10, url: 'https://www.youtube.com/channel/UCoHH5raTevyI35tfb1YF6qA', videoDurationMin: 10, subsThousand: 950, name: 'Илья Яшин (Ilya Yashin)' },
+  { id: 11, url: 'https://www.youtube.com/channel/UC7Elc-kLydl-NAV4g204pDQ', videoDurationMin: 10, subsThousand: 600, name: 'Popular Politics' },
+  { id: 12, url: 'https://www.youtube.com/c/NovayagazetaRu', videoDurationMin: 5, subsThousand: 470, name: 'Новая газета' },
+  { id: 13, url: 'https://www.youtube.com/c/%D0%9E%D0%B1%D0%BC%D0%B0%D0%BD%D1%83%D1%82%D1%8B%D0%B9%D0%A0%D0%BE%D1%81%D1%81%D0%B8%D1%8F%D0%BD%D0%B8%D0%BD', videoDurationMin: 5, subsThousand: 600, name: 'Обманутый Россиянин' },
+  // { id: 8, url: 'https://www.youtube.com/c/%D0%90%D0%BB%D0%B5%D0%BA%D1%81%D0%B5%D0%B9%D0%9D%D0%B0%D0%B2%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9', videoDurationMin: 5, subsThousand: 6400 * 0.25, name: 'Алексей Навальный (Aleksey Navalny)' },
   // { id: 14, url: 'https://www.youtube.com/c/TheInsiderVideo', videoDurationMin: 5, subsThousand: 77, name: 'The Insider' },
   // { id: 11, url: 'https://www.youtube.com/c/SvobodaRadio', videoDurationMin: 2, subsThousand: 1600 * 0.5, name: 'Радио Свобода (Radio Freedon)' },
   // { id: 14, url: 'https://www.youtube.com/channel/UC1eFXmJNkjITxPFWTy6RsWg', videoDurationMin: 10, subsThousand: 2800 * 0.5, name: 'Редакция' },
@@ -176,24 +176,30 @@ function openChannel(channel) {
 function goToChannel() {
   // Open channels one by one
   let tabIndex = (new URLSearchParams(window.location.search)).get('tabIndex');
+  let chOffset = (new URLSearchParams(window.location.search)).get('chOffset');
   let nTabs = (new URLSearchParams(window.location.search)).get('nTabs');
-  tabIndex = isNaN(Number(tabIndex)) ? -1 : Number(tabIndex);
+  tabIndex = isNaN(Number(tabIndex)) ? 0 : Number(tabIndex);
+  chOffset = isNaN(Number(chOffset)) ? 0 : Number(chOffset);
   nTabs = isNaN(Number(nTabs)) ? 3 : Number(nTabs);
 
   setTimeout(() => {
     const channel = channelsOriginal.find(d => d.id == tabIndex) || channelsOriginal[0];
-    if (tabIndex > 0) openChannel(channel);
+    if (!tabIndex) {
+      chOffset = Math.floor(Math.random() * (channelsOriginal.length));
+      // chOffset = 0;
+    } else {
+      openChannel(channel);
+    }
 
     let newTabIndex = tabIndex + 1;
     let openNewTab = newTabIndex <= nTabs;
 
-    let newChannelID = Math.ceil(Math.random() * (channelsOriginal.length));
-    // let newChannelID = tabIndex + 1;
-    console.log('openNew:', tabIndex, newChannelID, window.location.search);
-    const channelNew = channelsOriginal.find(d => d.id == newChannelID);
+    let newChannelID = (chOffset + tabIndex + 1) % channelsOriginal.length;
+    const channelNew = channelsOriginal[newChannelID];
     if (openNewTab) {
+      console.log('openNew:', chOffset, tabIndex, newChannelID, window.location.search, channelNew);
       setTimeout(() => {
-        let newUrl = channelNew.url + '?openNew=1&tabIndex=' + newTabIndex + '&loop=1&nTabs=' + nTabs;
+        let newUrl = channelNew.url + '?openNew=1&tabIndex=' + newTabIndex + '&loop=1&nTabs=' + nTabs + '&chOffset=' + chOffset;
         if (tabIndex == 0) {
           location.replace(newUrl);
         } else {
