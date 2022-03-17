@@ -181,7 +181,6 @@ function goToChannel() {
   nTabs = isNaN(Number(nTabs)) ? 3 : Number(nTabs);
 
   setTimeout(() => {
-    console.log('openNew:', tabIndex, window.location.search);
     const channel = channelsOriginal.find(d => d.id == tabIndex) || channelsOriginal[0];
     if (tabIndex > 0) openChannel(channel);
 
@@ -190,6 +189,7 @@ function goToChannel() {
 
     let newChannelID = Math.ceil(Math.random() * (channelsOriginal.length));
     // let newChannelID = tabIndex + 1;
+    console.log('openNew:', tabIndex, newChannelID, window.location.search);
     const channelNew = channelsOriginal.find(d => d.id == newChannelID);
     if (openNewTab) {
       setTimeout(() => {
