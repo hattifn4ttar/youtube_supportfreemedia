@@ -20,6 +20,7 @@ const channelsOriginal = [
 let watchTime = 1000 * 60;
 let startTime = new Date();
 let loopLength = 15;
+let muteFlag1 = false;
 
 
 
@@ -50,9 +51,9 @@ function scrollVideo() {
   // in progress
 }
 function muteVideo() {
-  window.focus()
   const muteBtn = document.getElementsByClassName('ytp-mute-button ytp-button');
-  if (muteBtn?.length && muteBtn[0] && muteBtn[0].title === 'Mute (m)') {
+  console.log('MUTE', muteBtn);
+  if (muteBtn?.length && muteBtn[0] && muteBtn[0].title?.indexOf('Mute') === 0) {
     muteBtn[0].click();
   }
 }
@@ -106,9 +107,10 @@ function nextVideo() {
 
     const video = videos[ii];
     getVideoStart(video);
+    muteVideo();
+    likeVideo();
 
     setTimeout(() => {
-      likeVideo();
       video.click(); // changing url is not reliable
       nextVideo();
     }, 1000 * (watchTimeSec + 3));
@@ -126,7 +128,6 @@ function clickPlayAll() {
     else { return false };
 
     setTimeout(() => { 
-      muteVideo();
       nextVideo();     
     }, 1000);
     return true;
@@ -213,8 +214,9 @@ function goToChannel() {
 
 
 const openNew = window.location.search.includes('openNew=1');
+muteFlag1 = window.location.search.includes('&mute=1');
 if (openNew) {
-  goToChannel();
+  goToChannel(muteFlag1);
 }
 const urlContinuePlylist = window.location.search.includes('continuePromote=1');
 if (urlContinuePlylist) {

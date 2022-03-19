@@ -21,12 +21,38 @@ function getVideoStart2(video) {
   const startSeconds = seconds - watchTimeSec;
   return [watchTimeSec, startSeconds, seconds];
 }
+function muteVideoOnce() {
+  console.log('MUTEONCE');
+  // need to clean unused props
+  document.dispatchEvent(new KeyboardEvent('keydown', {
+    altKey: false,
+    bubbles: true,
+    cancelBubble: false,
+    cancelable: true,
+    charCode: 0,
+    code: "KeyM",
+    composed: true,
+    ctrlKey: false,
+    currentTarget: null,
+    defaultPrevented: false,
+    detail: 0,
+    eventPhase: 0,
+    isComposing: false,
+    key: "m",
+    keyCode: 77,
+    location: 0,
+    metaKey: false,
+    repeat: false,
+    returnValue: true,
+    shiftKey: false
+  }));
+}
 // -- end helpers -------------------------
 
 
 
 // loop videos in one tab
-async function continuePlaylist(openTab) {
+async function continuePlaylist(openTab, muteFlag) {
   let tabIndex = (new URLSearchParams(window.location.search)).get('ti');
   let videoIndex = (new URLSearchParams(window.location.search)).get('vi');
   let offset = (new URLSearchParams(window.location.search)).get('offset');
@@ -39,9 +65,9 @@ async function continuePlaylist(openTab) {
   loopLength = isNaN(Number(loopLength)) ? 3 : Number(loopLength);
 
   setTimeout(() => {
-    console.log('nextTab:', tabIndex);
-    muteVideo();
-    likeVideo();
+    console.log('nextTab:', tabIndex, muteFlag);
+    if (muteFlag) muteVideoOnce();
+    setTimeout(() => muteVideo(), 500);
   }, 2000);
 
   setTimeout(async () => {
@@ -60,7 +86,7 @@ async function continuePlaylist(openTab) {
     if (openTab && tabIndex + 1 < tabs.length) {
       window.open(tabs[tabIndex + 1][0].url);
     }
-  }, 2000);
+  }, 4000);
 }
 
 
@@ -126,8 +152,7 @@ function openFirstTab() {
 
     setTimeout(() => {
       console.log('open:', tabs[0][0].url);
-      window.open(tabs[0][0].url); // for debugging
-      // location.replace(tabs[0][0].url);
+      window.open(tabs[0][0].url + '&mute=1');
     }, 100);
 
   }, 5000);
@@ -135,8 +160,6 @@ function openFirstTab() {
 
 // &openFirstTab=1 is lost in url for https://www.youtube.com/watch?v=hT_nvWreIhg&list=PLbZIPy20-1pN7mqjckepWF78ndb6ci_qi&t=125s
 // &openTab=1 is lost in url for https://www.youtube.com/playlist?list=PLbZIPy20-1pN7mqjckepWF78ndb6ci_qi
-const loc = window.location.href;
-setTimeout(() => console.log('href:', loc), 3000);
 
 if (window.location.href.includes('&openPlaylistFirstTab=1')) {
   openFirstTab();
@@ -146,6 +169,9 @@ if (window.location.href.includes('&openPlaylistFirstTab=1')) {
 
 const openTab = window.location.search.includes('&openPTab=1');
 const play = window.location.search.includes('&promotePlaylist=1');
+const muteFlag = window.location.search.includes('&mute=1');
 if (play) {
-  setTimeout(() => { continuePlaylist(openTab); }, 100);
+  setTimeout(() => { continuePlaylist(openTab, muteFlag); }, 100);
 }
+const loc = window.location.href;
+setTimeout(() => console.log('hrefPlaylist:', loc, muteFlag), 3000);
