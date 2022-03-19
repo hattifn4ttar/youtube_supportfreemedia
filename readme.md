@@ -4,7 +4,7 @@ This extension helps to promote independent YouTube channels that tell truth abo
 
 It is needed to compete with Putin's army of internet bots that are boosting channels with false information about the war and helping to brainwash Russian people. 
 
-Independent channels are DW, Radio Freedom, Max Katz, Vladimir Milov, Michael Nacki, Navalny Live, Michael Khodorkovsky, Yulia Latynina, Popular Politics, Ilya Yashin, Ekaterina Shulman.
+Independent channels are DW, Michael Nacki, Popular Politics, Radio Freedom, Ekaterina Shulman, Vladimir Milov, Navalny Live, Michael Khodorkovsky, Yulia Latynina, Ilya Yashin.
 These are the last few independent channels left in Russia.
 
 
