@@ -5,11 +5,11 @@ html {
   color: white !important;  
 }
 .openchannels-popup {
-  padding: 20px 30px;
+  padding: 5px 30px;
 }
 
 .buttons {
-  min-width: 250px;
+  min-width: 290px;
   margin-bottom: 20px;
 }
 
@@ -34,7 +34,9 @@ html {
   font-size: 18px;
   font-weight: 500;
   max-width: 200px;
+  max-width: 140px;
   line-height: 25px;
+  display: inline-block;
 }
 a {
   color: rgba(255,255,255,0.8);
@@ -43,6 +45,26 @@ a:hover {
   color: rgba(255,255,255,1);
 }
 .logo {
+  margin-top: 10px;
+  max-width: 40px;
+  display: inline-block;
+}
+.links {
+  display: inline-block;
+  width: 70px;
+  margin-left: 15px;
+  line-height: 22px;
+  position: relative;
+  top: -6px;
   display: none;
-  max-width: 70px;
+}
+.links-bottom {
+  float: right;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+p {
+  line-height: 20px;
+  font-size: 14px;
 }

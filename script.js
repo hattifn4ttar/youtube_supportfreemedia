@@ -12,9 +12,10 @@ const channelsOriginal = [
   { id: 11, url: 'https://www.youtube.com/c/NovayagazetaRu', videoDurationMin: 5, subsThousand: 470, name: 'Новая газета' },
   { id: 12, url: 'https://www.youtube.com/c/%D0%9E%D0%B1%D0%BC%D0%B0%D0%BD%D1%83%D1%82%D1%8B%D0%B9%D0%A0%D0%BE%D1%81%D1%81%D0%B8%D1%8F%D0%BD%D0%B8%D0%BD', videoDurationMin: 5, subsThousand: 600, name: 'Обманутый Россиянин' },
   { id: 13, url: 'https://www.youtube.com/c/SvobodaRadio', videoDurationMin: 2, subsThousand: 1600 * 0.5, name: 'Радио Свобода (Radio Freedon)' },
+  { id: 14, url: 'https://www.youtube.com/channel/UCfD6O-n4-Sw7r3xci7YStgg', videoDurationMin: 2, subsThousand: 4, name: 'Альянс учителей (Teachers Community)' },
+  { id: 15, url: 'https://www.youtube.com/c/TheInsiderVideo', videoDurationMin: 5, subsThousand: 77, name: 'The Insider' },
   // { id: 13, url: 'https://www.youtube.com/c/maxkatz1', videoDurationMin: 15, subsThousand: 990, name: 'Максим Кац (Max Katz)' },
   // { id: 8, url: 'https://www.youtube.com/c/%D0%90%D0%BB%D0%B5%D0%BA%D1%81%D0%B5%D0%B9%D0%9D%D0%B0%D0%B2%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9', videoDurationMin: 5, subsThousand: 6400 * 0.25, name: 'Алексей Навальный (Aleksey Navalny)' },
-  // { id: 14, url: 'https://www.youtube.com/c/TheInsiderVideo', videoDurationMin: 5, subsThousand: 77, name: 'The Insider' },
   // { id: 14, url: 'https://www.youtube.com/channel/UC1eFXmJNkjITxPFWTy6RsWg', videoDurationMin: 10, subsThousand: 2800 * 0.5, name: 'Редакция' },
 ];
 let watchTime = 1000 * 60;

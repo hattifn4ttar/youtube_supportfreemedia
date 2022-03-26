@@ -97,20 +97,11 @@ function openFirstTab() {
   nTabs = isNaN(Number(nTabs)) ? 3 : Number(nTabs);
 
   setTimeout(async () => {
-    // get video url and start time
-    // works for these urls:
-    // #1 https://www.youtube.com/playlist?list=PL55RiY5tL51rrgq6xi67Mc6cwOHXw_nB1 someone else's playlist
-    // #2 https://www.youtube.com/playlist?list=PLQxYKug91T31ixyCs81TwIl8wAiD9AZAH created by me
-    // #3 https://www.youtube.com/watch?v=70RmF0rPj9o&list=PLQxYKug91T31ixyCs81TwIl8wAiD9AZAH when video is open
-    // #4 https://www.youtube.com/watch?v=B7_17cbaBKM&list=UUUGfDbfRIx51kJGGHIFo8Rw playlist from channel
-    // doesn't work for 
-    // #5 https://www.youtube.com/playlist?list=PLbZIPy20-1pN7mqjckepWF78ndb6ci_qi same as #1? second tab doesn't open
-    // #6 https://www.youtube.com/watch?v=hT_nvWreIhg&list=PLbZIPy20-1pN7mqjckepWF78ndb6ci_qi same as #3? even first tab doesn't open
     const videos1 = document.getElementsByClassName('yt-simple-endpoint style-scope ytd-playlist-panel-video-renderer'); 
     const videos2 = document.querySelectorAll("ytd-playlist-video-renderer.style-scope.ytd-playlist-video-list-renderer");
 
     let videos = videos1.length ? [...videos1] : [...videos2];
-    // videos = videos.slice(0, 12);
+    // videos = videos.slice(0, 300); // limit to 300 videos
     if (!videos.length) {
       chrome.storage.local.set({ playlistType: null });
       chrome.storage.local.set({ videos: [] });
