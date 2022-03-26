@@ -8,7 +8,7 @@ html {
   padding: 5px 30px;
 }
 
-.buttons {
+.openchannels-popup .buttons {
   min-width: 290px;
   margin-bottom: 20px;
 }
@@ -29,7 +29,7 @@ html {
   cursor: pointer;
 }
 
-.title {
+.ytsupport-title {
   width: 100%;
   font-size: 18px;
   font-weight: 500;
@@ -38,18 +38,18 @@ html {
   line-height: 25px;
   display: inline-block;
 }
-a {
+.openchannels-popup a {
   color: rgba(255,255,255,0.8);
 }
-a:hover {
+.openchannels-popup a:hover {
   color: rgba(255,255,255,1);
 }
-.logo {
+.openchannels-popup .logo {
   margin-top: 10px;
   max-width: 40px;
   display: inline-block;
 }
-.links {
+.openchannels-popup .links {
   display: inline-block;
   width: 70px;
   margin-left: 15px;
@@ -58,13 +58,13 @@ a:hover {
   top: -6px;
   display: none;
 }
-.links-bottom {
+.openchannels-popup .links-bottom {
   float: right;
   margin-top: 20px;
   margin-bottom: 20px;
 }
 
-p {
+.openchannels-popup p {
   line-height: 20px;
   font-size: 14px;
 }
