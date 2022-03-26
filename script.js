@@ -32,9 +32,10 @@ function getLoggedIn() {
   return true;
 }
 async function likeVideo() {
-  let like = await chrome.storage.local.get('like');
-  like = like.like;
+  let like = await chrome.storage.local.get('supportYTLike');
+  like = like.supportYTLike;
 
+  console.log('LIKE:', like);
   if (!getLoggedIn() || !like) return;
   let videoBtns = document.getElementsByClassName('style-scope ytd-video-primary-info-renderer');
   videoBtns = videoBtns[0]?.children[5]?.children[2]?.children[0]?.children[0]?.children[0];

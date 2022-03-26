@@ -49,6 +49,7 @@ html {
   max-width: 40px;
   display: inline-block;
 }
+/*
 .openchannels-popup .links {
   display: inline-block;
   width: 70px;
@@ -58,6 +59,7 @@ html {
   top: -6px;
   display: none;
 }
+*/
 .openchannels-popup .links-bottom {
   float: right;
   margin-top: 20px;

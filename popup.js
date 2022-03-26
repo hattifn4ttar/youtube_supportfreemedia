@@ -2,7 +2,7 @@ async function startScript(nTabs) {
   // Open the start page
   
   console.log('nTabs:', nTabs);
-  let playType = await chrome.storage.local.get('playType');
+  let playType = await chrome.storage.sync.get('playType');
   playType = playType.playType;
 
   if (typeof browser === "undefined") {
@@ -28,21 +28,56 @@ document.getElementById('youtubeLink').addEventListener('click', () => window.op
 document.getElementById('webLink').addEventListener('click', () => window.open('https://hattifn4ttar.github.io/supportfreemedia/'));
 document.getElementById('playlistLink').addEventListener('click', () => window.open('https://www.youtube.com/playlist?list=PLQxYKug91T31ixyCs81TwIl8wAiD9AZAH'));
 
-chrome.storage.local.set({ playType: 'playlist' });
-chrome.storage.local.set({ like: true });
+chrome.storage.sync.set({ playType: 'playlist' });
+chrome.storage.sync.set({ supportYTLike: true });
+/*
+async function setForm() {
+  let playlist = await chrome.storage.sync.get('playType');
+  playlist = playlist.playType !== 'channels';
 
-var form = document.querySelector("form");
-form.addEventListener("change", async function(event) {
-  console.log('change:', event.target.name, event.target.value);
-  if (event.target.name === 'playType') {
-    chrome.storage.local.set({ playType: event.target.value });
-  } else if (event.target.name === 'like') {
-    let like = await chrome.storage.local.get('like');
-    like = like.like;
-    chrome.storage.local.set({ like: !like });
+  if (playlist.playType === undefined) {
+    playlist = true;
+    chrome.storage.sync.set({ playType: 'playlist' });
   }
+  // console.log('setLike:', like, playlist, playlist.playType, like.supportYTLike);
+
+  if (!playlist) {
+    var form1 = document.getElementById("form1");
+    if (form1) form1.style.display = 'none';
+  } else {
+    var form2 = document.getElementById("form2");
+    if (form2) form2.style.display = 'none';
+  }
+}
+setForm();
+*/
+
+var form1 = document.getElementById("form1");
+form1.addEventListener("change", async function(event) {
+  console.log('change1:', event.target.name, event.target.value);
+  chrome.storage.sync.set({ playType: event.target.value });
   event.preventDefault();
 }, false);
+/*
+var form2 = document.getElementById("form2");
+form2.addEventListener("change", async function(event) {
+  console.log('change2:', event.target.name, event.target.value);
+  chrome.storage.sync.set({ playType: event.target.value });
+  event.preventDefault();
+}, false);
+*/
+
+var form3 = document.getElementById("form3");
+if (form3) {
+  form3.addEventListener("change", async function(event) {
+    console.log('change3:', event.target.name, event.target.value);
+    let like = await chrome.storage.sync.get('supportYTLike');
+    like = like.supportYTLike;
+    chrome.storage.sync.set({ supportYTLike: !like });
+    console.log('saveLike:', like);
+    event.preventDefault();
+  }, false);
+}
 
 
 function getChecked(v) {
