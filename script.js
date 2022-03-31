@@ -9,12 +9,12 @@ const channelsOriginal = [
   { id: 8, url: 'https://www.youtube.com/c/khodorkovskyru', videoDurationMin: 10, subsThousand: 1000, name: 'Михаил Ходорковский (Michail Khodorkovsky)' },
   { id: 9, url: 'https://www.youtube.com/channel/UC54SBo5_usXGEoybX1ZVETQ', videoDurationMin: 15, subsThousand: 700, name: 'Дмитрий ПОТАПЕНКО (Dimitry Potapenko)' },
   { id: 10, url: 'https://www.youtube.com/channel/UCoHH5raTevyI35tfb1YF6qA', videoDurationMin: 10, subsThousand: 950, name: 'Илья Яшин (Ilya Yashin)' },
-  { id: 11, url: 'https://www.youtube.com/c/NovayagazetaRu', videoDurationMin: 5, subsThousand: 470, name: 'Новая газета (Novaya Gazeta)' },
-  { id: 12, url: 'https://www.youtube.com/c/%D0%9E%D0%B1%D0%BC%D0%B0%D0%BD%D1%83%D1%82%D1%8B%D0%B9%D0%A0%D0%BE%D1%81%D1%81%D0%B8%D1%8F%D0%BD%D0%B8%D0%BD', videoDurationMin: 5, subsThousand: 600, name: 'Обманутый Россиянин' },
-  { id: 13, url: 'https://www.youtube.com/c/SvobodaRadio', videoDurationMin: 2, subsThousand: 1600 * 0.5, name: 'Радио Свобода (Radio Freedon)' },
-  { id: 14, url: 'https://www.youtube.com/channel/UCfD6O-n4-Sw7r3xci7YStgg', videoDurationMin: 2, subsThousand: 4, name: 'Альянс учителей (Teachers Community)' },
-  { id: 15, url: 'https://www.youtube.com/c/TheInsiderVideo', videoDurationMin: 5, subsThousand: 77, name: 'The Insider' },
-  { id: 16, url: 'https://www.youtube.com/channel/UC0p3rxtSGCnO-JjBz5bU5CQ', videoDurationMin: 10, subsThousand: 100, name: 'Котрикадзе Дзядко (Kotrikadze Dzyadko)' },
+  { id: 11, url: 'https://www.youtube.com/c/%D0%9E%D0%B1%D0%BC%D0%B0%D0%BD%D1%83%D1%82%D1%8B%D0%B9%D0%A0%D0%BE%D1%81%D1%81%D0%B8%D1%8F%D0%BD%D0%B8%D0%BD', videoDurationMin: 5, subsThousand: 600, name: 'Обманутый Россиянин' },
+  { id: 12, url: 'https://www.youtube.com/c/SvobodaRadio', videoDurationMin: 2, subsThousand: 1600 * 0.5, name: 'Радио Свобода (Radio Freedon)' },
+  { id: 13, url: 'https://www.youtube.com/channel/UCfD6O-n4-Sw7r3xci7YStgg', videoDurationMin: 2, subsThousand: 4, name: 'Альянс учителей (Teachers Community)' },
+  { id: 14, url: 'https://www.youtube.com/c/TheInsiderVideo', videoDurationMin: 5, subsThousand: 77, name: 'The Insider' },
+  { id: 15, url: 'https://www.youtube.com/channel/UC0p3rxtSGCnO-JjBz5bU5CQ', videoDurationMin: 10, subsThousand: 100, name: 'Котрикадзе Дзядко (Kotrikadze Dzyadko)' },
+  // { id: 11, url: 'https://www.youtube.com/c/NovayagazetaRu', videoDurationMin: 5, subsThousand: 470, name: 'Новая газета (Novaya Gazeta)' },
   // { id: 17, url: 'https://www.youtube.com/channel/UCBG57608Hukev3d0d-gvLhQ', videoDurationMin: 10, subsThousand: 2400 * 0.5, name: 'Настоящее Время (Current Time TV)' },
   // { id: 18, url: 'https://www.youtube.com/c/maxkatz1', videoDurationMin: 15, subsThousand: 990, name: 'Максим Кац (Max Katz)' },
   // { id: 19, url: 'https://www.youtube.com/c/%D0%90%D0%BB%D0%B5%D0%BA%D1%81%D0%B5%D0%B9%D0%9D%D0%B0%D0%B2%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9', videoDurationMin: 5, subsThousand: 6400 * 0.25, name: 'Алексей Навальный (Aleksey Navalny)' },
@@ -108,9 +108,10 @@ function nextVideo() {
     ii = ii < offset ? offset : ii;
     ii = offset + ((ii - offset) % loopLength);
     ii = ii % videos.length;
+    console.log('NEXT:', ii);
 
     const video = videos[ii];
-    getVideoStart(video);
+    // getVideoStart(video);
     muteVideo();
     likeVideo();
 

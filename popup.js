@@ -29,7 +29,7 @@ document.getElementById('webLink').addEventListener('click', () => window.open('
 document.getElementById('playlistLink').addEventListener('click', () => window.open('https://www.youtube.com/playlist?list=PLQxYKug91T31ixyCs81TwIl8wAiD9AZAH'));
 
 chrome.storage.sync.set({ playType: 'playlist' });
-chrome.storage.sync.set({ supportYTLike: true });
+chrome.storage.local.set({ supportYTLike: true });
 /*
 async function setForm() {
   let playlist = await chrome.storage.sync.get('playType');
@@ -71,9 +71,9 @@ var form3 = document.getElementById("form3");
 if (form3) {
   form3.addEventListener("change", async function(event) {
     console.log('change3:', event.target.name, event.target.value);
-    let like = await chrome.storage.sync.get('supportYTLike');
+    let like = await chrome.storage.local.get('supportYTLike');
     like = like.supportYTLike;
-    chrome.storage.sync.set({ supportYTLike: !like });
+    chrome.storage.local.set({ supportYTLike: !like });
     console.log('saveLike:', like);
     event.preventDefault();
   }, false);
