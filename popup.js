@@ -1,6 +1,5 @@
 async function startScript(nTabs) {
   // Open the start page
-  
   console.log('nTabs:', nTabs);
   let playType = await chrome.storage.sync.get('playType');
   playType = playType.playType;
@@ -8,7 +7,6 @@ async function startScript(nTabs) {
   if (typeof browser === "undefined") {
     var browser = chrome;
   }
-  // return;
   if (playType === 'channels') {
     window.open('https://www.youtube.com/playlist?list=PLQxYKug91T31ixyCs81TwIl8wAiD9AZAH&openNew=1&nTabs=' + nTabs + '&mute=1');
   } else {
@@ -30,27 +28,7 @@ document.getElementById('playlistLink').addEventListener('click', () => window.o
 
 chrome.storage.sync.set({ playType: 'playlist' });
 chrome.storage.local.set({ supportYTLike: true });
-/*
-async function setForm() {
-  let playlist = await chrome.storage.sync.get('playType');
-  playlist = playlist.playType !== 'channels';
 
-  if (playlist.playType === undefined) {
-    playlist = true;
-    chrome.storage.sync.set({ playType: 'playlist' });
-  }
-  // console.log('setLike:', like, playlist, playlist.playType, like.supportYTLike);
-
-  if (!playlist) {
-    var form1 = document.getElementById("form1");
-    if (form1) form1.style.display = 'none';
-  } else {
-    var form2 = document.getElementById("form2");
-    if (form2) form2.style.display = 'none';
-  }
-}
-setForm();
-*/
 
 var form1 = document.getElementById("form1");
 form1.addEventListener("change", async function(event) {
@@ -58,14 +36,6 @@ form1.addEventListener("change", async function(event) {
   chrome.storage.sync.set({ playType: event.target.value });
   event.preventDefault();
 }, false);
-/*
-var form2 = document.getElementById("form2");
-form2.addEventListener("change", async function(event) {
-  console.log('change2:', event.target.name, event.target.value);
-  chrome.storage.sync.set({ playType: event.target.value });
-  event.preventDefault();
-}, false);
-*/
 
 var form3 = document.getElementById("form3");
 if (form3) {
@@ -74,7 +44,6 @@ if (form3) {
     let like = await chrome.storage.local.get('supportYTLike');
     like = like.supportYTLike;
     chrome.storage.local.set({ supportYTLike: !like });
-    console.log('saveLike:', like);
     event.preventDefault();
   }, false);
 }

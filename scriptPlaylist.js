@@ -3,7 +3,7 @@ function getVideoStart2(video) {
   // get random length
   const randomMultiplier = (0.5 + Math.random() * 1);
   let watchTimeSec = Math.floor(randomMultiplier * 60 + 100, 0); // random time + ads
-  watchTimeSec = 10; // for testing
+  // watchTimeSec = 10; // for testing
 
   // get video duration
   let timer1 = video?.children[0]?.children[1]?.children[0]?.children[0]?.children[2]?.children[1]?.children[1];
@@ -68,6 +68,7 @@ async function continuePlaylist(openTab, muteFlag) {
     console.log('nextTab:', tabIndex, muteFlag);
     if (muteFlag) muteVideoOnce();
     setTimeout(() => muteVideo(), 500);
+    likeVideo();
   }, 2000);
 
   setTimeout(async () => {
@@ -101,7 +102,6 @@ function openFirstTab() {
     const videos2 = document.querySelectorAll("ytd-playlist-video-renderer.style-scope.ytd-playlist-video-list-renderer");
 
     let videos = videos1.length ? [...videos1] : [...videos2];
-    // videos = videos.slice(0, 300); // limit to 300 videos
     if (!videos.length) {
       chrome.storage.local.set({ playlistType: null });
       chrome.storage.local.set({ videos: [] });

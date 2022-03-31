@@ -72,7 +72,7 @@ function getVideoStart(video) {
   // get random length
   const randomMultiplier = (0.5 + Math.random() * 1);
   let watchTimeSec = Math.floor(randomMultiplier * 100 + 30, 0); // random time + adds
-  // watchTimeSec = 10;
+  // watchTimeSec = 20;
   // get video duration
   let timer = video?.children[0]?.children[1]?.children[0]?.children[0]?.children[2]?.children[1]?.children[1]?.innerHTML;
   if (!timer) return [0, watchTimeSec];
