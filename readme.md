@@ -1,12 +1,11 @@
 ### Chrome Extension - support YouTube channels of independent Russian media
 About the project: https://hattifn4ttar.github.io/supportfreemedia
 
-This extension helps to promote independent YouTube channels telling truth about the war in Ukraine, in Russian segment. It opens a list YT channels in multiple tabs and plays/likes videos. 
+The extension helps to promote independent YouTube channels telling the truth about the war in Ukraine, in Russian segment. It opens a list of YT channels in multiple tabs and plays/likes videos. 
 
-It is needed to compete with the propaganda spread by Russian governemt. They are paying to boost propaganda materials on YouTube. Run the extension on your computer - help to reach Russian people on YouTube!
+It is needed to fight the propaganda spread by the Russian government. They are paying to boost propaganda materials on YouTube. Run the extension on your computer - help to reach Russian people on YouTube!
 
 Independent channels are DW, Michael Nacki, Popular Politics, Radio Freedom, Ekaterina Shulman, Vladimir Milov, Navalny Live, Michael Khodorkovsky, Yulia Latynina, Ilya Yashin.
-
 
 ### How to install 
 
