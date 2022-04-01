@@ -1,6 +1,6 @@
 ### Chrome Extension, opens YouTube channels of independent Russian media
 
-This extension helps to promote independent YouTube channels telling truth about the war in Ukraine. It opens a list of independent channels and plays/likes videos from these channels. 
+This extension helps to promote independent YouTube channels telling truth about the war in Ukraine. It opens a list YT channels in multiple tabs and plays/likes videos. 
 
 It is needed to compete with Putin's army of internet bots that are boosting propaganda materials on YouTube and helping to brainwash Russian people. 
 
