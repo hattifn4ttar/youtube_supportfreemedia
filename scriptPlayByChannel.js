@@ -62,6 +62,7 @@ function getVideoStart(video) {
   // get random watch time
   const randomMultiplier = (0.5 + Math.random() * 1);
   let watchTimeSec = Math.floor(randomMultiplier * 100 + 30, 0); // random time + adds
+  // watchTimeSec = 10;
 
   // get video duration
   let timer = video?.children[0]?.children[1]?.children[0]?.children[0]?.children[2]?.children[1]?.children[1]?.innerHTML;
@@ -206,12 +207,12 @@ function openChannelPage() {
 
 
 // passing parameters through url, may need to rework - sometimes parameters are lost
-const openNew = window.location.search.includes('openNew=1');
-const muteFlag1 = window.location.search.includes('&mute=1');
-if (openNew) {
-  openChannelPage(muteFlag1);
+const openNewFlag = window.location.search.includes('openNew=1');
+const muteFlag = window.location.search.includes('&mute=1');
+if (openNewFlag) {
+  openChannelPage(muteFlag);
 }
-const urlContinuePlylist = window.location.search.includes('continuePromote=1');
-if (urlContinuePlylist) {
+const continuePlaylistFlag = window.location.search.includes('continuePromote=1');
+if (continuePlaylistFlag) {
   playNextVideo();
 }

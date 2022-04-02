@@ -57,7 +57,7 @@ function muteVideoOnce() {
 
 
 
-async function playNextVideo(openTab, muteFlag) {
+async function playNextVideoB(openTab, muteFlag) {
   // ply next video in a tab
   // video is open through url instead of click, to be able to set start time
   // also there is a concern about event.isTrusted, shoul we avoid using e.click()?
@@ -167,10 +167,10 @@ if (window.location.href.includes('&openPlaylistFirstTab=1')) {
 
 
 // passing parameters through url, may need to rework - sometimes parameters are lost
-const openTab = window.location.search.includes('&openPTab=1');
-const play = window.location.search.includes('&promotePlaylist=1');
-const muteFlag = window.location.search.includes('&mute=1');
-if (play) {
-  setTimeout(() => { playNextVideo(openTab, muteFlag); }, 100);
+const openTabFlag = window.location.search.includes('&openPTab=1');
+const playFlag = window.location.search.includes('&promotePlaylist=1');
+const muteFlagB = window.location.search.includes('&mute=1');
+if (playFlag) {
+  setTimeout(() => { playNextVideoB(openTabFlag, muteFlagB); }, 100);
 }
 
