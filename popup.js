@@ -17,23 +17,22 @@ async function startScript(nTabs) {
 chrome.storage.sync.set({ playType: 'playlist' });
 chrome.storage.local.set({ supportYTLike: true });
 
-var form1 = document.getElementById("form1");
-form1.addEventListener("change", async function(event) {
-  // console.log('change1:', event.target.name, event.target.value);
-  chrome.storage.sync.set({ playType: event.target.value });
-  event.preventDefault();
-}, false);
-
 var formLike = document.getElementById("formLike");
 if (formLike) {
   formLike.addEventListener("change", async function(event) {
-    // console.log('change3:', event.target.name, event.target.value);
     let like = await chrome.storage.local.get('supportYTLike');
     like = like.supportYTLike;
     chrome.storage.local.set({ supportYTLike: !like });
     event.preventDefault();
   }, false);
 }
+
+var form1 = document.getElementById("form1");
+form1.addEventListener("change", async function(event) {
+  chrome.storage.sync.set({ playType: event.target.value });
+  event.preventDefault();
+}, false);
+
 
 
 

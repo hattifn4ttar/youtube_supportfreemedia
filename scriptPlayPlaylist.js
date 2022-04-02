@@ -26,32 +26,11 @@ function getVideoStartB(video) {
   const startSeconds = seconds - watchTimeSec;
   return [watchTimeSec, startSeconds, seconds];
 }
+
 function muteVideoOnce() {
-  console.log('MUTEONCE');
+  console.log('[stopwar] MUTEONCE');
   // trying secong version of mute, the first one doesn't work for some users
-  // need to clean unused props
-  document.dispatchEvent(new KeyboardEvent('keydown', {
-    altKey: false,
-    bubbles: true,
-    cancelBubble: false,
-    cancelable: true,
-    charCode: 0,
-    code: "KeyM",
-    composed: true,
-    ctrlKey: false,
-    currentTarget: null,
-    defaultPrevented: false,
-    detail: 0,
-    eventPhase: 0,
-    isComposing: false,
-    key: "m",
-    keyCode: 77,
-    location: 0,
-    metaKey: false,
-    repeat: false,
-    returnValue: true,
-    shiftKey: false
-  }));
+  document.dispatchEvent(new KeyboardEvent('keydown', { keyCode: 77 }));
 }
 // -- end helpers ------------------------------
 
@@ -74,7 +53,7 @@ async function playNextVideoB(openTab, muteFlag) {
   loopLength = isNaN(Number(loopLength)) ? 3 : Number(loopLength);
 
   setTimeout(() => {
-    console.log('nextTab:', tabIndex, muteFlag);
+    console.log('[stopwar] NEXT:', tabIndex, muteFlag);
     if (muteFlag) muteVideoOnce();
     setTimeout(() => muteVideo(), 500);
     likeVideo();
@@ -83,7 +62,7 @@ async function playNextVideoB(openTab, muteFlag) {
   setTimeout(async () => {
     let tabs = await chrome.storage.local.get('tabs');
     tabs = tabs.tabs;
-    console.log('tabs:', tabIndex, tabs);
+    console.log('[stopwar] TABS:', tabIndex, tabs);
 
     // loop videos in the save tab
     const newVideoIndex = (videoIndex + 1) % loopLength;
@@ -153,7 +132,7 @@ function openPlaylist() {
 
     // open first tab
     setTimeout(() => {
-      console.log('open:', tabs[0][0].url);
+      console.log('[stopwar] OPENTAB:', tabs[0][0].url);
       window.open(tabs[0][0].url + '&mute=1');
     }, 100);
 

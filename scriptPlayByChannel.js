@@ -38,7 +38,7 @@ async function likeVideo() {
   let like = await chrome.storage.local.get('supportYTLike');
   like = like.supportYTLike;
 
-  console.log('LIKE:', like);
+  console.log('[stopwar] LIKE:', like);
   if (!getLoggedIn() || !like) return;
   let videoBtns = document.getElementsByClassName('style-scope ytd-video-primary-info-renderer');
   videoBtns = videoBtns[0]?.children[5]?.children[2]?.children[0]?.children[0]?.children[0];
@@ -53,7 +53,7 @@ function commentVideo() {
 }
 function muteVideo() {
   const muteBtn = document.getElementsByClassName('ytp-mute-button ytp-button');
-  console.log('MUTE', muteBtn);
+  console.log('[stopwar] MUTE:', muteBtn);
   if (muteBtn?.length && muteBtn[0] && muteBtn[0].title?.indexOf('Mute') === 0) {
     muteBtn[0].click();
   }
@@ -74,7 +74,7 @@ function getVideoStart(video) {
 
   // get start time
   const startSeconds = seconds - watchTimeSec;
-  return [startSeconds, watchTimeSec];
+  return [watchTimeSec, startSeconds];
 }
 // -- end helpers -------------------------
 
@@ -99,7 +99,7 @@ function playNextVideo() {
     ii = ii < offset ? offset : ii;
     ii = offset + ((ii - offset) % loopLength);
     ii = ii % videos.length;
-    console.log('NEXT:', ii);
+    console.log('[stopwar] NEXT:', ii, watchTimeSec);
 
     const video = videos[ii];
     muteVideo();
@@ -192,7 +192,7 @@ function openChannelPage() {
     let newChannelID = (chOffset + tabIndex + 1) % channelsOriginal.length;
     const channelNew = channelsOriginal[newChannelID];
     if (openNewTab) {
-      console.log('openNew:', chOffset, tabIndex, newChannelID, window.location.search, channelNew);
+      // console.log('openNew:', chOffset, tabIndex, newChannelID, window.location.search, channelNew);
       setTimeout(() => {
         let newUrl = channelNew.url + '?openNew=1&tabIndex=' + newTabIndex + '&loop=1&nTabs=' + nTabs + '&chOffset=' + chOffset;
         if (tabIndex == 0) {

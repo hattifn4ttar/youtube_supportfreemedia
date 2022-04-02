@@ -9,7 +9,7 @@ html {
 }
 
 .openchannels-popup .buttons {
-  min-width: 290px;
+  min-width: 320px;
   margin-bottom: 20px;
 }
 
@@ -69,4 +69,7 @@ html {
 .openchannels-popup p {
   line-height: 20px;
   font-size: 14px;
+}
+#formLike {
+  margin-bottom: 5px;
 }

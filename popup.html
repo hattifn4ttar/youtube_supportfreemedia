@@ -9,13 +9,29 @@
     <img src="/images/img128_6.png" alt="Promote YouTube Playlist" class="logo">
     <br />
     <p>
-      "Open Tabs" buttons will open YT channels telling truth about the war in Ukraine. In each tab it will play videos optimal time and like them (according to the settings below).
+      "Open Tabs" buttons will open YT channels (or a playlist) telling truth about the war in Ukraine. In each tab it will play videos optimal time and like them.
     </p>
     <p>
-      If selected "Open playlist", it will open a <a href="https://www.youtube.com/watch?v=jowEf5tSSyc" id="playlistLink">playlist</a> with suggested videos instead.
+      If selected "Default playlist" option, it will open a <a href="https://www.youtube.com/watch?v=jowEf5tSSyc" id="playlistLink">playlist</a> with suggested videos.
     </p>
 
+
+    <form id="formLike">
+      <input type="checkbox" id="like" name="like" value="true" checked>
+      <label for="like">Like videos</label><br>
+    </form>
+    <form id="form1">
+      <!--
+      <input type="radio" id="userplaylist" name="playType" value="userplaylist">
+      <label for="userplaylist">Your playlist</label>
+      -->
+      <input type="radio" id="playlist" name="playType" value="playlist" checked>
+      <label for="playlist">Default playlist</label>
+      <input type="radio" id="channels" name="playType" value="channels">
+      <label for="channels">By channel</label>
+    </form>
     <br />
+
     <div class="buttons">
       <button id="clickactivity20" class="open-tabs-btn">Open 20 tabs</button>
       <button id="clickactivity15" class="open-tabs-btn">Open 15 tabs</button>
@@ -24,18 +40,6 @@
       <button id="clickactivity3" class="open-tabs-btn">Open 3 tabs</button>  
       <button id="clickactivity2" class="open-tabs-btn">Open 2 tabs</button>  
     </div>
-
-    <form id="form1">
-      <input type="radio" id="playlist" name="playType" value="playlist" checked>
-      <label for="playlist">Open playlist</label>
-      <input type="radio" id="channels" name="playType" value="channels">
-      <label for="channels">Open by channel</label>
-    </form>
-    <br />
-    <form id="formLike">
-      <input type="checkbox" id="like" name="like" value="true" checked>
-      <label for="like">Like videos</label><br>
-    </form>
 
     <div class="links-bottom">
       <a href="https://hattifn4ttar.github.io/supportfreemedia/" id="webLink">About</a>&nbsp; &nbsp; &nbsp;
