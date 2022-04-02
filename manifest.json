@@ -1,5 +1,5 @@
 {
-  "name": "Support free media on YouTube",
+  "name": "Stop war - support free media on YouTube",
   "description": "Support Independent YouTube channels telling truth about the war in Ukraine - fight Putin's propaganda",
   "version": "1.06",
   "manifest_version": 3,
@@ -12,12 +12,12 @@
     {
       "matches": ["https://www.youtube.com/*"],
       "css": ["main.css"],
-      "js": ["scriptPlayByChannel.js", "scriptPlayPlaylist.js"]
+      "js": ["runByChannel.js", "runPlaylist.js"]
     }
   ],
 
   "action": {
-      "default_title": "Support Free Media",
+      "default_title": "Stop war - support free media",
       "default_popup": "popup.html"
   }
 }

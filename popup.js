@@ -3,13 +3,33 @@ async function startScript(nTabs) {
   let playType = await chrome.storage.sync.get('playType');
   playType = playType.playType;
 
-  if (typeof browser === "undefined") {
-    var browser = chrome;
-  }
+  chrome.storage.local.set({ nTabs });
+  
   if (playType === 'channels') {
-    window.open('https://www.youtube.com/playlist?list=PLQxYKug91T31ixyCs81TwIl8wAiD9AZAH&openNew=1&nTabs=' + nTabs + '&mute=1');
+    // open YT channels in multiple tabs
+    window.open('https://www.youtube.com/playlist?list=PLQxYKug91T31ixyCs81TwIl8wAiD9AZAH&openNew=1&mute=1');
+  
+  } else if (playType === 'userplaylist') {
+    // open user's playlist
+    chrome.tabs.query({active: true, lastFocusedWindow: true}, tabs => {
+      let url = tabs[0].url;      
+      let validUrl = url.indexOf('https://www.youtube.com/') === 0;
+      validUrl = validUrl && url.includes('list=');
+
+      if (!validUrl) {
+        alert('URL is invalid. Open YouTube playlist.');
+        return;
+      }
+
+      chrome.storage.local.set({ startUrl: url, openTime: (new Date()).getTime() });
+      window.open(url);
+    });
+  
   } else {
-    window.open('https://www.youtube.com/playlist?list=PLQxYKug91T31ixyCs81TwIl8wAiD9AZAH&openPlaylistFirstTab=1&nTabs=' + nTabs);
+    // open default playlist
+    let url = 'https://www.youtube.com/playlist?list=PLQxYKug91T31ixyCs81TwIl8wAiD9AZAH';
+    chrome.storage.local.set({ startUrl: url, openTime: (new Date()).getTime() });
+    window.open(url);
   }
 }
 

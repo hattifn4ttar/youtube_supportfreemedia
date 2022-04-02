@@ -34,6 +34,7 @@ function getLoggedIn() {
   if (signInBtn.length && [...signInBtn].find(d => d.innerText === 'Sign in')) return false;
   return true;
 }
+
 async function likeVideo() {
   let like = await chrome.storage.local.get('supportYTLike');
   like = like.supportYTLike;
@@ -46,11 +47,8 @@ async function likeVideo() {
   if (likeBtn?.classList && !likeBtn.classList.contains('style-default-active')) {
     likeBtn.click();
   }
-  commentVideo();  
 }
-function commentVideo() {
-  // in progress
-}
+
 function muteVideo() {
   const muteBtn = document.getElementsByClassName('ytp-mute-button ytp-button');
   console.log('[stopwar] MUTE:', muteBtn);
@@ -58,11 +56,12 @@ function muteVideo() {
     muteBtn[0].click();
   }
 }
+
 function getVideoStart(video) {
   // get random watch time
   const randomMultiplier = (0.5 + Math.random() * 1);
   let watchTimeSec = Math.floor(randomMultiplier * 100 + 30, 0); // random time + adds
-  // watchTimeSec = 10;
+  // watchTimeSec = 15;
 
   // get video duration
   let timer = video?.children[0]?.children[1]?.children[0]?.children[0]?.children[2]?.children[1]?.children[1]?.innerHTML;
@@ -169,14 +168,14 @@ function startPlayChannel() {
   }
 }
 
-function openChannelPage() {
+async function openChannelPage() {
   // Open channels one by one
   let tabIndex = (new URLSearchParams(window.location.search)).get('tabIndex');
   let chOffset = (new URLSearchParams(window.location.search)).get('chOffset');
-  let nTabs = (new URLSearchParams(window.location.search)).get('nTabs');
   tabIndex = isNaN(Number(tabIndex)) ? 0 : Number(tabIndex);
   chOffset = isNaN(Number(chOffset)) ? 0 : Number(chOffset);
-  nTabs = isNaN(Number(nTabs)) ? 3 : Number(nTabs);
+  let nTabs = await chrome.storage.local.get('nTabs');
+  nTabs = nTabs.nTabs;
 
   setTimeout(() => {
     const channel = channelsOriginal.find(d => d.id == tabIndex) || channelsOriginal[0];
@@ -206,7 +205,7 @@ function openChannelPage() {
 }
 
 
-// passing parameters through url, may need to rework - sometimes parameters are lost
+// passing parameters through url, need to rework - sometimes parameters are lost in url
 const openNewFlag = window.location.search.includes('openNew=1');
 const muteFlag = window.location.search.includes('&mute=1');
 if (openNewFlag) {
@@ -216,3 +215,4 @@ const continuePlaylistFlag = window.location.search.includes('continuePromote=1'
 if (continuePlaylistFlag) {
   playNextVideo();
 }
+
