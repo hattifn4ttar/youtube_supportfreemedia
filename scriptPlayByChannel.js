@@ -1,3 +1,9 @@
+// -----------------------------------------------------------------
+// this part of the code is responsible for "Open by channel" option
+// -----------------------------------------------------------------
+
+// list of independent channels
+// videoDuration and subs count are not used yet
 const channelsOriginal = [
   { id: 1, url: 'https://www.youtube.com/c/MackNack', videoDurationMin: 20, subsThousand: 400, name: 'Майкл Наки (Michael Naki)' },
   { id: 2, url: 'https://www.youtube.com/c/dwrussian', videoDurationMin: 20, subsThousand: 900, name: 'DW' },
@@ -14,17 +20,12 @@ const channelsOriginal = [
   { id: 13, url: 'https://www.youtube.com/channel/UCfD6O-n4-Sw7r3xci7YStgg', videoDurationMin: 2, subsThousand: 4, name: 'Альянс учителей (Teachers Community)' },
   { id: 14, url: 'https://www.youtube.com/c/TheInsiderVideo', videoDurationMin: 5, subsThousand: 77, name: 'The Insider' },
   { id: 15, url: 'https://www.youtube.com/channel/UC0p3rxtSGCnO-JjBz5bU5CQ', videoDurationMin: 10, subsThousand: 100, name: 'Котрикадзе Дзядко (Kotrikadze Dzyadko)' },
-  // { id: 11, url: 'https://www.youtube.com/c/NovayagazetaRu', videoDurationMin: 5, subsThousand: 470, name: 'Новая газета (Novaya Gazeta)' },
-  // { id: 17, url: 'https://www.youtube.com/channel/UCBG57608Hukev3d0d-gvLhQ', videoDurationMin: 10, subsThousand: 2400 * 0.5, name: 'Настоящее Время (Current Time TV)' },
-  // { id: 18, url: 'https://www.youtube.com/c/maxkatz1', videoDurationMin: 15, subsThousand: 990, name: 'Максим Кац (Max Katz)' },
-  // { id: 19, url: 'https://www.youtube.com/c/%D0%90%D0%BB%D0%B5%D0%BA%D1%81%D0%B5%D0%B9%D0%9D%D0%B0%D0%B2%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9', videoDurationMin: 5, subsThousand: 6400 * 0.25, name: 'Алексей Навальный (Aleksey Navalny)' },
-  // { id: 20, url: 'https://www.youtube.com/channel/UC1eFXmJNkjITxPFWTy6RsWg', videoDurationMin: 10, subsThousand: 2800 * 0.5, name: 'Редакция' },
+  // { id: 16, url: 'https://www.youtube.com/channel/UCBG57608Hukev3d0d-gvLhQ', videoDurationMin: 10, subsThousand: 2400 * 0.5, name: 'Настоящее Время (Current Time TV)' },
+  // { id: 17, url: 'https://www.youtube.com/c/maxkatz1', videoDurationMin: 15, subsThousand: 990, name: 'Максим Кац (Max Katz)' }, // refused to participage
+  // { id: 18, url: 'https://www.youtube.com/c/%D0%90%D0%BB%D0%B5%D0%BA%D1%81%D0%B5%D0%B9%D0%9D%D0%B0%D0%B2%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9', videoDurationMin: 5, subsThousand: 6400 * 0.25, name: 'Алексей Навальный (Aleksey Navalny)' },
+  // { id: 19, url: 'https://www.youtube.com/channel/UC1eFXmJNkjITxPFWTy6RsWg', videoDurationMin: 10, subsThousand: 2800 * 0.5, name: 'Редакция' },
 ];
-let watchTime = 1000 * 60;
-let startTime = new Date();
-let loopLength = 15;
-let muteFlag1 = false;
-
+let loopLength = 15; // when opening by channel, play 15 recent uploads
 
 
 // -- start helpers -----------------------------------
@@ -42,16 +43,12 @@ async function likeVideo() {
   let videoBtns = document.getElementsByClassName('style-scope ytd-video-primary-info-renderer');
   videoBtns = videoBtns[0]?.children[5]?.children[2]?.children[0]?.children[0]?.children[0];
   const likeBtn = videoBtns?.children[0];
-  // console.log('like:', likeBtn, likeBtn?.classList);
   if (likeBtn?.classList && !likeBtn.classList.contains('style-default-active')) {
     likeBtn.click();
   }
   commentVideo();  
 }
 function commentVideo() {
-  // in progress
-}
-function scrollVideo() {
   // in progress
 }
 function muteVideo() {
@@ -61,18 +58,11 @@ function muteVideo() {
     muteBtn[0].click();
   }
 }
-function changeVideoQuality() {
-  window.focus()
-  const btn = document.getElementsByClassName('ytp-button ytp-settings-button');
-  if (btn.length) {
-    btn[0].cilck();
-  }
-}
 function getVideoStart(video) {
-  // get random length
+  // get random watch time
   const randomMultiplier = (0.5 + Math.random() * 1);
   let watchTimeSec = Math.floor(randomMultiplier * 100 + 30, 0); // random time + adds
-  // watchTimeSec = 20;
+
   // get video duration
   let timer = video?.children[0]?.children[1]?.children[0]?.children[0]?.children[2]?.children[1]?.children[1]?.innerHTML;
   if (!timer) return [0, watchTimeSec];
@@ -90,7 +80,7 @@ function getVideoStart(video) {
 
 
 
-function nextVideo() {
+function playNextVideo() {
   let index = (new URLSearchParams(window.location.search)).get('index');
   let offset = (new URLSearchParams(window.location.search)).get('offset');
   videoIndex = index ? Number(index) : 0;
@@ -100,7 +90,7 @@ function nextVideo() {
   setTimeout(() => {
     // this timeout is just to see console output
     const videos = document.getElementsByClassName('yt-simple-endpoint style-scope ytd-playlist-panel-video-renderer'); 
-    let [startTime, watchTimeSec] = getVideoStart(videos[videoIndex]);
+    let [watchTimeSec] = getVideoStart(videos[videoIndex]);
     loopLength = Math.min(loopLength, videos.length);
 
     // loop n videos
@@ -111,18 +101,19 @@ function nextVideo() {
     console.log('NEXT:', ii);
 
     const video = videos[ii];
-    // getVideoStart(video);
     muteVideo();
     likeVideo();
 
     setTimeout(() => {
-      video.click(); // changing url is not reliable
-      nextVideo();
+      // open next video with click, but it may not be reliable
+      video.click();
+      playNextVideo();
     }, 1000 * (watchTimeSec + 3));
   }, 2000);
 }
 
 function clickPlayAll() {
+  // click "Play All" button if found on the screen
   let playBtn = document.getElementById('play-button');
   let membersOnlyContent = document.getElementsByClassName('style-scope ytd-shelf-renderer');
   membersOnlyContent = membersOnlyContent.length && [...membersOnlyContent].find(d => d.innerText === 'Members-only videos');
@@ -133,16 +124,15 @@ function clickPlayAll() {
     else { return false };
 
     setTimeout(() => { 
-      nextVideo();     
+      playNextVideo();     
     }, 1000);
     return true;
-  } else {
-    return false;
   }
+  return false;
 }
 
-function openChannel(channel) {
-  // Open channel's playlist
+function startPlayChannel() {
+  // open channel, find a playlist button
   let videoIndex = 0;
 
   const hasPlayAllButtonHome = clickPlayAll(videoIndex);
@@ -168,8 +158,7 @@ function openChannel(channel) {
             playBtn.children[0].children[0].click();
 
             setTimeout(() => {
-              const videos = document.getElementsByClassName('yt-simple-endpoint style-scope ytd-playlist-panel-video-renderer'); 
-              nextVideo();     
+              playNextVideo();     
             }, 1000);
           }, 700);
         }, 500);
@@ -179,7 +168,7 @@ function openChannel(channel) {
   }
 }
 
-function goToChannel() {
+function openChannelPage() {
   // Open channels one by one
   let tabIndex = (new URLSearchParams(window.location.search)).get('tabIndex');
   let chOffset = (new URLSearchParams(window.location.search)).get('chOffset');
@@ -192,9 +181,8 @@ function goToChannel() {
     const channel = channelsOriginal.find(d => d.id == tabIndex) || channelsOriginal[0];
     if (!tabIndex) {
       chOffset = Math.floor(Math.random() * (channelsOriginal.length));
-      // chOffset = 0;
     } else {
-      openChannel(channel);
+      startPlayChannel(channel);
     }
 
     let newTabIndex = tabIndex + 1;
@@ -217,13 +205,13 @@ function goToChannel() {
 }
 
 
-
+// passing parameters through url, may need to rework - sometimes parameters are lost
 const openNew = window.location.search.includes('openNew=1');
-muteFlag1 = window.location.search.includes('&mute=1');
+const muteFlag1 = window.location.search.includes('&mute=1');
 if (openNew) {
-  goToChannel(muteFlag1);
+  openChannelPage(muteFlag1);
 }
 const urlContinuePlylist = window.location.search.includes('continuePromote=1');
 if (urlContinuePlylist) {
-  nextVideo();
+  playNextVideo();
 }

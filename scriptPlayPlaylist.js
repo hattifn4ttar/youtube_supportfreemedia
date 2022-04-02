@@ -1,9 +1,14 @@
-// -- start helpers -----------------------------------
-function getVideoStart2(video) {
+// ----------------------------------------------------------
+// this part of the code is responsible for "Playlist" option
+// ----------------------------------------------------------
+
+
+// -- start helpers -----------------------------------------
+function getVideoStartB(video) {
   // get random length
   const randomMultiplier = (0.5 + Math.random() * 1);
   let watchTimeSec = Math.floor(randomMultiplier * 60 + 100, 0); // random time + ads
-  // watchTimeSec = 10; // for testing
+  // watchTimeSec = 10; // for debugging
 
   // get video duration
   let timer1 = video?.children[0]?.children[1]?.children[0]?.children[0]?.children[2]?.children[1]?.children[1];
@@ -23,6 +28,7 @@ function getVideoStart2(video) {
 }
 function muteVideoOnce() {
   console.log('MUTEONCE');
+  // trying secong version of mute, the first one doesn't work for some users
   // need to clean unused props
   document.dispatchEvent(new KeyboardEvent('keydown', {
     altKey: false,
@@ -47,12 +53,15 @@ function muteVideoOnce() {
     shiftKey: false
   }));
 }
-// -- end helpers -------------------------
+// -- end helpers ------------------------------
 
 
 
-// loop videos in one tab
-async function continuePlaylist(openTab, muteFlag) {
+async function playNextVideo(openTab, muteFlag) {
+  // ply next video in a tab
+  // video is open through url instead of click, to be able to set start time
+  // also there is a concern about event.isTrusted, shoul we avoid using e.click()?
+
   let tabIndex = (new URLSearchParams(window.location.search)).get('ti');
   let videoIndex = (new URLSearchParams(window.location.search)).get('vi');
   let offset = (new URLSearchParams(window.location.search)).get('offset');
@@ -83,7 +92,7 @@ async function continuePlaylist(openTab, muteFlag) {
     newUrl = newUrl.replace('&openPTab=1', '');
     setTimeout(() => { location.replace(newUrl); }, 1000 * watchTime);
 
-    // open new tab
+    // open new tab if not all of them were opened yet
     if (openTab && tabIndex + 1 < tabs.length) {
       window.open(tabs[tabIndex + 1][0].url);
     }
@@ -92,15 +101,15 @@ async function continuePlaylist(openTab, muteFlag) {
 
 
 
-// first tab only
-function openFirstTab() {
+function openPlaylist() {
+  // open playlist again and wait to load videos, then generate videos list for all tabs
   let nTabs = (new URLSearchParams(window.location.search)).get('nTabs');
   nTabs = isNaN(Number(nTabs)) ? 3 : Number(nTabs);
 
   setTimeout(async () => {
+    // grap elements from the playlist
     const videos1 = document.getElementsByClassName('yt-simple-endpoint style-scope ytd-playlist-panel-video-renderer'); 
     const videos2 = document.querySelectorAll("ytd-playlist-video-renderer.style-scope.ytd-playlist-video-list-renderer");
-
     let videos = videos1.length ? [...videos1] : [...videos2];
     if (!videos.length) {
       chrome.storage.local.set({ playlistType: null });
@@ -109,7 +118,8 @@ function openFirstTab() {
     }
 
     const urls = [...videos].map((v, i) => {
-      const [watchTime, startTime, duration] = getVideoStart2(v);
+      const [watchTime, startTime, duration] = getVideoStartB(v);
+      // get video start from storage, othersize calculate random time
       const randomMultiplier = (0.5 + Math.random() * 1);
       const validWatchTime = (isNaN(watchTime) || !watchTime) ? Math.floor(randomMultiplier * 60 + 100, 0) : watchTime;
       const validStartTime = isNaN(startTime) ? 0 : startTime;
@@ -125,6 +135,7 @@ function openFirstTab() {
     let maxN = Math.min(urls.length, 300);
     loopLength = Math.floor(maxN / nTabs, 0) || 1;
 
+    // generate list of videos for each tab and save to storage
     let tabs = [];
     for (let tIndex = 0; tIndex < nTabs; tIndex += 1) {
       let offset = tIndex * loopLength;
@@ -139,8 +150,8 @@ function openFirstTab() {
       tabs.push(tabUrls);
     }
     chrome.storage.local.set({ tabs });
-    console.log('tabsFirstLoad:', tabs);
 
+    // open first tab
     setTimeout(() => {
       console.log('open:', tabs[0][0].url);
       window.open(tabs[0][0].url + '&mute=1');
@@ -149,20 +160,17 @@ function openFirstTab() {
   }, 5000);
 }
 
-// &openFirstTab=1 is lost in url for https://www.youtube.com/watch?v=hT_nvWreIhg&list=PLbZIPy20-1pN7mqjckepWF78ndb6ci_qi&t=125s
-// &openTab=1 is lost in url for https://www.youtube.com/playlist?list=PLbZIPy20-1pN7mqjckepWF78ndb6ci_qi
 
 if (window.location.href.includes('&openPlaylistFirstTab=1')) {
-  openFirstTab();
+  openPlaylist();
 }
-// end first tab
 
 
+// passing parameters through url, may need to rework - sometimes parameters are lost
 const openTab = window.location.search.includes('&openPTab=1');
 const play = window.location.search.includes('&promotePlaylist=1');
 const muteFlag = window.location.search.includes('&mute=1');
 if (play) {
-  setTimeout(() => { continuePlaylist(openTab, muteFlag); }, 100);
+  setTimeout(() => { playNextVideo(openTab, muteFlag); }, 100);
 }
-const loc = window.location.href;
-setTimeout(() => console.log('hrefPlaylist:', loc, muteFlag), 3000);
+

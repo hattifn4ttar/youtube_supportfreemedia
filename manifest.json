@@ -12,7 +12,7 @@
     {
       "matches": ["https://www.youtube.com/*"],
       "css": ["main.css"],
-      "js": ["script.js", "scriptPlaylist.js"]
+      "js": ["scriptPlayByChannel.js", "scriptPlayPlaylist.js"]
     }
   ],
 
