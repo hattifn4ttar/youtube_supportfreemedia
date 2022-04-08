@@ -1,9 +1,9 @@
 {
   "name": "Stop war - support free media on YouTube",
   "description": "Support Independent YouTube channels telling truth about the war in Ukraine - fight Putin's propaganda",
-  "version": "1.06",
+  "version": "1.07",
   "manifest_version": 3,
-  "permissions": ["storage", "tabs"],
+  "permissions": ["storage", "tabs", "notifications"],
   "icons": {
     "128": "/images/img128_6.png"
   },
@@ -11,8 +11,8 @@
   "content_scripts": [
     {
       "matches": ["https://www.youtube.com/*"],
-      "css": ["main.css"],
-      "js": ["runByChannel.js", "runPlaylist.js"]
+      "css": ["popup.css", "contentLikes.css", "contentNotifications.css"],
+      "js": ["config.js", "runByChannel.js", "runPlaylist.js", "runNotifications.js"]
     }
   ],
 

@@ -1,0 +1,93 @@
+
+
+@-webkit-keyframes pulse1 {
+  0% { -webkit-transform: scale(0.8); opacity: 0.7; }
+  40% { -webkit-transform: scale(0.8); opacity: 0.7; }
+  70% { -webkit-transform: scale(1); opacity: 1; }
+  100% { -webkit-transform: scale(0.8); opacity: 0.7; }
+}
+@keyframes pulse1 {
+  0% { transform: scale(0.8); opacity: 0.7; }
+  40% { transform: scale(0.8); opacity: 0.7; }
+  70% { -webkit-transform: scale(1); opacity: 1; }
+  100% { transform: scale(0.8); opacity: 0.7; }
+}
+@-webkit-keyframes pulse2 {
+  0% { -webkit-transform: scale(0.8); opacity: 0; }
+  40% { -webkit-transform: scale(0.8); opacity: 0; }
+  70% { -webkit-transform: scale(0.9); opacity: 0.9; }
+  100% { -webkit-transform: scale(0.8); opacity: 0; }
+}
+@keyframes pulse2 {
+  0% { transform: scale(0.8); opacity: 0; }
+  40% { transform: scale(0.8); opacity: 0; }
+  70% { -webkit-transform: scale(1); opacity: 1; }
+  100% { transform: scale(0.8); opacity: 0; }
+}
+
+.ytd-app .ytd-video-primary-info-renderer .ytd-menu-renderer.force-icon-button.style-text:first-child {
+  z-index: 1;
+}
+
+.like-btn-highlight:before {
+  z-index: 0 !important;
+  background-color: #35D857;
+  background-color: #35add8;
+  background-color: #f5e23b;
+  height: 100px;
+  width: 120px;
+  left: -16px;
+  top: -31px;
+  border-radius: 100%;
+  display: inline-block;
+  content: ' ';
+  z-index: -2 !important;
+  position: absolute;
+  -webkit-animation: pulse1 5s infinite ease-in-out;
+  -o-animation: pulse1 5s infinite ease-in-out;
+  -ms-animation: pulse1 5s infinite ease-in-out; 
+  -moz-animation: pulse1 5s infinite ease-in-out; 
+  animation: pulse1 5s infinite ease-in-out;
+}
+/* .ytd-app:not(.yt-channel-promote2) */
+.like-btn-highlight:after {
+  z-index: 0 !important;
+  background-color: #35D857;
+  background-color: #35add8;
+  background-color: #ffbf0f;
+  height: 100px;
+  width: 120px;
+  left: -16px;
+  top: -31px;
+  border-radius: 100%;
+  display: inline-block;
+  content: ' ';
+  z-index: -1 !important;
+  position: absolute;
+  -webkit-animation: pulse2 5s infinite ease-in-out;
+  -o-animation: pulse2 5s infinite ease-in-out;
+  -ms-animation: pulse2 5s infinite ease-in-out; 
+  -moz-animation: pulse2 5s infinite ease-in-out; 
+  animation: pulse2 5s infinite ease-in-out;
+}
+
+.like-btn-close {
+  color: black;
+  display: inline-block;
+  font-size: 1rem;
+  position: absolute;
+  left: 55px;
+  top: 38px;
+  border-radius: 100%;
+  background-color: rgba(255,255,255,0.9);
+  padding: 8px 12px;
+  cursor: pointer;
+  vertical-align: center;
+  text-align: center;
+  z-index: 2;
+}
+.like-btn-close:hover {
+  background-color: rgba(255,255,255,0.5);
+  background-color: #f5e23b;
+
+}

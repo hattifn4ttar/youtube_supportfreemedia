@@ -53,11 +53,22 @@ form1.addEventListener("change", async function(event) {
   event.preventDefault();
 }, false);
 
+/*
+function notify() {
+  console.log('send notify');
+  chrome.runtime.sendMessage('', {
+    type: 'notification',
+    options: {
+      title: 'Just wanted to notify you',
+      message: 'How great it is!',
+      iconUrl: "/images/img128_6.png",
+      type: 'basic'
+    }
+  });
+}
+document.getElementById('notify').addEventListener('click', notify);
+*/
 
-
-
-document.getElementById('clickactivity20').addEventListener('click', () => startScript(20));
-document.getElementById('clickactivity15').addEventListener('click', () => startScript(15));
 document.getElementById('clickactivity10').addEventListener('click', () => startScript(10));
 document.getElementById('clickactivity5').addEventListener('click', () => startScript(5));
 document.getElementById('clickactivity3').addEventListener('click', () => startScript(3));

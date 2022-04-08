@@ -1,7 +1,7 @@
 <!doctype html>  
 <html>  
   <head>
-    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="popup.css">
   </head> 
 <body>
   <div class="openchannels-popup">
@@ -21,22 +21,23 @@
       <label for="like">Like videos</label><br>
     </form>
     <form id="form1">
-      <input type="radio" id="userplaylist" name="playType" value="userplaylist">
-      <label for="userplaylist">Your playlist</label>
-      <input type="radio" id="playlist" name="playType" value="playlist" checked>
-      <label for="playlist">Default playlist</label>
       <input type="radio" id="channels" name="playType" value="channels">
       <label for="channels">By channel</label>
+      <input type="radio" id="playlist" name="playType" value="playlist" checked>
+      <label for="playlist">Default playlist</label>
+      <input type="radio" id="userplaylist" name="playType" value="userplaylist">
+      <label for="userplaylist">Your playlist</label>
     </form>
     <br />
 
     <div class="buttons">
-      <button id="clickactivity20" class="open-tabs-btn">Open 20 tabs</button>
-      <button id="clickactivity15" class="open-tabs-btn">Open 15 tabs</button>
       <button id="clickactivity10" class="open-tabs-btn">Open 10 tabs</button>
       <button id="clickactivity5" class="open-tabs-btn">Open 5 tabs</button>
       <button id="clickactivity3" class="open-tabs-btn">Open 3 tabs</button>  
       <button id="clickactivity2" class="open-tabs-btn">Open 2 tabs</button>  
+    </div>
+    <div class="buttons">
+      <button id="notify" class="open-tabs-btn">Notify</button>
     </div>
 
     <div class="links-bottom">

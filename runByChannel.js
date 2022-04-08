@@ -1,30 +1,7 @@
 // -----------------------------------------------------------------
 // this part of the code is responsible for "Open by channel" option
 // -----------------------------------------------------------------
-
-// list of independent channels
-// videoDuration and subs count are not used yet
-const channelsOriginal = [
-  { id: 1, url: 'https://www.youtube.com/c/MackNack', videoDurationMin: 20, subsThousand: 400, name: 'Майкл Наки (Michael Naki)' },
-  { id: 2, url: 'https://www.youtube.com/c/dwrussian', videoDurationMin: 20, subsThousand: 900, name: 'DW' },
-  { id: 3, url: 'https://www.youtube.com/channel/UCL1rJ0ROIw9V1qFeIN0ZTZQ', videoDurationMin: 20, subsThousand: 730, name: 'Екатерина Шульман (Ekaterina Shulman)' },
-  { id: 4, url: 'https://www.youtube.com/c/%D0%92%D0%BB%D0%B0%D0%B4%D0%B8%D0%BC%D0%B8%D1%80%D0%9C%D0%B8%D0%BB%D0%BE%D0%B2%D0%A3%D1%80%D1%83%D1%80%D1%83', videoDurationMin: 20, subsThousand: 300, name: 'Владимир Милов (Vladimir Milov)' },
-  { id: 5, url: 'https://www.youtube.com/c/NavalnyLiveChannel', videoDurationMin: 20, subsThousand: 2500 * 0.7, name: 'Навальный LIVE (Navalny LIVE)' },
-  { id: 6, url: 'https://www.youtube.com/channel/UCzaqqlriSjVyc795m86GVyg', videoDurationMin: 20, subsThousand: 300, name: 'Yulia Latynina' },
-  { id: 7, url: 'https://www.youtube.com/channel/UC7Elc-kLydl-NAV4g204pDQ', videoDurationMin: 10, subsThousand: 600, name: 'Popular Politics' },
-  { id: 8, url: 'https://www.youtube.com/c/khodorkovskyru', videoDurationMin: 10, subsThousand: 1000, name: 'Михаил Ходорковский (Michail Khodorkovsky)' },
-  { id: 9, url: 'https://www.youtube.com/channel/UC54SBo5_usXGEoybX1ZVETQ', videoDurationMin: 15, subsThousand: 700, name: 'Дмитрий ПОТАПЕНКО (Dimitry Potapenko)' },
-  { id: 10, url: 'https://www.youtube.com/channel/UCoHH5raTevyI35tfb1YF6qA', videoDurationMin: 10, subsThousand: 950, name: 'Илья Яшин (Ilya Yashin)' },
-  { id: 11, url: 'https://www.youtube.com/c/%D0%9E%D0%B1%D0%BC%D0%B0%D0%BD%D1%83%D1%82%D1%8B%D0%B9%D0%A0%D0%BE%D1%81%D1%81%D0%B8%D1%8F%D0%BD%D0%B8%D0%BD', videoDurationMin: 5, subsThousand: 600, name: 'Обманутый Россиянин' },
-  { id: 12, url: 'https://www.youtube.com/c/SvobodaRadio', videoDurationMin: 2, subsThousand: 1600 * 0.5, name: 'Радио Свобода (Radio Freedon)' },
-  { id: 13, url: 'https://www.youtube.com/channel/UCfD6O-n4-Sw7r3xci7YStgg', videoDurationMin: 2, subsThousand: 4, name: 'Альянс учителей (Teachers Community)' },
-  { id: 14, url: 'https://www.youtube.com/c/TheInsiderVideo', videoDurationMin: 5, subsThousand: 77, name: 'The Insider' },
-  { id: 15, url: 'https://www.youtube.com/channel/UC0p3rxtSGCnO-JjBz5bU5CQ', videoDurationMin: 10, subsThousand: 100, name: 'Котрикадзе Дзядко (Kotrikadze Dzyadko)' },
-  // { id: 16, url: 'https://www.youtube.com/channel/UCBG57608Hukev3d0d-gvLhQ', videoDurationMin: 10, subsThousand: 2400 * 0.5, name: 'Настоящее Время (Current Time TV)' },
-  // { id: 17, url: 'https://www.youtube.com/c/maxkatz1', videoDurationMin: 15, subsThousand: 990, name: 'Максим Кац (Max Katz)' }, // refused to participage
-  // { id: 18, url: 'https://www.youtube.com/c/%D0%90%D0%BB%D0%B5%D0%BA%D1%81%D0%B5%D0%B9%D0%9D%D0%B0%D0%B2%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9', videoDurationMin: 5, subsThousand: 6400 * 0.25, name: 'Алексей Навальный (Aleksey Navalny)' },
-  // { id: 19, url: 'https://www.youtube.com/channel/UC1eFXmJNkjITxPFWTy6RsWg', videoDurationMin: 10, subsThousand: 2800 * 0.5, name: 'Редакция' },
-];
+// list of independent channels is in config.js
 let loopLength = 15; // when opening by channel, play 15 recent uploads
 
 
@@ -178,9 +155,10 @@ async function openChannelPage() {
   nTabs = nTabs.nTabs;
 
   setTimeout(() => {
-    const channel = channelsOriginal.find(d => d.id == tabIndex) || channelsOriginal[0];
+    const channelsToPlay = channelsOriginal.filter(d => d.play);
+    const channel = channelsToPlay.find(d => d.id == tabIndex) || channelsToPlay[0];
     if (!tabIndex) {
-      chOffset = Math.floor(Math.random() * (channelsOriginal.length));
+      chOffset = Math.floor(Math.random() * (channelsToPlay.length));
     } else {
       startPlayChannel(channel);
     }
@@ -188,8 +166,8 @@ async function openChannelPage() {
     let newTabIndex = tabIndex + 1;
     let openNewTab = newTabIndex <= nTabs;
 
-    let newChannelID = (chOffset + tabIndex + 1) % channelsOriginal.length;
-    const channelNew = channelsOriginal[newChannelID];
+    let newChannelID = (chOffset + tabIndex + 1) % channelsToPlay.length;
+    const channelNew = channelsToPlay[newChannelID];
     if (openNewTab) {
       // console.log('openNew:', chOffset, tabIndex, newChannelID, window.location.search, channelNew);
       setTimeout(() => {
