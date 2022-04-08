@@ -11,19 +11,18 @@
     <p>
       "Open Tabs" buttons will open YT channels (or a playlist) telling truth about the war in Ukraine. In each tab it will play videos optimal time and like them.
     </p>
-    <p>
-      If selected "Default playlist" option, it will open a <a href="https://www.youtube.com/watch?v=jowEf5tSSyc" id="playlistLink">playlist</a> with suggested videos.
-    </p>
-
 
     <form id="formLike">
+      <label for="time">Remind to run playlist:</label><br />
+      <input type="time" id="time" name="time" min="00:00" max="24:00" class="timepicker">
+      <br />
+      <br />
       <input type="checkbox" id="like" name="like" value="true" checked>
       <label for="like">Like videos</label><br>
-    </form>
-    <form id="form1">
+
       <input type="radio" id="channels" name="playType" value="channels">
       <label for="channels">By channel</label>
-      <input type="radio" id="playlist" name="playType" value="playlist" checked>
+      <input type="radio" id="playlist" name="playType" value="playlist">
       <label for="playlist">Default playlist</label>
       <input type="radio" id="userplaylist" name="playType" value="userplaylist">
       <label for="userplaylist">Your playlist</label>
@@ -36,6 +35,7 @@
       <button id="clickactivity3" class="open-tabs-btn">Open 3 tabs</button>  
       <button id="clickactivity2" class="open-tabs-btn">Open 2 tabs</button>  
     </div>
+    <!--<button id="clickReset" class="open-tabs-btn">Reset</button>  -->
 
     <div class="links-bottom">
       <a href="https://hattifn4ttar.github.io/supportfreemedia/" id="webLink">About</a>&nbsp; &nbsp; &nbsp;

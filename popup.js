@@ -34,40 +34,42 @@ async function startScript(nTabs) {
 }
 
 
-chrome.storage.sync.set({ playType: 'playlist' });
-chrome.storage.local.set({ supportYTLike: true });
+async function setForm() {
+  chrome.storage.local.set({ supportYTLike: true });
+
+  let notifyTime = await chrome.storage.sync.get('notifyTime');
+  notifyTime = notifyTime?.notifyTime;
+  console.log('time:', notifyTime);
+  if (notifyTime) {
+    document.getElementById('time').value = notifyTime;
+  }
+
+  let playType = await chrome.storage.sync.get('playType');
+  playType = playType?.playType || 'playlist';
+  console.log('type:', playType);
+  document.getElementById(playType).checked = true;
+}
+setForm();
 
 var formLike = document.getElementById("formLike");
 if (formLike) {
   formLike.addEventListener("change", async function(event) {
-    let like = await chrome.storage.local.get('supportYTLike');
-    like = like.supportYTLike;
-    chrome.storage.local.set({ supportYTLike: !like });
+    console.log('ev:', event?.target?.name, event?.target?.value);
+    if (event?.target?.name === 'like') {
+      let like = await chrome.storage.local.get('supportYTLike');
+      like = like.supportYTLike;
+      chrome.storage.local.set({ supportYTLike: !like });
+    }
+    if (event?.target?.name === 'time') {
+      chrome.storage.sync.set({ notifyTime: event?.target?.value });
+    }
+    if (event?.target?.name === 'playType') {
+      chrome.storage.sync.set({ playType: event.target.value });
+    }
     event.preventDefault();
   }, false);
 }
 
-var form1 = document.getElementById("form1");
-form1.addEventListener("change", async function(event) {
-  chrome.storage.sync.set({ playType: event.target.value });
-  event.preventDefault();
-}, false);
-
-/*
-function notify() {
-  console.log('send notify');
-  chrome.runtime.sendMessage('', {
-    type: 'notification',
-    options: {
-      title: 'Just wanted to notify you',
-      message: 'How great it is!',
-      iconUrl: "/images/img128_6.png",
-      type: 'basic'
-    }
-  });
-}
-document.getElementById('notify').addEventListener('click', notify);
-*/
 
 document.getElementById('clickactivity10').addEventListener('click', () => startScript(10));
 document.getElementById('clickactivity5').addEventListener('click', () => startScript(5));
@@ -77,4 +79,7 @@ document.getElementById('clickactivity2').addEventListener('click', () => startS
 document.getElementById('githubLink').addEventListener('click', () => window.open('https://github.com/hattifn4ttar/youtube_supportfreemedia'));
 document.getElementById('youtubeLink').addEventListener('click', () => window.open('https://www.youtube.com/watch?v=jowEf5tSSyc'));
 document.getElementById('webLink').addEventListener('click', () => window.open('https://hattifn4ttar.github.io/supportfreemedia/'));
-document.getElementById('playlistLink').addEventListener('click', () => window.open('https://www.youtube.com/playlist?list=PLQxYKug91T31ixyCs81TwIl8wAiD9AZAH'));
+// document.getElementById('playlistLink').addEventListener('click', () => window.open('https://www.youtube.com/playlist?list=PLQxYKug91T31ixyCs81TwIl8wAiD9AZAH'));
+
+// for debugging
+// document.getElementById('clickReset').addEventListener('click', () => { chrome.storage.sync.set({ notifiedDate: null }); });
