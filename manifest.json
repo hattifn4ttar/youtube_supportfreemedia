@@ -12,7 +12,7 @@
     {
       "matches": ["https://www.youtube.com/*"],
       "css": ["popup.css", "contentLikes.css", "contentNotifications.css"],
-      "js": ["config.js", "runByChannel.js", "runPlaylist.js", "runNotifications.js"]
+      "js": ["config.js", "runByChannel.js", "runPlaylist.js", "runHighlight.js", "runNotifications.js"]
     }
   ],
 

@@ -30,9 +30,6 @@
 }
 
 .like-btn-highlight:before {
-  z-index: 0 !important;
-  background-color: #35D857;
-  background-color: #35add8;
   background-color: #f5e23b;
   height: 100px;
   width: 120px;
@@ -51,9 +48,6 @@
 }
 /* .ytd-app:not(.yt-channel-promote2) */
 .like-btn-highlight:after {
-  z-index: 0 !important;
-  background-color: #35D857;
-  background-color: #35add8;
   background-color: #ffbf0f;
   height: 100px;
   width: 120px;
@@ -87,7 +81,5 @@
   z-index: 2;
 }
 .like-btn-close:hover {
-  background-color: rgba(255,255,255,0.5);
   background-color: #f5e23b;
-
 }
