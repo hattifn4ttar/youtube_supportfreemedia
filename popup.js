@@ -62,6 +62,7 @@ if (formLike) {
     }
     if (event?.target?.name === 'time') {
       chrome.storage.sync.set({ notifyTime: event?.target?.value });
+      chrome.storage.sync.set({ notifiedDate: null });
     }
     if (event?.target?.name === 'playType') {
       chrome.storage.sync.set({ playType: event.target.value });
