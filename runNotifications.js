@@ -4,13 +4,14 @@ highlightLikeButton();
 
 function highlightLikeButton() {
   setTimeout(async () => {
-    const channel = document.querySelector(".ytd-channel-name > a.yt-formatted-string");
+    const channel = document.querySelector(".ytd-video-secondary-info-renderer .ytd-channel-name > .ytd-channel-name > a.yt-formatted-string");
     const likeBtnAdded = document.getElementsByClassName('like-btn-highlight');
     const highlightLike = channelsOriginal.find(d => d.url === channel?.href);
 
     let likeUrl = await chrome.storage.local.get('likeUrl');
     let likeUrlSkip = await chrome.storage.local.get('likeUrlSkip');
-    if (likeUrl?.likeUrl === window.location.href && !(highlightLike && !likeBtnAdded?.length && likeUrlSkip.likeUrlSkip !== window.location.href)) {
+    // console.log('check:', likeUrl, likeUrlSkip, highlightLike, channel);
+    if (likeUrl?.likeUrl === window.location.href && !(highlightLike && !likeBtnAdded?.length && likeUrlSkip?.likeUrlSkip !== window.location.href)) {
       setTimeout(() => highlightLikeButton(), 100);
       return;
     }
@@ -19,7 +20,6 @@ function highlightLikeButton() {
     if (likeBtnAdded?.length) [...likeBtnAdded].forEach(e => { e.remove(); });
 
     // add element to highlight like btn
-    // console.log('CHANNEL:', channel?.href);
     if (highlightLike) {
       console.log('[stopwar] HIGHLIGHT:', channel.href);
       
