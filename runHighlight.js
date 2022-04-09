@@ -2,6 +2,13 @@
 
 highlightLikeButton();
 
+function removeHighlightLike() {
+  const likeBtnBkg = document.getElementsByClassName('like-btn-highlight');
+  const likeBtnClose = document.getElementsByClassName('like-btn-close');
+  if (likeBtnClose?.length) [...likeBtnClose].forEach(e => { e.remove(); });
+  if (likeBtnBkg?.length) [...likeBtnBkg].forEach(e => { e.remove(); });
+}
+
 function highlightLikeButton() {
   setTimeout(async () => {
     const channel = document.querySelector(".ytd-video-secondary-info-renderer .ytd-channel-name > .ytd-channel-name > a.yt-formatted-string");
@@ -17,7 +24,7 @@ function highlightLikeButton() {
     }
 
     // remove if already added
-    if (likeBtnAdded?.length) [...likeBtnAdded].forEach(e => { e.remove(); });
+    removeHighlightLike();
 
     // add element to highlight like btn
     if (highlightLike) {
@@ -25,7 +32,7 @@ function highlightLikeButton() {
       
       let likeBtn = document.querySelector('.ytd-video-primary-info-renderer .ytd-menu-renderer.force-icon-button.style-text:first-child');
       if (likeBtn?.children?.length) {
-        let elem = likeBtn.children[0];
+        let elem = likeBtn?.children[0]?.children[0];
         let elemAdd = document.createElement('div');
         elemAdd.setAttribute('id', 'likeBtnHighlight');
         elemAdd.classList.add('like-btn-highlight');
@@ -40,7 +47,7 @@ function highlightLikeButton() {
           chrome.storage.local.set({ likeUrlSkip: window.location.href });
         });
         elemAdd.appendChild(elemClose);
-        elem.after(elemAdd);
+        elem.appendChild(elemAdd);
         chrome.storage.local.set({ likeUrl: window.location.href });
       }
     }

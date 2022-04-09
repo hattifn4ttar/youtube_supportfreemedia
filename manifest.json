@@ -1,7 +1,7 @@
 {
-  "name": "Stop war - support free media on YouTube",
-  "description": "Support Independent YouTube channels telling truth about the war in Ukraine - fight Putin's propaganda",
-  "version": "1.08",
+  "name": "Support free media on YouTube",
+  "description": "Support Independent YouTube channels - fight propaganda",
+  "version": "1.09",
   "manifest_version": 3,
   "permissions": ["storage", "tabs"],
   "icons": {
