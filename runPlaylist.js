@@ -29,6 +29,8 @@ function getVideoStartB(video, isLastVideo) {
 }
 
 function muteVideoOnce() {
+  return;
+  // avoid bot-like behaviour
   console.log('[stopwar] MUTEONCE');
   // trying secong version of mute - clicking "Mute" button doesn't work for some users in muteVideo()
   document.dispatchEvent(new KeyboardEvent('keydown', { keyCode: 77 }));

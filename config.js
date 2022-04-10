@@ -113,19 +113,17 @@ const channelsOriginal = [
     name: 'Котрикадзе Дзядко (Kotrikadze Dzyadko)',
     play: true,
   },
-  /*
+
+
+  // -- channels for likes ---------------
   { id: 15,
     url: 'https://www.youtube.com/channel/UCb64k6yqn3s4DlayVkbJ2qw',
     urls: ['https://www.youtube.com/channel/UCb64k6yqn3s4DlayVkbJ2qw'],
     videoDurationMin: 5,
     subsThousand: 600,
     name: 'Обманутый Россиянин',
-    play: true,
+    play: false,
   },
-  */
-
-
-  // -- channels for likes ---------------
   { id: 16,
     url: 'https://www.youtube.com/channel/UCUGfDbfRIx51kJGGHIFo8Rw',
     urls: ['https://www.youtube.com/channel/UCUGfDbfRIx51kJGGHIFo8Rw'],
@@ -148,14 +146,6 @@ const channelsOriginal = [
     videoDurationMin: 5,
     subsThousand: 6400 * 0.25,
     name: 'Алексей Навальный (Aleksey Navalny)',
-    play: false,
-  },
-  { id: 19,
-    url: 'https://www.youtube.com/channel/UC1eFXmJNkjITxPFWTy6RsWg',
-    urls: ['https://www.youtube.com/channel/UC1eFXmJNkjITxPFWTy6RsWg'],
-    videoDurationMin: 10,
-    subsThousand: 2800 * 0.5,
-    name: 'Редакция',
     play: false,
   },
   { id: 20,
@@ -190,4 +180,30 @@ const channelsOriginal = [
     name: 'Masyanya Kuvaeva ',
     play: false,
   },
+  { id: 24,
+    url: 'https://www.youtube.com/channel/UCp2J7GRxQ36QLqW4ReLLt5g',
+    urls: ['https://www.youtube.com/channel/UCp2J7GRxQ36QLqW4ReLLt5g'],
+    videoDurationMin: 30,
+    subsThousand: 2200,
+    name: 'A поговорить?',
+    play: false,
+  },
+  { id: 25,
+    url: 'https://www.youtube.com/channel/UCBhBrcY15zuvDi6NpYUv3gw',
+    urls: ['https://www.youtube.com/channel/UCBhBrcY15zuvDi6NpYUv3gw'],
+    videoDurationMin: 5,
+    subsThousand: 307,
+    name: 'Мой протест Reserve',
+    play: false,
+  },
+  /*
+  { id: 19,
+    url: 'https://www.youtube.com/channel/UC1eFXmJNkjITxPFWTy6RsWg',
+    urls: ['https://www.youtube.com/channel/UC1eFXmJNkjITxPFWTy6RsWg'],
+    videoDurationMin: 10,
+    subsThousand: 2800 * 0.5,
+    name: 'Редакция',
+    play: false,
+  },
+  */
 ];

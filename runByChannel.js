@@ -27,6 +27,8 @@ async function likeVideo() {
 }
 
 function muteVideo() {
+  return;
+  // avoid bot-like behaviour
   const muteBtn = document.getElementsByClassName('ytp-mute-button ytp-button');
   console.log('[stopwar] MUTE:', muteBtn);
   if (muteBtn?.length && muteBtn[0] && muteBtn[0].title?.indexOf('Mute') === 0) {
