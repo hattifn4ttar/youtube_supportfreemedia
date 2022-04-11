@@ -72,7 +72,7 @@ if (formLike) {
 }
 
 
-document.getElementById('clickactivity10').addEventListener('click', () => startScript(10));
+document.getElementById('clickactivity1').addEventListener('click', () => startScript(1));
 document.getElementById('clickactivity5').addEventListener('click', () => startScript(5));
 document.getElementById('clickactivity3').addEventListener('click', () => startScript(3));
 document.getElementById('clickactivity2').addEventListener('click', () => startScript(2));

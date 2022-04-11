@@ -7,7 +7,7 @@
 function getVideoStartB(video, isLastVideo) {
   // get random length
   const randomMultiplier = (0.5 + Math.random() * 1);
-  let watchTimeSec = Math.floor(randomMultiplier * 60 + 100, 0); // random time + ads
+  let watchTimeSec = Math.floor(randomMultiplier * 60 + 120, 0); // random time + ads
   // watchTimeSec = 15;
 
   // get video duration
@@ -27,14 +27,6 @@ function getVideoStartB(video, isLastVideo) {
   if (isLastVideo) startSeconds -= 5;
   return [watchTimeSec, startSeconds, seconds];
 }
-
-function muteVideoOnce() {
-  return;
-  // avoid bot-like behaviour
-  console.log('[stopwar] MUTEONCE');
-  // trying secong version of mute - clicking "Mute" button doesn't work for some users in muteVideo()
-  document.dispatchEvent(new KeyboardEvent('keydown', { keyCode: 77 }));
-}
 // -- end helpers ------------------------------
 
 
@@ -46,11 +38,10 @@ async function playNextVideoB(tab) {
   // video is open through url instead of click, to be able to set start time
   // also there is a concern about event.isTrusted, shoul we avoid using e.click()?
 
-  const { tabIndex, videoIndex, mute: muteFlag, openTab, loopLength, nTabs, offset } = tab;
+  const { tabIndex, videoIndex, openTab, loopLength, nTabs, offset } = tab;
 
   setTimeout(() => {
-    console.log('[stopwar] NEXT:', tabIndex, muteFlag);
-    if (muteFlag) muteVideoOnce();
+    console.log('[stopwar] NEXT:', tabIndex);
     setTimeout(() => muteVideo(), 500);
     likeVideo();
   }, 2000);
@@ -59,7 +50,6 @@ async function playNextVideoB(tab) {
     let tabs = await chrome.storage.local.get('tabs');
     tabs = tabs.tabs;
     tabs[tabIndex][videoIndex].openTab = false;
-    tabs.forEach(t => { t.forEach(v => { v.mute = false; }) });
     chrome.storage.local.set({ tabs });
 
     // loop videos in the same tab
@@ -152,7 +142,6 @@ async function openLoadPlaylist() {
           loopLength,
           tabIndex: tIndex,
           videoIndex: vIndex,
-          mute: !tIndex && !vIndex,
         };
       });
       tabs.push(tabUrls);

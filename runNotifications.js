@@ -53,10 +53,10 @@ async function showNotificationPopup() {
           
 
         <div class="notify-popup-buttons">
-          <button id="notifyOpen10" class="open-tabs-btn">10 tabs</button>
           <button id="notifyOpen5" class="open-tabs-btn">5 tabs</button>
           <button id="notifyOpen3" class="open-tabs-btn">3 tabs</button>  
           <button id="notifyOpen2" class="open-tabs-btn">2 tabs</button>  
+          <button id="notifyOpen1" class="open-tabs-btn">1 tab</button>
 
           <button id="notifyClose" class="open-tabs-btn notify-close">Close</button>
         </div>
@@ -66,7 +66,7 @@ async function showNotificationPopup() {
   document.body.appendChild(elemPopup);
 
   setTimeout(() => {
-    document.getElementById('notifyOpen10').addEventListener('click', () => startScript(10));
+    document.getElementById('notifyOpen1').addEventListener('click', () => startScript(1));
     document.getElementById('notifyOpen5').addEventListener('click', () => startScript(5));
     document.getElementById('notifyOpen3').addEventListener('click', () => startScript(3));
     document.getElementById('notifyOpen2').addEventListener('click', () => startScript(2));

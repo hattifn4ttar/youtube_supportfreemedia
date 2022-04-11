@@ -87,3 +87,86 @@
 .style-default-active .like-btn-highlight {
   display: none;
 }
+
+
+/* -- comments -----------------*/
+@-webkit-keyframes pulse3 {
+  0% { -webkit-transform: scale(0.8); opacity: 0.9; }
+  40% { -webkit-transform: scale(0.8); opacity: 0.9; }
+  70% { -webkit-transform: scale(1); opacity: 1; }
+  100% { -webkit-transform: scale(0.8); opacity: 0.9; }
+}
+@keyframes pulse3 {
+  0% { transform: scale(0.8); opacity: 0.9; }
+  40% { transform: scale(0.8); opacity: 0.9; }
+  70% { -webkit-transform: scale(1); opacity: 1; }
+  100% { transform: scale(0.8); opacity: 0.9; }
+}
+
+#commentHighlight {
+  position: absolute;
+}
+.style-scope.ytd-comments-header-renderer #author-thumbnail,
+.style-scope.ytd-comments-header-renderer #placeholder-area {
+  z-index: 1;
+}
+
+.comment-highlight {
+  height: 150px;
+  width: 300px;
+  margin-left: 30px;
+  margin-top: -90px;
+  position: relative;
+}
+.comment-highlight:before {
+  background-color: #f5e23b;
+  height: 130px;
+  width: 300px;
+  border-radius: 5px;
+  display: inline-block;
+  content: ' ';
+  position: absolute;
+  z-index: 2;
+  -webkit-animation: pulse3 5s infinite ease-in-out;
+  -o-animation: pulse3 5s infinite ease-in-out;
+  -ms-animation: pulse3 5s infinite ease-in-out; 
+  -moz-animation: pulse3 5s infinite ease-in-out; 
+  animation: pulse3 5s infinite ease-in-out;
+}
+.comment-highlight:after {
+  background-color: #ffbf0f;
+  height: 130px;
+  width: 300px;
+  border-radius: 5px;
+  display: inline-block;
+  content: ' ';
+  position: absolute;
+  z-index: 3;
+  -webkit-animation: pulse2 5s infinite ease-in-out;
+  -o-animation: pulse2 5s infinite ease-in-out;
+  -ms-animation: pulse2 5s infinite ease-in-out; 
+  -moz-animation: pulse2 5s infinite ease-in-out; 
+  animation: pulse2 5s infinite ease-in-out;
+}
+.comment-close {
+  color: black;
+  display: inline-block;
+  font-size: 13px;
+  position: absolute;
+  left: 233px;
+  top: 20px;
+  border-radius: 100%;
+  background-color: rgba(255,255,255,0.9);
+  padding: 5px 11px;
+  cursor: pointer;
+  vertical-align: center;
+  text-align: center;
+  z-index: 5;
+}
+.comment-highlight-text {
+  position: absolute;
+  padding: 25px 50px;
+  width: 100%;
+  z-index: 4;
+  font-size: 14px;
+}
