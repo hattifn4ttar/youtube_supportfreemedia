@@ -13,6 +13,8 @@ function getLoggedIn() {
 }
 
 async function likeVideo() {
+  // avoid bot-like behaviour
+  return;
   let like = await chrome.storage.local.get('supportYTLike');
   like = like.supportYTLike;
 
@@ -23,16 +25,6 @@ async function likeVideo() {
   const likeBtn = videoBtns?.children[0];
   if (likeBtn?.classList && !likeBtn.classList.contains('style-default-active')) {
     likeBtn.click();
-  }
-}
-
-function muteVideo() {
-  return;
-  // avoid bot-like behaviour
-  const muteBtn = document.getElementsByClassName('ytp-mute-button ytp-button');
-  console.log('[stopwar] MUTE:', muteBtn);
-  if (muteBtn?.length && muteBtn[0] && muteBtn[0].title?.indexOf('Mute') === 0) {
-    muteBtn[0].click();
   }
 }
 
@@ -80,7 +72,6 @@ function playNextVideo() {
     console.log('[stopwar] NEXT:', ii, watchTimeSec);
 
     const video = videos[ii];
-    muteVideo();
     likeVideo();
 
     setTimeout(() => {
@@ -187,9 +178,8 @@ async function openChannelPage() {
 
 // passing parameters through url, need to rework - sometimes parameters are lost in url
 const openNewFlag = window.location.search.includes('openNew=1');
-const muteFlag = window.location.search.includes('&mute=1');
 if (openNewFlag) {
-  openChannelPage(muteFlag);
+  openChannelPage();
 }
 const continuePlaylistFlag = window.location.search.includes('continuePromote=1');
 if (continuePlaylistFlag) {

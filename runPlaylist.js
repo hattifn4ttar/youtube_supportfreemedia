@@ -42,7 +42,6 @@ async function playNextVideoB(tab) {
 
   setTimeout(() => {
     console.log('[stopwar] NEXT:', tabIndex);
-    setTimeout(() => muteVideo(), 500);
     likeVideo();
   }, 2000);
 
