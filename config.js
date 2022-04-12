@@ -196,8 +196,15 @@ const channelsOriginal = [
     name: 'Мой протест Reserve',
     play: false,
   },
-  /*
-  { id: 19,
+  { id: 26,
+    url: 'https://www.youtube.com/channel/UCM326iLPPGxSoXZu6GFgu4Q',
+    urls: ['https://www.youtube.com/channel/UCM326iLPPGxSoXZu6GFgu4Q'],
+    videoDurationMin: 5,
+    subsThousand: 0.6,
+    name: 'Detox Brainwash',
+    play: false,
+  },
+  { id: 27,
     url: 'https://www.youtube.com/channel/UC1eFXmJNkjITxPFWTy6RsWg',
     urls: ['https://www.youtube.com/channel/UC1eFXmJNkjITxPFWTy6RsWg'],
     videoDurationMin: 10,
@@ -205,5 +212,4 @@ const channelsOriginal = [
     name: 'Редакция',
     play: false,
   },
-  */
 ];

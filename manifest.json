@@ -1,9 +1,9 @@
 {
   "name": "Support free media on YouTube",
   "description": "Support Independent YouTube channels - fight propaganda",
-  "version": "1.09",
+  "version": "1.11",
   "manifest_version": 3,
-  "permissions": ["storage", "tabs"],
+  "permissions": ["storage"],
   "icons": {
     "128": "/images/img128_6.png"
   },
