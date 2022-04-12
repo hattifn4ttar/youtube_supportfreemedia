@@ -33,14 +33,22 @@
   cursor: pointer;
 }
 
+.ytsupport-top {
+  max-width: 280px;
+  display: inline-block;
+  margin-right: 15px;
+}
 .ytsupport-title {
   width: 100%;
   font-size: 18px;
   font-weight: 500;
-  max-width: 200px;
-  max-width: 140px;
   line-height: 25px;
   display: inline-block;
+  margin: 10px 0 0px 0;
+}
+.ytsupport-descr {
+  line-height: 17px;
+  font-size: 12px;
 }
 .openchannels-popup a {
   color: rgba(255,255,255,0.8);
@@ -49,21 +57,12 @@
   color: rgba(255,255,255,1);
 }
 .openchannels-popup .logo {
-  margin-top: 10px;
+  margin: 0px -10px 0 0;
   max-width: 40px;
   display: inline-block;
-}
-/*
-.openchannels-popup .links {
-  display: inline-block;
-  width: 70px;
-  margin-left: 15px;
-  line-height: 22px;
   position: relative;
-  top: -6px;
-  display: none;
+  top: -15px;
 }
-*/
 .openchannels-popup .links-bottom {
   float: right;
   margin-top: 20px;
@@ -117,8 +116,17 @@
   margin-bottom: 5px;
 }
 
-.timepicker {
-  margin-top: 3px;
+#formLike select {
+  border-radius: 3px !important;
+  background-color: rgba(255,255,255,1);
+  padding: 2px 3px;
+  margin-top: 2px;
+}
+#formLike #time {
+  margin-top: 1px;
+  border-radius: 3px !important;
+}
+.instructions {
 }
 
 .defaultplaylist-link {
@@ -145,8 +153,3 @@
   text-decoration: none !important;
 }
 
-
-.edit-icon {
-  text-decoration: underline;
-  cursor: pointer;
-}

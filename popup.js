@@ -70,7 +70,8 @@ async function setForm() {
 
   let promoteType = await chrome.storage.sync.get('promoteType');
   promoteType = promoteType?.promoteType || 'manual';
-  document.getElementById(promoteType).checked = true;
+  // document.getElementById(promoteType).checked = true;
+  document.getElementById('promoteType').value = promoteType;
   selectPromoteType(promoteType);
 }
 setForm();

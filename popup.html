@@ -5,12 +5,15 @@
   </head> 
 <body>
   <div class="openchannels-popup">
-    <div class="ytsupport-title">Support Free Russian Media</div>
+    <div class="ytsupport-top">
+      <div class="ytsupport-title">Support Free Russian Media</div>
+      <div class="ytsupport-descr">
+        Remind to "Like" and comment YouTube videos from recommended channels.
+      </div>
+    </div>
     <img src="/images/img128_6.png" alt="Promote YouTube Playlist" class="logo">
     <br />
-    <p>
-      The extension will highlight the "Like" button and remind to add comments when viewing videos from recommended channels.
-    </p>
+    
 
     <form id="formLike">
       <p>
@@ -18,15 +21,12 @@
         <input type="time" id="time" name="time" min="00:00" max="24:00" class="timepicker">
       </p>
       <br />
-      <!-- <input type="checkbox" id="like" name="like" value="true" checked>
-        <label for="like">Like videos</label><br> -->
-      <p>
+      <p class="instructions">
         Select instuctions to promote videos:<br />
-
-        <input type="radio" id="manual" name="promoteType" value="manual" checked>
-        <label for="manual">Manually</label>
-        <input type="radio" id="auto" name="promoteType" value="auto">
-        <label for="auto">Automatically</label>
+        <select name="promoteType" id="promoteType">
+          <option value="manual">Manually</option>
+          <option value="auto">Automatically</option>
+        </select>
       </p>
 
       <div id="promoteDetailsAuto">
