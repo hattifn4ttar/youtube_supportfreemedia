@@ -8,12 +8,40 @@ async function startScript(nTabs) {
   chrome.storage.local.set({ nTabs });
   chrome.storage.sync.set({ notifiedDate: (new Date().toISOString()).substring(0, 10) });
   
-  if (playType === 'channels') {
-    // open YT channels in multiple tabs
-    window.open('https://www.youtube.com/playlist?list=PLQxYKug91T31ixyCs81TwIl8wAiD9AZAH&openNew=1&mute=1');
-  } else {
-    // open default playlist
+  if (!nTabs) {
+    // promote manually
     let url = 'https://www.youtube.com/playlist?list=PLQxYKug91T31ixyCs81TwIl8wAiD9AZAH';
+    let playlistURLManual = await chrome.storage.sync.get('playlistURLManual');
+    playlistURLManual = playlistURLManual?.playlistURLManual || '';
+    if (playlistURLManual) {
+      url = playlistURLManual;
+      let validUrl = url.indexOf('https://www.youtube.com/') === 0;
+      validUrl = validUrl && url.includes('list=');
+      if (!validUrl) {
+        alert('URL is invalid. Open YouTube playlist.');
+        return;
+      }
+    }
+    window.open(url);
+  } else if (playType === 'channels') {
+    // promote automatically, channels
+    window.open('https://www.youtube.com/playlist?list=PLQxYKug91T31ixyCs81TwIl8wAiD9AZAH&openNew=1&mute=1');
+
+  } else {
+    // promote automatically, playlist
+    let url = 'https://www.youtube.com/playlist?list=PLQxYKug91T31ixyCs81TwIl8wAiD9AZAH';
+    let playlistURLAuto = await chrome.storage.sync.get('playlistURLAuto');
+    playlistURLAuto = playlistURLAuto?.playlistURLAuto || '';
+    if (playlistURLAuto) {
+      url = playlistURLAuto;
+      let validUrl = url.indexOf('https://www.youtube.com/') === 0;
+      validUrl = validUrl && url.includes('list=');
+      if (!validUrl) {
+        alert('URL is invalid. Open YouTube playlist.');
+        return;
+      }
+    }
+
     chrome.storage.local.set({ startUrl: url, openTime: (new Date()).getTime() });
     window.open(url);
   }
@@ -40,8 +68,11 @@ function createElementFromHTML(htmlString) {
   return div.firstChild;
 }
 async function showNotificationPopup() {
+  let promoteType = await chrome.storage.sync.get('promoteType');
+  promoteType = promoteType?.promoteType || 'manual';
+
   console.log('[stopwar] NOTIFY:');
-  const elemPopup = createElementFromHTML(`
+  let elemPopup = createElementFromHTML(`
     <div class="notify-popup" id="notifyPopup">
         <div class="notify-popup-descr">
           Extension "Stop war - support free media on YouTube"<br />
@@ -49,8 +80,6 @@ async function showNotificationPopup() {
         </div>
         <img src="https://hattifn4ttar.github.io/supportfreemedia/images/img128_2.png" alt="Promote YouTube Playlist" class="logo">
         <div class="notify-popup-title">Reminder:<br />Run YouTube playlist, fight propaganda.</div>
-
-          
 
         <div class="notify-popup-buttons">
           <button id="notifyOpen5" class="open-tabs-btn">5 tabs</button>
@@ -60,17 +89,44 @@ async function showNotificationPopup() {
 
           <button id="notifyClose" class="open-tabs-btn notify-close">Close</button>
         </div>
+        <!--
+        <br />
+        <div class="notify-popup-descr float-right">
+          Applying recently used configuration
+        </div>
+        -->
       </div>
-  
   `);
+  if (promoteType === 'manual') {
+    elemPopup = createElementFromHTML(`
+    <div class="notify-popup" id="notifyPopup">
+        <div class="notify-popup-descr">
+          Extension "Stop war - support free media on YouTube"<br />
+          You can change notification time in the extension settings.
+        </div>
+        <img src="https://hattifn4ttar.github.io/supportfreemedia/images/img128_2.png" alt="Promote YouTube Playlist" class="logo">
+        <div class="notify-popup-title">Reminder:<br />Run YouTube playlist, fight propaganda.</div>
+
+        <div class="notify-popup-buttons">
+          <button id="notifyOpenManual" class="open-tabs-btn">Open saved playlist</button>
+          <button id="notifyClose" class="open-tabs-btn notify-close">Close</button>
+        </div>
+      </div>
+  `);
+  }
   document.body.appendChild(elemPopup);
 
   setTimeout(() => {
-    document.getElementById('notifyOpen1').addEventListener('click', () => startScript(1));
-    document.getElementById('notifyOpen5').addEventListener('click', () => startScript(5));
-    document.getElementById('notifyOpen3').addEventListener('click', () => startScript(3));
-    document.getElementById('notifyOpen2').addEventListener('click', () => startScript(2));
-    document.getElementById('notifyClose').addEventListener('click', () => closePopup());
+    if (promoteType === 'manual') {
+      document.getElementById('notifyOpenManual').addEventListener('click', () => startScript(0));
+      document.getElementById('notifyClose').addEventListener('click', () => closePopup());
+    } else {
+      document.getElementById('notifyOpen1').addEventListener('click', () => startScript(1));
+      document.getElementById('notifyOpen5').addEventListener('click', () => startScript(5));
+      document.getElementById('notifyOpen3').addEventListener('click', () => startScript(3));
+      document.getElementById('notifyOpen2').addEventListener('click', () => startScript(2));
+      document.getElementById('notifyClose').addEventListener('click', () => closePopup());
+    }
   }, 1000);
 }
 

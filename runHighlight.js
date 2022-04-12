@@ -28,8 +28,8 @@ function highlightLikeButton() {
     // add element to highlight like btn
     if (highlightLike) {      
       let likeBtn = document.querySelector('.ytd-video-primary-info-renderer .ytd-menu-renderer.force-icon-button.style-text:first-child');
-      console.log('[stopwar] HIGHLIGHT:', channel.href, likeBtn.onClick);
-      likeBtn.addEventListener('click', function(){ highlightComment();}, false);
+      console.log('[stopwar] HIGHLIGHT:', channel?.href, likeBtn?.onClick);
+      if (likeBtn) likeBtn.addEventListener('click', function(){ highlightComment();}, false);
 
       if (likeBtn?.children?.length) {
         let elem = likeBtn?.children[0]?.children[0];
@@ -76,7 +76,7 @@ function highlightComment() {
         elemAdd.classList.add('comment-highlight');
         let elemText = document.createElement('div');
         elemText.classList.add('comment-highlight-text');
-        elemText.innerText = 'Примеры для комментов: \nCпасибо за правду! \nCпасибо за вашу работу \nОcтановите войну! \nCвободу политзаключенным!';
+        elemText.innerText = 'Примеры комментариев: \nCпасибо за правду! \nCпасибо за вашу работу \nОcтановите войну! \nCвободу политзаключенным!';
 
         let elemClose = document.createElement('div');
         elemClose.classList.add('comment-close');

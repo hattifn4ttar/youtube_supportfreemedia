@@ -5,31 +5,44 @@ async function startScript(nTabs) {
 
   chrome.storage.local.set({ nTabs });
   
-  if (playType === 'channels') {
-    // open YT channels in multiple tabs
-    window.open('https://www.youtube.com/playlist?list=PLQxYKug91T31ixyCs81TwIl8wAiD9AZAH&openNew=1&mute=1');
-  
-  } else if (playType === 'userplaylist') {
-    // open user's playlist
-    chrome.tabs.query({active: true, lastFocusedWindow: true}, tabs => {
-      let url = tabs[0].url;      
+  if (!nTabs) {
+    // open default playlist
+    let url = 'https://www.youtube.com/playlist?list=PLQxYKug91T31ixyCs81TwIl8wAiD9AZAH';
+    let playlistURLManual = await chrome.storage.sync.get('playlistURLManual');
+    playlistURLManual = playlistURLManual?.playlistURLManual || '';
+    if (playlistURLManual) {
+      url = playlistURLManual;
       let validUrl = url.indexOf('https://www.youtube.com/') === 0;
       validUrl = validUrl && url.includes('list=');
-
       if (!validUrl) {
         alert('URL is invalid. Open YouTube playlist.');
         return;
       }
+    }
+    window.open(url);
+  }
+  else if (playType === 'channels') {
+    // open YT channels in multiple tabs
+    window.open('https://www.youtube.com/playlist?list=PLQxYKug91T31ixyCs81TwIl8wAiD9AZAH&openNew=1&mute=1');
 
-      chrome.storage.local.set({ startUrl: url, openTime: (new Date()).getTime() });
-      window.open(url);
-    });
-  
   } else {
     // open default playlist
     let url = 'https://www.youtube.com/playlist?list=PLQxYKug91T31ixyCs81TwIl8wAiD9AZAH';
+    let playlistURLAuto = await chrome.storage.sync.get('playlistURLAuto');
+    playlistURLAuto = playlistURLAuto?.playlistURLAuto || '';
+    if (playlistURLAuto) {
+      url = playlistURLAuto;
+      let validUrl = url.indexOf('https://www.youtube.com/') === 0;
+      validUrl = validUrl && url.includes('list=');
+      if (!validUrl) {
+        alert('URL is invalid. Open YouTube playlist.');
+        return;
+      }
+    }
+
     chrome.storage.local.set({ startUrl: url, openTime: (new Date()).getTime() });
     window.open(url);
+
   }
 }
 
@@ -39,15 +52,26 @@ async function setForm() {
 
   let notifyTime = await chrome.storage.sync.get('notifyTime');
   notifyTime = notifyTime?.notifyTime;
-  console.log('time:', notifyTime);
   if (notifyTime) {
     document.getElementById('time').value = notifyTime;
   }
 
   let playType = await chrome.storage.sync.get('playType');
   playType = playType?.playType || 'playlist';
-  console.log('type:', playType);
   document.getElementById(playType).checked = true;
+
+  let playlistURLAuto = await chrome.storage.sync.get('playlistURLAuto');
+  playlistURLAuto = playlistURLAuto?.playlistURLAuto || '';
+  document.getElementById('playlistURLAuto').value = playlistURLAuto;
+
+  let playlistURLManual = await chrome.storage.sync.get('playlistURLManual');
+  playlistURLManual = playlistURLManual?.playlistURLManual || '';
+  document.getElementById('playlistURLManual').value = playlistURLManual;
+
+  let promoteType = await chrome.storage.sync.get('promoteType');
+  promoteType = promoteType?.promoteType || 'manual';
+  document.getElementById(promoteType).checked = true;
+  selectPromoteType(promoteType);
 }
 setForm();
 
@@ -67,20 +91,44 @@ if (formLike) {
     if (event?.target?.name === 'playType') {
       chrome.storage.sync.set({ playType: event.target.value });
     }
+    if (event?.target?.name === 'promoteType') {
+      chrome.storage.sync.set({ promoteType: event.target.value });
+      selectPromoteType(event.target.value);
+    }
+    if (event?.target?.name === 'playlistURLAuto') {
+      chrome.storage.sync.set({ playlistURLAuto: event.target.value });
+    }
+    if (event?.target?.name === 'playlistURLManual') {
+      chrome.storage.sync.set({ playlistURLManual: event.target.value });
+    }
     event.preventDefault();
   }, false);
 }
 
+function selectPromoteType(tabName) {
+  let i, type1, type2;
+
+  type2 = document.getElementById(tabName === 'manual' ? 'promoteDetailsAuto' : 'promoteDetailsManual');
+  type1 = document.getElementById(tabName === 'manual' ? 'promoteDetailsManual' : 'promoteDetailsAuto');
+
+  type1.style.visibility = 'visible';
+  type1.style.maxHeight = 'none';
+  type2.style.visibility = 'hidden';
+  type2.style.maxHeight = 0;
+}
 
 document.getElementById('clickactivity1').addEventListener('click', () => startScript(1));
 document.getElementById('clickactivity5').addEventListener('click', () => startScript(5));
 document.getElementById('clickactivity3').addEventListener('click', () => startScript(3));
 document.getElementById('clickactivity2').addEventListener('click', () => startScript(2));
+document.getElementById('clickOpenPlaylist').addEventListener('click', () => startScript(0));
 
 document.getElementById('githubLink').addEventListener('click', () => window.open('https://github.com/hattifn4ttar/youtube_supportfreemedia'));
 document.getElementById('youtubeLink').addEventListener('click', () => window.open('https://www.youtube.com/watch?v=jowEf5tSSyc'));
 document.getElementById('webLink').addEventListener('click', () => window.open('https://hattifn4ttar.github.io/supportfreemedia/'));
-// document.getElementById('playlistLink').addEventListener('click', () => window.open('https://www.youtube.com/playlist?list=PLQxYKug91T31ixyCs81TwIl8wAiD9AZAH'));
+if (document.getElementById('playlistLink')) document.getElementById('playlistLink').addEventListener('click', () => window.open('https://www.youtube.com/playlist?list=PLQxYKug91T31ixyCs81TwIl8wAiD9AZAH'));
+if (document.getElementById('playlistLink2')) document.getElementById('playlistLink2').addEventListener('click', () => window.open('https://www.youtube.com/playlist?list=PLQxYKug91T31ixyCs81TwIl8wAiD9AZAH'));
 
 // for debugging
 // document.getElementById('clickReset').addEventListener('click', () => { chrome.storage.sync.set({ notifiedDate: null }); });
+

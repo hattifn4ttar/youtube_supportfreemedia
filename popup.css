@@ -9,8 +9,12 @@
 }
 
 .openchannels-popup .buttons {
-  min-width: 320px;
+  min-width: 340px;
   margin-bottom: 20px;
+}
+.openchannels-popup .buttons2 {
+  min-width: 340px;
+  margin-bottom: -120px;
 }
 
 .open-tabs-btn {
@@ -63,12 +67,33 @@
 .openchannels-popup .links-bottom {
   float: right;
   margin-top: 20px;
-  margin-bottom: 20px;
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
 }
 
 .openchannels-popup p {
   line-height: 20px;
   font-size: 14px;
+}
+#promoteDetailsManual {
+  line-height: 20px;
+  font-size: 14px;
+}
+.promote-details-li {
+  margin-bottom: 5px;
+}
+#playlistURLAuto {
+  min-width: 230px;
+  background-color: rgba(255,255,255,0.2);
+  color: white;
+  border-radius: 2px !important;
+}
+#playlistURLManual {
+  min-width: 240px;
+  background-color: rgba(255,255,255,0.2);
+  color: white;
+  border-radius: 2px !important;
 }
 #formLike {
   margin-bottom: 5px;
@@ -76,4 +101,23 @@
 
 .timepicker {
   margin-top: 3px;
+}
+
+.defaultplaylist-link {
+  display: inline-block;
+  max-width: 180px !important;
+  min-width: 110px !important;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.defaultplaylist-link-manual {
+  display: inline-block;
+  max-width: 235px !important;
+  min-width: 110px !important;
+  position: relative;
+  top: 5px;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }

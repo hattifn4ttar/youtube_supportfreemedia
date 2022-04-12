@@ -9,32 +9,58 @@
     <img src="/images/img128_6.png" alt="Promote YouTube Playlist" class="logo">
     <br />
     <p>
-      "Open Tabs" buttons will open YT channels (or a playlist) telling truth about the war in Ukraine. In each tab it will play videos optimal time and like them.
+      The extension will highlight the "Like" button and remind to add comments when viewing videos from recommended channels.
     </p>
 
     <form id="formLike">
-      <label for="time">Remind to run the extension:</label><br />
-      <input type="time" id="time" name="time" min="00:00" max="24:00" class="timepicker">
+      <p>
+        <label for="time">Set a reminder to promote videos:</label><br />
+        <input type="time" id="time" name="time" min="00:00" max="24:00" class="timepicker">
+      </p>
       <br />
-      <br />
-      <input type="checkbox" id="like" name="like" value="true" checked>
-      <label for="like">Like videos</label><br>
+      <!-- <input type="checkbox" id="like" name="like" value="true" checked>
+        <label for="like">Like videos</label><br> -->
+      <p>
+        Select instuctions to promote videos:<br />
 
-      <input type="radio" id="channels" name="playType" value="channels">
-      <label for="channels">By channel</label>
-      <input type="radio" id="playlist" name="playType" value="playlist">
-      <label for="playlist">Default playlist</label>
-      <input type="radio" id="userplaylist" name="playType" value="userplaylist">
-      <label for="userplaylist">Your playlist</label>
+        <input type="radio" id="manual" name="promoteType" value="manual" checked>
+        <label for="manual">Manually</label>
+        <input type="radio" id="auto" name="promoteType" value="auto">
+        <label for="auto">Automatically</label>
+      </p>
+
+      <div id="promoteDetailsAuto">
+        "Open Tabs" button will open multiple tabs and play videos:<br />
+        <input type="radio" id="channels" name="playType" value="channels">
+        <label for="channels">By channel</label><br />
+        <input type="radio" id="playlist" name="playType" value="playlist">
+        <label for="playlist">Recommended playlist:
+          <a class="defaultplaylist-link" href="https://www.youtube.com/playlist?list=PLQxYKug91T31ixyCs81TwIl8wAiD9AZAH" id="playlistLink2">www.youtube.com/playlist?list=PLQxYKug91T31ixyCs81TwIl8wAiD9AZAH</a>
+        </label><br />
+        <input type="radio" id="userplaylist" name="playType" value="playlist">
+        <label for="userplaylist">Your playlist:</label>
+        <input type="text" id="playlistURLAuto" name="playlistURLAuto">
+        <br /><br />
+        <div class="buttons2">
+          <button id="clickactivity5" class="open-tabs-btn">Open 5 tabs</button>
+          <button id="clickactivity3" class="open-tabs-btn">Open 3 tabs</button><br />  
+          <button id="clickactivity2" class="open-tabs-btn">Open 2 tabs</button>  
+          <button id="clickactivity1" class="open-tabs-btn">Open 1 tab</button>
+        </div>
+      </div>
+      <div id="promoteDetailsManual">
+        <div class="promote-details-li">1. Open a playlist with videos<br />
+          Recommended: <a class="defaultplaylist-link-manual" href="https://www.youtube.com/playlist?list=PLQxYKug91T31ixyCs81TwIl8wAiD9AZAH" id="playlistLink">www.youtube.com/playlist?list=PLQxYKug91T31ixyCs81TwIl8wAiD9AZAH</a>
+          <br />Your playlist: <input type="text" id="playlistURLManual" name="playlistURLManual">
+        </div>
+        <div class="promote-details-li">2. Like a video and leave a comment</div>
+        <div class="promote-details-li">3. Watch a video at least 30 seconds and repeat, or run a playlist from the start after commenting videos.</div>
+        <div class="buttons">
+          <button id="clickOpenPlaylist" class="open-tabs-btn">Open playlist</button>
+        </div>
+      </div>
     </form>
     <br />
-
-    <div class="buttons">
-      <button id="clickactivity5" class="open-tabs-btn">Open 5 tabs</button>
-      <button id="clickactivity3" class="open-tabs-btn">Open 3 tabs</button>  
-      <button id="clickactivity2" class="open-tabs-btn">Open 2 tabs</button>  
-      <button id="clickactivity1" class="open-tabs-btn">Open 1 tab</button>
-    </div>
     <!--<button id="clickReset" class="open-tabs-btn">Reset</button>  -->
 
     <div class="links-bottom">
