@@ -86,14 +86,32 @@
 #playlistURLAuto {
   min-width: 230px;
   background-color: rgba(255,255,255,0.2);
-  color: white;
-  border-radius: 2px !important;
+  background-color: rgba(0,0,0,0);
+  color: rgba(255,255,255,0.85);
+  border-radius: 2px;
+  border-color: transparent;
+  font-size: 12px;
+  text-overflow: ellipsis;
 }
 #playlistURLManual {
   min-width: 240px;
   background-color: rgba(255,255,255,0.2);
+  background-color: rgba(0,0,0,0);
+  color: rgba(255,255,255,0.85);
+  border-radius: 2px;
+  border-color: transparent;
+  font-size: 12px;
+  text-overflow: ellipsis;
+}
+#playlistURLAuto:focus,
+#playlistURLAuto:hover {
+  background-color: rgba(255,255,255,0.1);
   color: white;
-  border-radius: 2px !important;
+}
+#playlistURLManual:focus,
+#playlistURLManual:hover {
+  background-color: rgba(255,255,255,0.1);
+  color: white;
 }
 #formLike {
   margin-bottom: 5px;
@@ -110,6 +128,9 @@
   overflow-x: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  text-decoration: none !important;
+  position: relative;
+  top: 2px;
 }
 .defaultplaylist-link-manual {
   display: inline-block;
@@ -120,4 +141,12 @@
   overflow-x: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  font-size: 12px;
+  text-decoration: none !important;
+}
+
+
+.edit-icon {
+  text-decoration: underline;
+  cursor: pointer;
 }
