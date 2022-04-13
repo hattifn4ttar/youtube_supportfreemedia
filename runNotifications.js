@@ -8,42 +8,40 @@ async function startScript(nTabs) {
   chrome.storage.local.set({ nTabs });
   chrome.storage.sync.set({ notifiedDate: (new Date().toISOString()).substring(0, 10) });
   
-  if (!nTabs) {
-    // promote manually
+  let manual = !nTabs;
+  if (manual || playType !== 'channels') {
+    // run playlist
+    // default url
     let url = 'https://www.youtube.com/playlist?list=PLQxYKug91T31ixyCs81TwIl8wAiD9AZAH';
-    let playlistURLManual = await chrome.storage.sync.get('playlistURLManual');
-    playlistURLManual = playlistURLManual?.playlistURLManual || '';
-    if (playlistURLManual) {
-      url = playlistURLManual;
-      let validUrl = url.indexOf('https://www.youtube.com/') === 0;
-      validUrl = validUrl && url.includes('list=');
-      if (!validUrl) {
-        alert('URL is invalid. Open YouTube playlist.');
-        return;
-      }
+
+    // user url
+    if (manual) {
+      let playlistURLManual = await chrome.storage.sync.get('playlistURLManual');
+      playlistURLManual = playlistURLManual?.playlistURLManual || '';
+      url = playlistURLManual || url;
+    } else {
+      let playlistURLAuto = await chrome.storage.sync.get('playlistURLAuto');
+      playlistURLAuto = playlistURLAuto?.playlistURLAuto || '';
+      url = playlistURLAuto || url;
+    }
+    
+    // validate url
+    let validUrl = url.indexOf('https://www.youtube.com/') === 0;
+    validUrl = validUrl && url.includes('list=');
+    if (!validUrl) {
+      alert('URL is invalid. Open YouTube playlist.');
+      return;
+    }
+
+    if (!manual) {
+      // automated
+      chrome.storage.local.set({ startUrl: url, openTime: (new Date()).getTime() });
     }
     window.open(url);
-  } else if (playType === 'channels') {
-    // promote automatically, channels
+  }
+  else {
+    // open YT channels in multiple tabs
     window.open('https://www.youtube.com/playlist?list=PLQxYKug91T31ixyCs81TwIl8wAiD9AZAH&openNew=1&mute=1');
-
-  } else {
-    // promote automatically, playlist
-    let url = 'https://www.youtube.com/playlist?list=PLQxYKug91T31ixyCs81TwIl8wAiD9AZAH';
-    let playlistURLAuto = await chrome.storage.sync.get('playlistURLAuto');
-    playlistURLAuto = playlistURLAuto?.playlistURLAuto || '';
-    if (playlistURLAuto) {
-      url = playlistURLAuto;
-      let validUrl = url.indexOf('https://www.youtube.com/') === 0;
-      validUrl = validUrl && url.includes('list=');
-      if (!validUrl) {
-        alert('URL is invalid. Open YouTube playlist.');
-        return;
-      }
-    }
-
-    chrome.storage.local.set({ startUrl: url, openTime: (new Date()).getTime() });
-    window.open(url);
   }
 }
 
@@ -153,14 +151,12 @@ async function checkNotify() {
     hrSaved = Number(hrSaved);
     hrSaved = hrSaved == 12 ? 0 : hrSaved;
     minutesSaved = Number(minutesSaved);
-    console.log('hr:', hrSaved, minutesSaved);
 
     let [hrCurrent, minutesCurrent, rest] = currentTime.split(':');
     hrCurrent = rest.includes('PM') ? Number(hrCurrent) + 12 : Number(hrCurrent);
     hrCurrent = hrCurrent == 12 ? 0 : hrCurrent;
     minutesCurrent = Number(minutesCurrent);
 
-    console.log('notify:', hrCurrent, hrSaved, minutesCurrent, minutesSaved, notifiedDate, currentDate);
     if (currentDate > notifiedDate && (hrCurrent > hrSaved || minutesCurrent >= minutesSaved && hrCurrent >= hrSaved)) {
       showNotificationPopup();
     }

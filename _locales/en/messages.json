@@ -17,8 +17,9 @@
     "message": "Set a reminder to promote videos"
   },
 
+
   "popupPromotetypeLabel": {
-    "message": "Select instuctions to promote videos"
+    "message": "Select instructions to promote videos"
   },
   "popupPromotetypeOpt1": {
     "message": "Manually"
@@ -27,8 +28,9 @@
     "message": "Automatically"
   },
 
+
   "popupPlaytypeLabel": {
-    "message": "'Open Tabs' button will open multiple tabs and play videos"
+    "message": "'Open Tabs' button will open multiple tabs and play videos. To mute the sound, right click on the tab and select 'Mute site'"
   },
   "popupPlaytypeOpt1": {
     "message": "By channel"
@@ -39,6 +41,7 @@
   "popupPlaytypeOpt3": {
     "message": "Your playlist:"
   },
+
 
   "popupManual1": {
     "message": "1. Open a playlist with videos"

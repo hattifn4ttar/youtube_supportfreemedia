@@ -1,10 +1,10 @@
 {
   "appName": {
-    "message": "Тест",
+    "message": "Support free media on YouTube",
     "description": ""
   },
   "appDesc": {
-    "message": "Тест описание",
+    "message": "Support Independent YouTube channels - fight propaganda",
     "description": ""
   },
   "popupTitle": {
@@ -17,6 +17,7 @@
     "message": "Выберите время уведомлений"
   },
 
+
   "popupPromotetypeLabel": {
     "message": "Bыберите инструкции для продвижения видео"
   },
@@ -27,8 +28,9 @@
     "message": "Автоматически"
   },
 
+
   "popupPlaytypeLabel": {
-    "message": "'Open tabs' откроет несколько вкладок и будет запускать видео:"
+    "message": "'Open tabs' откроет несколько вкладок и будет запускать видео. Чтобы отключить звук нажмите правой кнопкой на вкладку браузера и выберите 'Mute site'"
   },
   "popupPlaytypeOpt1": {
     "message": "По каналам"
@@ -39,6 +41,7 @@
   "popupPlaytypeOpt3": {
     "message": "Ваш плейлист:"
   },
+
 
   "popupManual1": {
     "message": "1. Откройте плейлист"
