@@ -1,6 +1,7 @@
 {
-  "name": "Support free media on YouTube",
-  "description": "Support Independent YouTube channels - fight propaganda",
+  "name": "__MSG_appName__",
+  "description": "__MSG_appDesc__",
+  "default_locale": "ru",
   "version": "1.11",
   "manifest_version": 3,
   "permissions": ["storage"],

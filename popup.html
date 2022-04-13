@@ -6,39 +6,39 @@
 <body>
   <div class="openchannels-popup">
     <div class="ytsupport-top">
-      <div class="ytsupport-title">Support Free Russian Media</div>
-      <div class="ytsupport-descr">
-        Remind to "Like" and comment YouTube videos from recommended channels.
-      </div>
+      <div class="ytsupport-title local">__MSG_popupTitle__</div>
+      <div class="ytsupport-descr local">__MSG_popupTitleDescr__</div>
     </div>
-    <img src="/images/img128_6.png" alt="Promote YouTube Playlist" class="logo">
+    <div class="logo">
+      <img src="/images/img128_6.png" alt="Promote YouTube Playlist">
+    </div>
     <br />
     
 
     <form id="formLike">
       <p>
-        <label for="time">Set a reminder to promote videos:</label><br />
+        <label for="time" class="local">__MSG_popupSchedule__</label><br />
         <input type="time" id="time" name="time" min="00:00" max="24:00" class="timepicker">
       </p>
       <br />
-      <p class="instructions">
-        Select instuctions to promote videos:<br />
+      <p>
+        <div class="local text">__MSG_popupPromotetypeLabel__</div>
         <select name="promoteType" id="promoteType">
-          <option value="manual">Manually</option>
-          <option value="auto">Automatically</option>
+          <option value="manual" class="local">__MSG_popupPromotetypeOpt1__</option>
+          <option value="auto" class="local">__MSG_popupPromotetypeOpt2__</option>
         </select>
       </p>
 
       <div id="promoteDetailsAuto">
-        "Open Tabs" button will open multiple tabs and play videos:<br />
+        <div class="local">__MSG_popupPlaytypeLabel__</div>
         <input type="radio" id="channels" name="playType" value="channels">
-        <label for="channels">By channel</label><br />
+        <label for="channels" class="local">__MSG_popupPlaytypeOpt1__</label><br />
         <input type="radio" id="playlist" name="playType" value="playlist">
-        <label for="playlist">Recommended playlist:
+        <label for="playlist" class="local">__MSG_popupPlaytypeOpt2__
           <a class="defaultplaylist-link" href="https://www.youtube.com/playlist?list=PLQxYKug91T31ixyCs81TwIl8wAiD9AZAH" id="playlistLink2">www.youtube.com/playlist?list=PLQxYKug91T31ixyCs81TwIl8wAiD9AZAH</a>
         </label><br />
         <input type="radio" id="userplaylist" name="playType" value="playlist">
-        <label for="userplaylist">Your playlist:</label>
+        <label for="userplaylist" class="local">__MSG_popupPlaytypeOpt3__</label>
         <!--<span class="edit-icon">Edit</span> -->
         <input type="text" id="playlistURLAuto" name="playlistURLAuto" placeholder="Edit">
         <br /><br />
@@ -50,14 +50,14 @@
         </div>
       </div>
       <div id="promoteDetailsManual">
-        <div class="promote-details-li">1. Open a playlist with videos<br />
+        <div class="promote-details-li local">__MSG_popupManual1__<br />
           Recommended: <a class="defaultplaylist-link-manual" href="https://www.youtube.com/playlist?list=PLQxYKug91T31ixyCs81TwIl8wAiD9AZAH" id="playlistLink">www.youtube.com/playlist?list=PLQxYKug91T31ixyCs81TwIl8wAiD9AZAH</a>
           <br />Your playlist: <input type="text" id="playlistURLManual" name="playlistURLManual" placeholder="Edit">
         </div>
-        <div class="promote-details-li">2. Like a video and leave a comment</div>
-        <div class="promote-details-li">3. Watch a video at least 30 seconds and repeat, or run a playlist from the start after commenting videos.</div>
+        <div class="promote-details-li local">__MSG_popupManual2__</div>
+        <div class="promote-details-li local">__MSG_popupManual3__</div>
         <div class="buttons">
-          <button id="clickOpenPlaylist" class="open-tabs-btn">Open playlist</button>
+          <button id="clickOpenPlaylist" class="open-tabs-btn local">__MSG_popupManualBtn__</button>
         </div>
       </div>
     </form>

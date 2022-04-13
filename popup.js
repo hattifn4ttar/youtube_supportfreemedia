@@ -4,45 +4,41 @@ async function startScript(nTabs) {
   playType = playType.playType;
 
   chrome.storage.local.set({ nTabs });
-  
-  if (!nTabs) {
-    // open default playlist
+
+  let manual = !nTabs;
+  if (manual || playType !== 'channels') {
+    // run playlist
+    // default url
     let url = 'https://www.youtube.com/playlist?list=PLQxYKug91T31ixyCs81TwIl8wAiD9AZAH';
-    let playlistURLManual = await chrome.storage.sync.get('playlistURLManual');
-    playlistURLManual = playlistURLManual?.playlistURLManual || '';
-    if (playlistURLManual) {
-      url = playlistURLManual;
-      let validUrl = url.indexOf('https://www.youtube.com/') === 0;
-      validUrl = validUrl && url.includes('list=');
-      if (!validUrl) {
-        alert('URL is invalid. Open YouTube playlist.');
-        return;
-      }
+
+    // user url
+    if (manual) {
+      let playlistURLManual = await chrome.storage.sync.get('playlistURLManual');
+      playlistURLManual = playlistURLManual?.playlistURLManual || '';
+      url = playlistURLManual || url;
+    } else {
+      let playlistURLAuto = await chrome.storage.sync.get('playlistURLAuto');
+      playlistURLAuto = playlistURLAuto?.playlistURLAuto || '';
+      url = playlistURLAuto || url;
+    }
+    
+    // validate url
+    let validUrl = url.indexOf('https://www.youtube.com/') === 0;
+    validUrl = validUrl && url.includes('list=');
+    if (!validUrl) {
+      alert('URL is invalid. Open YouTube playlist.');
+      return;
+    }
+
+    if (!manual) {
+      // automated
+      chrome.storage.local.set({ startUrl: url, openTime: (new Date()).getTime() });
     }
     window.open(url);
   }
-  else if (playType === 'channels') {
+  else {
     // open YT channels in multiple tabs
     window.open('https://www.youtube.com/playlist?list=PLQxYKug91T31ixyCs81TwIl8wAiD9AZAH&openNew=1&mute=1');
-
-  } else {
-    // open default playlist
-    let url = 'https://www.youtube.com/playlist?list=PLQxYKug91T31ixyCs81TwIl8wAiD9AZAH';
-    let playlistURLAuto = await chrome.storage.sync.get('playlistURLAuto');
-    playlistURLAuto = playlistURLAuto?.playlistURLAuto || '';
-    if (playlistURLAuto) {
-      url = playlistURLAuto;
-      let validUrl = url.indexOf('https://www.youtube.com/') === 0;
-      validUrl = validUrl && url.includes('list=');
-      if (!validUrl) {
-        alert('URL is invalid. Open YouTube playlist.');
-        return;
-      }
-    }
-
-    chrome.storage.local.set({ startUrl: url, openTime: (new Date()).getTime() });
-    window.open(url);
-
   }
 }
 
@@ -70,7 +66,6 @@ async function setForm() {
 
   let promoteType = await chrome.storage.sync.get('promoteType');
   promoteType = promoteType?.promoteType || 'manual';
-  // document.getElementById(promoteType).checked = true;
   document.getElementById('promoteType').value = promoteType;
   selectPromoteType(promoteType);
 }
@@ -107,7 +102,7 @@ if (formLike) {
 }
 
 function selectPromoteType(tabName) {
-  let i, type1, type2;
+  let type1, type2;
 
   type2 = document.getElementById(tabName === 'manual' ? 'promoteDetailsAuto' : 'promoteDetailsManual');
   type1 = document.getElementById(tabName === 'manual' ? 'promoteDetailsManual' : 'promoteDetailsAuto');
@@ -117,6 +112,23 @@ function selectPromoteType(tabName) {
   type2.style.visibility = 'hidden';
   type2.style.maxHeight = 0;
 }
+
+function localizeHtmlPage() {
+    //Localize by replacing __MSG_***__ meta tags
+    var objects = document.getElementsByClassName('local');
+    for (var j = 0; j < objects.length; j++) {
+        var obj = objects[j];
+
+        var valStrH = obj.innerHTML.toString();
+        var valNewH = valStrH.replace(/__MSG_(\w+)__/g, function(match, v1) {
+            return v1 ? chrome.i18n.getMessage(v1) : "";
+        });
+        if(valNewH != valStrH) {
+            obj.innerHTML = valNewH;
+        }
+    }
+}
+localizeHtmlPage();
 
 document.getElementById('clickactivity1').addEventListener('click', () => startScript(1));
 document.getElementById('clickactivity5').addEventListener('click', () => startScript(5));

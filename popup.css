@@ -3,9 +3,10 @@
   background-color: #444444;
   background-color: #21252b;
   color: white !important;  
+  font-family: Inter,Helvetica Neue,Helvetica, roboto, Arial, Ubuntu, sans-serif;
 }
 .openchannels-popup {
-  padding: 5px 30px;
+  padding: 16px 30px 8px 30px;
 }
 
 .openchannels-popup .buttons {
@@ -44,7 +45,7 @@
   font-weight: 500;
   line-height: 25px;
   display: inline-block;
-  margin: 10px 0 0px 0;
+  margin: 0px 0 0px 0;
 }
 .ytsupport-descr {
   line-height: 17px;
@@ -63,6 +64,9 @@
   position: relative;
   top: -15px;
 }
+.openchannels-popup .logo img {
+  max-width: 100%;
+}
 .openchannels-popup .links-bottom {
   float: right;
   margin-top: 20px;
@@ -71,7 +75,8 @@
   right: 20px;
 }
 
-.openchannels-popup p {
+.openchannels-popup p,
+.openchannels-popup .text {
   line-height: 20px;
   font-size: 14px;
 }
@@ -83,7 +88,7 @@
   margin-bottom: 5px;
 }
 #playlistURLAuto {
-  min-width: 230px;
+  min-width: 210px;
   background-color: rgba(255,255,255,0.2);
   background-color: rgba(0,0,0,0);
   color: rgba(255,255,255,0.85);
@@ -126,12 +131,10 @@
   margin-top: 1px;
   border-radius: 3px !important;
 }
-.instructions {
-}
 
 .defaultplaylist-link {
   display: inline-block;
-  max-width: 180px !important;
+  max-width: 130px !important;
   min-width: 110px !important;
   overflow-x: hidden;
   text-overflow: ellipsis;
@@ -152,4 +155,3 @@
   font-size: 12px;
   text-decoration: none !important;
 }
-

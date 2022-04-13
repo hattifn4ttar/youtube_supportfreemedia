@@ -1,0 +1,57 @@
+{
+  "appName": {
+    "message": "Support free media on YouTube",
+    "description": ""
+  },
+  "appDesc": {
+    "message": "Support Independent YouTube channels - fight propaganda",
+    "description": ""
+  },
+  "popupTitle": {
+    "message": "Support Free Russian Media"
+  },
+  "popupTitleDescr": {
+    "message": "Reminds to 'Like' and comment YouTube videos from recommended channels."
+  },
+  "popupSchedule": {
+    "message": "Set a reminder to promote videos"
+  },
+
+  "popupPromotetypeLabel": {
+    "message": "Select instuctions to promote videos"
+  },
+  "popupPromotetypeOpt1": {
+    "message": "Manually"
+  },
+  "popupPromotetypeOpt2": {
+    "message": "Automatically"
+  },
+
+  "popupPlaytypeLabel": {
+    "message": "'Open Tabs' button will open multiple tabs and play videos"
+  },
+  "popupPlaytypeOpt1": {
+    "message": "By channel"
+  },
+  "popupPlaytypeOpt2": {
+    "message": "Recommented playlist:"
+  },
+  "popupPlaytypeOpt3": {
+    "message": "Your playlist:"
+  },
+
+  "popupManual1": {
+    "message": "1. Open a playlist with videos"
+  },
+  "popupManual2": {
+    "message": "2. Like a video and leave a comment"
+  },
+  "popupManual3": {
+    "message": "3. Watch a video at least 30 seconds and repeat, or run a playlist from the start after commenting videos."
+  },
+
+  "popupManualBtn": {
+    "message": "Open playlist"
+  }
+
+}

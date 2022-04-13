@@ -1,0 +1,57 @@
+{
+  "appName": {
+    "message": "Тест",
+    "description": ""
+  },
+  "appDesc": {
+    "message": "Тест описание",
+    "description": ""
+  },
+  "popupTitle": {
+    "message": "Поддержать Свободные Медиа"
+  },
+  "popupTitleDescr": {
+    "message": "Напоминает нажимать 'Like' и комментировать видео из рекоммендованных YouTube каналов."
+  },
+  "popupSchedule": {
+    "message": "Выберите время уведомлений"
+  },
+
+  "popupPromotetypeLabel": {
+    "message": "Bыберите инструкции для продвижения видео"
+  },
+  "popupPromotetypeOpt1": {
+    "message": "В ручную"
+  },
+  "popupPromotetypeOpt2": {
+    "message": "Автоматически"
+  },
+
+  "popupPlaytypeLabel": {
+    "message": "'Open tabs' откроет несколько вкладок и будет запускать видео:"
+  },
+  "popupPlaytypeOpt1": {
+    "message": "По каналам"
+  },
+  "popupPlaytypeOpt2": {
+    "message": "Рекоммендованный плейлист:"
+  },
+  "popupPlaytypeOpt3": {
+    "message": "Ваш плейлист:"
+  },
+
+  "popupManual1": {
+    "message": "1. Откройте плейлист"
+  },
+  "popupManual2": {
+    "message": "2. Нажмите 'Like' и напишите коммент к видео"
+  },
+  "popupManual3": {
+    "message": "3. Проиграйте 30 секунд видео, повторите, или запустите плейлист с начала после комментирования всех видео"
+  },
+
+  "popupManualBtn": {
+    "message": "Открыть плейлист"
+  }
+
+}
