@@ -91,11 +91,11 @@ async function showNotificationPopup() {
         <div class="notify-popup-title local">__MSG_notifyTitle__</div>
 
         <div class="notify-popup-buttons">
-          <button id="notifyOpen5" class="open-tabs-btn local">__MSG_notifyBtnTabs5__</button>
-          <button id="notifyOpen3" class="open-tabs-btn local">__MSG_notifyBtnTabs3__</button>  
-          <button id="notifyOpen2" class="open-tabs-btn local">__MSG_notifyBtnTabs2__</button>  
-          <button id="notifyOpen1" class="open-tabs-btn local">__MSG_notifyBtnTabs1__</button>
-          <button id="notifyClose" class="open-tabs-btn notify-close local">__MSG_notifyBtnClose__</button>
+          <button id="notifyOpen5" class="open-tabs-btn"><span class="local">__MSG_notifyBtnTabs5__</span></button>
+          <button id="notifyOpen3" class="open-tabs-btn"><span class="local">__MSG_notifyBtnTabs3__</span></button>  
+          <button id="notifyOpen2" class="open-tabs-btn"><span class="local">__MSG_notifyBtnTabs2__</span></button>  
+          <button id="notifyOpen1" class="open-tabs-btn"><span class="local">__MSG_notifyBtnTabs1__</span></button>
+          <button id="notifyClose" class="open-tabs-btn notify-close"><span class="local">__MSG_notifyBtnClose__</span></button>
         </div>
       </div>
   `);
@@ -107,8 +107,8 @@ async function showNotificationPopup() {
         <div class="notify-popup-title local">__MSG_notifyTitle__</div>
 
         <div class="notify-popup-buttons">
-          <button id="notifyClose" class="open-tabs-btn local">__MSG_notifyBtnManual__</button>
-          <button id="notifyClose" class="open-tabs-btn notify-close local">__MSG_notifyBtnClose__</button>
+          <button id="notifyOpenManual" class="open-tabs-btn"><span class="local">__MSG_notifyBtnManual__</span></button>
+          <button id="notifyClose" class="open-tabs-btn notify-close"><span class="local">__MSG_notifyBtnClose__</span></button>
         </div>
       </div>
   `);
