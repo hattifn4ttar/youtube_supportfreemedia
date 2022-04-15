@@ -65,7 +65,8 @@ function highlightComment() {
     const channel = document.querySelector(".ytd-video-secondary-info-renderer .ytd-channel-name > .ytd-channel-name > a.yt-formatted-string");
 
     // add element to highlight like btn
-    if (true) {
+    let highlightElem = document.getElementById('commentHighlight');
+    if (!highlightElem) {
       console.log('[stopwar] COMMENT:', channel.href);
       
       let actionBtn = document.querySelector('.ytd-watch-flexy #meta-contents');
@@ -76,7 +77,7 @@ function highlightComment() {
         elemAdd.classList.add('comment-highlight');
         let elemText = document.createElement('div');
         elemText.classList.add('comment-highlight-text');
-        elemText.innerText = 'Примеры комментариев: \nCпасибо за правду! \nCпасибо за вашу работу \nОcтановите войну! \nCвободу политзаключенным!';
+        elemText.innerText = 'Примеры комментариев: \nНет войне \nCпасибо за правду! \nCпасибо за вашу работу \nCвободу политзаключенным!';
 
         let elemClose = document.createElement('div');
         elemClose.classList.add('comment-close');
@@ -84,8 +85,8 @@ function highlightComment() {
         elemClose.addEventListener('click',(e) => {
           e.preventDefault();
           e.stopPropagation();
-          let elemAdd2 = document.getElementById('commentHighlight');
-          if (elemAdd2) elemAdd2.remove();
+          let elemAdd2 = document.getElementsByClassName('comment-highlight');
+          if (elemAdd2?.length) [...elemAdd2].forEach(d => d.remove());
           chrome.storage.local.set({ likeUrlSkip: window.location.href });
         });
         elemAdd.appendChild(elemClose);

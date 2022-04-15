@@ -4,7 +4,7 @@
   right: 20px;
   background-color: white;
   z-index: 100000000;
-  width: 450px;
+  width: 480px;
   height: 170px;
   font-family: Ubuntu, Arial, sans-serif;
 
@@ -36,7 +36,7 @@
 .notify-popup-title {
   margin-left: 20px;
   display: inline-block;
-  max-width: 350px;
+  max-width: 390px;
   font-size: 18px;
   font-weight: 500;
   line-height: 25px;

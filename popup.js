@@ -123,18 +123,24 @@ function localizeHtmlPage() {
         var valNewH = valStrH.replace(/__MSG_(\w+)__/g, function(match, v1) {
             return v1 ? chrome.i18n.getMessage(v1) : "";
         });
-        if(valNewH != valStrH) {
-            obj.innerHTML = valNewH;
-        }
+        if(valNewH != valStrH) { obj.innerHTML = valNewH; }
     }
 }
 localizeHtmlPage();
+
+function clearTime() {
+  document.getElementById('time').value = '';
+  chrome.storage.sync.set({ notifyDisabled: true });
+  chrome.storage.sync.set({ notifyTime: null });
+}
 
 document.getElementById('clickactivity1').addEventListener('click', () => startScript(1));
 document.getElementById('clickactivity5').addEventListener('click', () => startScript(5));
 document.getElementById('clickactivity3').addEventListener('click', () => startScript(3));
 document.getElementById('clickactivity2').addEventListener('click', () => startScript(2));
 document.getElementById('clickOpenPlaylist').addEventListener('click', () => startScript(0));
+document.getElementById('timeRemoveBtn').addEventListener('click', clearTime);
+
 
 document.getElementById('githubLink').addEventListener('click', () => window.open('https://github.com/hattifn4ttar/youtube_supportfreemedia'));
 document.getElementById('youtubeLink').addEventListener('click', () => window.open('https://www.youtube.com/watch?v=jowEf5tSSyc'));

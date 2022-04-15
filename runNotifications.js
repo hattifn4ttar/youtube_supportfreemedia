@@ -45,6 +45,20 @@ async function startScript(nTabs) {
   }
 }
 
+function localizeHtmlPage() {
+  //Localize by replacing __MSG_***__ meta tags
+  var objects = document.getElementsByClassName('local');
+  for (var j = 0; j < objects.length; j++) {
+      var obj = objects[j];
+
+      var valStrH = obj.innerHTML.toString();
+      var valNewH = valStrH.replace(/__MSG_(\w+)__/g, function(match, v1) {
+          return v1 ? chrome.i18n.getMessage(v1) : "";
+      });
+      if(valNewH != valStrH) { obj.innerHTML = valNewH; }
+  }
+}
+
 async function closePopup() {
   chrome.storage.sync.set({ notifiedDate: (new Date().toISOString()).substring(0, 10) });
   console.log('CLOSE');
@@ -71,48 +85,36 @@ async function showNotificationPopup() {
 
   console.log('[stopwar] NOTIFY:');
   let elemPopup = createElementFromHTML(`
-    <div class="notify-popup" id="notifyPopup">
-        <div class="notify-popup-descr">
-          Extension "Stop war - support free media on YouTube"<br />
-          You can change notification time in the extension settings.
-        </div>
+      <div class="notify-popup" id="notifyPopup">
+        <div class="notify-popup-descr local">__MSG_notifyTopDescription__</div>
         <img src="https://hattifn4ttar.github.io/supportfreemedia/images/img128_2.png" alt="Promote YouTube Playlist" class="logo">
-        <div class="notify-popup-title">Reminder:<br />Run YouTube playlist, fight propaganda.</div>
+        <div class="notify-popup-title local">__MSG_notifyTitle__</div>
 
         <div class="notify-popup-buttons">
-          <button id="notifyOpen5" class="open-tabs-btn">5 tabs</button>
-          <button id="notifyOpen3" class="open-tabs-btn">3 tabs</button>  
-          <button id="notifyOpen2" class="open-tabs-btn">2 tabs</button>  
-          <button id="notifyOpen1" class="open-tabs-btn">1 tab</button>
-
-          <button id="notifyClose" class="open-tabs-btn notify-close">Close</button>
+          <button id="notifyOpen5" class="open-tabs-btn local">__MSG_notifyBtnTabs5__</button>
+          <button id="notifyOpen3" class="open-tabs-btn local">__MSG_notifyBtnTabs3__</button>  
+          <button id="notifyOpen2" class="open-tabs-btn local">__MSG_notifyBtnTabs2__</button>  
+          <button id="notifyOpen1" class="open-tabs-btn local">__MSG_notifyBtnTabs1__</button>
+          <button id="notifyClose" class="open-tabs-btn notify-close local">__MSG_notifyBtnClose__</button>
         </div>
-        <!--
-        <br />
-        <div class="notify-popup-descr float-right">
-          Applying recently used configuration
-        </div>
-        -->
       </div>
   `);
   if (promoteType === 'manual') {
     elemPopup = createElementFromHTML(`
     <div class="notify-popup" id="notifyPopup">
-        <div class="notify-popup-descr">
-          Extension "Stop war - support free media on YouTube"<br />
-          You can change notification time in the extension settings.
-        </div>
+      <div class="notify-popup-descr local">__MSG_notifyTopDescription__</div>
         <img src="https://hattifn4ttar.github.io/supportfreemedia/images/img128_2.png" alt="Promote YouTube Playlist" class="logo">
-        <div class="notify-popup-title">Reminder:<br />Run YouTube playlist, fight propaganda.</div>
+        <div class="notify-popup-title local">__MSG_notifyTitle__</div>
 
         <div class="notify-popup-buttons">
-          <button id="notifyOpenManual" class="open-tabs-btn">Open saved playlist</button>
-          <button id="notifyClose" class="open-tabs-btn notify-close">Close</button>
+          <button id="notifyClose" class="open-tabs-btn local">__MSG_notifyBtnManual__</button>
+          <button id="notifyClose" class="open-tabs-btn notify-close local">__MSG_notifyBtnClose__</button>
         </div>
       </div>
   `);
   }
   document.body.appendChild(elemPopup);
+  setTimeout(() => localizeHtmlPage(), 10);
 
   setTimeout(() => {
     if (promoteType === 'manual') {
@@ -147,7 +149,7 @@ async function checkNotify() {
   const currentDate = (new Date().toISOString()).substring(0, 10);
 
   if (notifyTime || (!notifyTime && !notifyDisabled)) {
-    let [hrSaved, minutesSaved] = notifyTime.split(':');
+    let [hrSaved, minutesSaved] = notifyTime?.split(':') || [0,0];
     hrSaved = Number(hrSaved);
     hrSaved = hrSaved == 12 ? 0 : hrSaved;
     minutesSaved = Number(minutesSaved);
