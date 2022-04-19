@@ -30,16 +30,22 @@
 
 
   "popupPlaytypeLabel": {
-    "message": "\"Open Tabs\" button will open multiple tabs and play videos. To mute the sound, right click on the tab and select \"Mute site\""
+    "message": "\"Open Tabs\" button will open multiple tabs and play videos. Do not mute the video and do not mute the browser tab!"
   },
-  "popupPlaytypeOpt1": {
+  "popupPlaytypeOptChannel": {
     "message": "By channel"
   },
-  "popupPlaytypeOpt2": {
-    "message": "Recommented playlist:"
+  "popupPlaytypeOptPlaylist": {
+    "message": "Playlist"
   },
-  "popupPlaytypeOpt3": {
-    "message": "Your playlist:"
+  "popupBtnTabs3": {
+    "message": "3 tabs"
+  },
+  "popupBtnTabs2": {
+    "message": "2 tabs"
+  },
+  "popupBtnTabs1": {
+    "message": "1 tab"
   },
 
 
@@ -47,7 +53,7 @@
     "message": "1. Open a playlist with videos"
   },
   "popupManual2": {
-    "message": "2. Like a video and leave a comment"
+    "message": "2. Click \"Like\" and leave a comment"
   },
   "popupManual3": {
     "message": "3. Watch a video at least 30 seconds and repeat, or run a playlist from the start after commenting videos."
@@ -56,13 +62,17 @@
   "popupManualBtn": {
     "message": "Open playlist"
   },
+  
 
 
   "notifyTopDescription": {
-    "message": "Extension \"Stop war - support free media on YouTube\"<br />You can change notification time in the extension settings."
+    "message": "Extension \"Stop war - support free media on YouTube\"<br />You can change notification time and select a playlist in the extension settings."
   },
   "notifyTitle": {
     "message": "Reminder: &nbsp;run YouTube playlist, support independent media"
+  },
+  "notifyPlaylist": {
+    "message": "Playlist: "
   },
   "notifyBtnClose": {
     "message": "Close"

@@ -10,12 +10,12 @@
 }
 
 .openchannels-popup .buttons {
-  min-width: 340px;
+  min-width: 380px;
   margin-bottom: 20px;
 }
 .openchannels-popup .buttons2 {
-  min-width: 340px;
-  margin-bottom: -120px;
+  min-width: 380px;
+  margin-bottom: 40px;
 }
 
 .open-tabs-btn {
@@ -87,35 +87,29 @@
 .promote-details-li {
   margin-bottom: 5px;
 }
-#playlistURLAuto {
+
+#radiobuttonsPlaylist {
+  margin-top: 2px;
+  margin-bottom: 10px;
+}
+.playlist-radio-default {
+  margin-bottom: 2px;
+}
+.playlist-link-edit {
+  background-color: rgba(0,0,0,0);
+  color: rgba(255,255,255,0.85);
+  border-radius: 2px;
+  border-color: transparent !important;
+  font-size: 12px;
+  text-overflow: ellipsis;
   min-width: 210px;
-  background-color: rgba(255,255,255,0.2);
-  background-color: rgba(0,0,0,0);
-  color: rgba(255,255,255,0.85);
-  border-radius: 2px;
-  border-color: transparent;
-  font-size: 12px;
-  text-overflow: ellipsis;
+  max-width: 210px;
 }
-#playlistURLManual {
-  min-width: 240px;
-  background-color: rgba(255,255,255,0.2);
-  background-color: rgba(0,0,0,0);
-  color: rgba(255,255,255,0.85);
-  border-radius: 2px;
-  border-color: transparent;
-  font-size: 12px;
-  text-overflow: ellipsis;
-}
-#playlistURLAuto:focus,
-#playlistURLAuto:hover {
-  background-color: rgba(255,255,255,0.1);
+.playlist-link-edit:hover,
+.playlist-link-edit:focus {
+  background-color: rgba(255,255,255,0.1) !important;
   color: white;
-}
-#playlistURLManual:focus,
-#playlistURLManual:hover {
-  background-color: rgba(255,255,255,0.1);
-  color: white;
+  border-color: transparent !important;
 }
 #formLike {
   margin-bottom: 5px;
@@ -132,16 +126,18 @@
   border-radius: 3px !important;
 }
 
-.defaultplaylist-link {
+.playlist-radio {
   display: inline-block;
-  max-width: 130px !important;
+  max-width: 350px !important;
   min-width: 110px !important;
-  overflow-x: hidden;
+  overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+.defaultplaylist-link {
   text-decoration: none !important;
   position: relative;
-  top: 2px;
+  top: 0px;
 }
 .defaultplaylist-link-manual {
   display: inline-block;
@@ -164,4 +160,25 @@
 }
 .time-remove:hover {
   background-color: rgba(255,255,255,0.2);
+}
+
+#playlistURLAdd {
+  margin-left: 20px;
+}
+#addNewPlaylistBtn {
+  padding: 3px 10px; 
+  visibility: hidden;
+}
+.promoteDetailsManual {
+  line-height: 20px;
+    font-size: 14px;
+}
+
+.playlist-word {
+  display: inline-block;
+}
+
+.promote-instructions {
+  margin-bottom: 0px;
+  line-height: 18px;
 }

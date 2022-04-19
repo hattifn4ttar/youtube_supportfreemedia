@@ -1,48 +1,34 @@
 // show notifications
+let defaultURL = 'https://www.youtube.com/playlist?list=PLQxYKug91T31ixyCs81TwIl8wAiD9AZAH';
 
 async function startScript(nTabs) {
-  // open the start page based on user preferences
-  let playType = await chrome.storage.sync.get('playType');
-  playType = playType.playType;
-
-  chrome.storage.local.set({ nTabs });
-  chrome.storage.sync.set({ notifiedDate: (new Date().toISOString()).substring(0, 10) });
-  
-  let manual = !nTabs;
-  if (manual || playType !== 'channels') {
-    // run playlist
-    // default url
-    let url = 'https://www.youtube.com/playlist?list=PLQxYKug91T31ixyCs81TwIl8wAiD9AZAH';
-
-    // user url
-    if (manual) {
-      let playlistURLManual = await chrome.storage.sync.get('playlistURLManual');
-      playlistURLManual = playlistURLManual?.playlistURLManual || '';
-      url = playlistURLManual || url;
-    } else {
-      let playlistURLAuto = await chrome.storage.sync.get('playlistURLAuto');
-      playlistURLAuto = playlistURLAuto?.playlistURLAuto || '';
-      url = playlistURLAuto || url;
-    }
-    
-    // validate url
-    let validUrl = url.indexOf('https://www.youtube.com/') === 0;
-    validUrl = validUrl && url.includes('list=');
-    if (!validUrl) {
-      alert('URL is invalid. Open YouTube playlist.');
-      return;
-    }
-
-    if (!manual) {
-      // automated
-      chrome.storage.local.set({ startUrl: url, openTime: (new Date()).getTime() });
-    }
-    window.open(url);
-  }
-  else {
-    // open YT channels in multiple tabs
-    window.open('https://www.youtube.com/playlist?list=PLQxYKug91T31ixyCs81TwIl8wAiD9AZAH&openNew=1&mute=1');
-  }
+   // open the start page based on user preferences
+   let playType = await chrome.storage.sync.get('playType');
+   playType = playType.playType;
+ 
+   chrome.storage.local.set({ nTabs });
+   chrome.storage.sync.set({ notifiedDate: (new Date().toISOString()).substring(0, 10) });
+ 
+   let manual = !nTabs;
+   if (manual || playType !== 'channels') {
+     // run playlist
+     let url = playType || defaultURL;
+     
+     // validate url
+     let validUrl = url.indexOf('https://www.youtube.com/') === 0;
+     validUrl = validUrl && url.includes('list=');
+     if (!validUrl) { url = defaultURL; }
+ 
+     if (!manual) {
+       // automated
+       chrome.storage.local.set({ startUrl: url, openTime: (new Date()).getTime() });
+     }
+     window.open(url);
+   }
+   else {
+     // open YT channels in multiple tabs
+     window.open('https://www.youtube.com/playlist?list=PLQxYKug91T31ixyCs81TwIl8wAiD9AZAH&openNew=1&mute=1');
+   }
 }
 
 function localizeHtmlPage() {
@@ -82,16 +68,20 @@ function createElementFromHTML(htmlString) {
 async function showNotificationPopup() {
   let promoteType = await chrome.storage.sync.get('promoteType');
   promoteType = promoteType?.promoteType || 'manual';
+  let playType = await chrome.storage.sync.get('playType');
+  playType = playType.playType;
 
   console.log('[stopwar] NOTIFY:');
   let elemPopup = createElementFromHTML(`
       <div class="notify-popup" id="notifyPopup">
         <div class="notify-popup-descr local">__MSG_notifyTopDescription__</div>
         <img src="https://hattifn4ttar.github.io/supportfreemedia/images/img128_2.png" alt="Promote YouTube Playlist" class="logo">
-        <div class="notify-popup-title local">__MSG_notifyTitle__</div>
+        <div class="notify-popup-text">
+          <div class="notify-popup-title local">__MSG_notifyTitle__</div>
+        </div>
+        <div class="notify-popup-playlist local">__MSG_notifyPlaylist__  ` + playType?.replace('https://', '') + `</div>
 
         <div class="notify-popup-buttons">
-          <button id="notifyOpen5" class="open-tabs-btn"><span class="local">__MSG_notifyBtnTabs5__</span></button>
           <button id="notifyOpen3" class="open-tabs-btn"><span class="local">__MSG_notifyBtnTabs3__</span></button>  
           <button id="notifyOpen2" class="open-tabs-btn"><span class="local">__MSG_notifyBtnTabs2__</span></button>  
           <button id="notifyOpen1" class="open-tabs-btn"><span class="local">__MSG_notifyBtnTabs1__</span></button>
@@ -104,7 +94,10 @@ async function showNotificationPopup() {
     <div class="notify-popup" id="notifyPopup">
       <div class="notify-popup-descr local">__MSG_notifyTopDescription__</div>
         <img src="https://hattifn4ttar.github.io/supportfreemedia/images/img128_2.png" alt="Promote YouTube Playlist" class="logo">
-        <div class="notify-popup-title local">__MSG_notifyTitle__</div>
+        <div class="notify-popup-text">
+          <div class="notify-popup-title local">__MSG_notifyTitle__</div>
+        </div>
+        <div class="notify-popup-playlist local">__MSG_notifyPlaylist__ ` + playType?.replace('https://', '') + `</div>
 
         <div class="notify-popup-buttons">
           <button id="notifyOpenManual" class="open-tabs-btn"><span class="local">__MSG_notifyBtnManual__</span></button>
@@ -122,7 +115,6 @@ async function showNotificationPopup() {
       document.getElementById('notifyClose').addEventListener('click', () => closePopup());
     } else {
       document.getElementById('notifyOpen1').addEventListener('click', () => startScript(1));
-      document.getElementById('notifyOpen5').addEventListener('click', () => startScript(5));
       document.getElementById('notifyOpen3').addEventListener('click', () => startScript(3));
       document.getElementById('notifyOpen2').addEventListener('click', () => startScript(2));
       document.getElementById('notifyClose').addEventListener('click', () => closePopup());

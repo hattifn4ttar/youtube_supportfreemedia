@@ -5,7 +5,7 @@
   background-color: white;
   z-index: 100000000;
   width: 480px;
-  height: 170px;
+  height: 183px;
   font-family: Ubuntu, Arial, sans-serif;
 
   background-color: #21252b;
@@ -31,15 +31,27 @@
   max-height: 50px;
   display: inline-block;
   position: relative;
-  top: 5px;
+  top: 8px;
 }
-.notify-popup-title {
+.notify-popup-text {
   margin-left: 20px;
   display: inline-block;
   max-width: 390px;
+  margin-top: -2px;
+}
+.notify-popup-title {
   font-size: 18px;
   font-weight: 500;
-  line-height: 25px;
+  line-height: 23px;
+}
+.notify-popup-playlist {
+  font-size: 14px;
+  padding-left: 73px;
+  margin-top: 6px;
+  max-width: 400px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .notify-close {

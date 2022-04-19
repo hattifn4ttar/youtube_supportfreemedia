@@ -30,16 +30,22 @@
 
 
   "popupPlaytypeLabel": {
-    "message": "\"Open tabs\" кнопка откроет несколько вкладок и будет запускать видео. Чтобы отключить звук нажмите правой кнопкой на вкладку браузера и выберите \"Mute site\""
+    "message": "\"Открыть вкладки\" кнопка откроет несколько вкладок и будет запускать видео. Не отключайте звук видео или сайта!"
   },
-  "popupPlaytypeOpt1": {
+  "popupPlaytypeOptChannel": {
     "message": "По каналам"
   },
-  "popupPlaytypeOpt2": {
-    "message": "Рекоммендованный плейлист:"
+  "popupPlaytypeOptPlaylist": {
+    "message": "Плейлист"
   },
-  "popupPlaytypeOpt3": {
-    "message": "Ваш плейлист:"
+  "popupBtnTabs3": {
+    "message": "Открыть 3 вкладки"
+  },
+  "popupBtnTabs2": {
+    "message": "2 вкладки"
+  },
+  "popupBtnTabs1": {
+    "message": "1 вкладка"
   },
 
 
@@ -59,16 +65,16 @@
 
 
   "notifyTopDescription": {
-    "message": "Расширение \"Stop war - support free media on YouTube\"<br />Поменять время уведомлений можно в настройках расширения"
+    "message": "Расширение \"Stop war - support free media on YouTube\"<br />Поменять время уведомлений и плейлист можно в настройках расширения"
   },
   "notifyTitle": {
     "message": "Напоминание: &nbsp;запустите YouTube плейлист, поддержите независимые медиа"
   },
+  "notifyPlaylist": {
+    "message": "Плейлист: "
+  },
   "notifyBtnClose": {
     "message": "Закрыть"
-  },
-  "notifyBtnTabs5": {
-    "message": "5 вкладок"
   },
   "notifyBtnTabs3": {
     "message": "3 вкладки"
