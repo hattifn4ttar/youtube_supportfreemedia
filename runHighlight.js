@@ -55,11 +55,22 @@ function highlightLikeButton() {
   }, 2000);
 }
 
+const defaultComments = [
+  { "ru": "Нет войне", "en": "" },
+  { "ru": "Cпасибо за правду!", "en": "" },
+  { "ru": "Cпасибо за вашу работу", "en": "" },
+  { "ru": "Cвободу политзаключенным!", "en": "" },
+]
 
 // highlightComment();
-function highlightComment() {
+async function highlightComment() {
   const commentBtn = document.getElementById('commentHighlight');
   if (commentBtn) return;
+
+  // load comments suggestions
+  let comments = await chrome.storage.local.get('commentsSuggestions');
+  comments = comments?.commentsSuggestions || defaultComments;
+  commentsText = comments.map(d => d.ru).join(' \n');
 
   setTimeout(async () => {
     const channel = document.querySelector(".ytd-video-secondary-info-renderer .ytd-channel-name > .ytd-channel-name > a.yt-formatted-string");
@@ -77,7 +88,7 @@ function highlightComment() {
         elemAdd.classList.add('comment-highlight');
         let elemText = document.createElement('div');
         elemText.classList.add('comment-highlight-text');
-        elemText.innerText = 'Примеры комментариев: \nНет войне \nCпасибо за правду! \nCпасибо за вашу работу \nCвободу политзаключенным!';
+        elemText.innerText = 'Примеры комментариев: \n' + commentsText;
 
         let elemClose = document.createElement('div');
         elemClose.classList.add('comment-close');

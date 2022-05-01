@@ -4,7 +4,7 @@
     "description": ""
   },
   "appDesc": {
-    "message": "Support Independent YouTube channels - fight propaganda",
+    "message": "Support Independent YouTube channels",
     "description": ""
   },
   "popupTitle": {
@@ -65,7 +65,7 @@
 
 
   "notifyTopDescription": {
-    "message": "Расширение \"Stop war - support free media on YouTube\"<br />Поменять время уведомлений и плейлист можно в настройках расширения"
+    "message": "Расширение \"Support free media on YouTube\"<br />Поменять время уведомлений и плейлист можно в настройках расширения"
   },
   "notifyTitle": {
     "message": "Напоминание: &nbsp;запустите YouTube плейлист, поддержите независимые медиа"

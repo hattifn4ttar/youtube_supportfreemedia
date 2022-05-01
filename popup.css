@@ -16,6 +16,7 @@
 .openchannels-popup .buttons2 {
   min-width: 380px;
   margin-bottom: 40px;
+  margin-top: 5px;
 }
 
 .open-tabs-btn {
@@ -181,4 +182,6 @@
 .promote-instructions {
   margin-bottom: 0px;
   line-height: 18px;
+}
+.playlist-radiobuttons-container {
 }

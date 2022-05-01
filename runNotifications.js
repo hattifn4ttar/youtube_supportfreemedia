@@ -2,33 +2,33 @@
 let defaultURL = 'https://www.youtube.com/playlist?list=PLQxYKug91T31ixyCs81TwIl8wAiD9AZAH';
 
 async function startScript(nTabs) {
-   // open the start page based on user preferences
-   let playType = await chrome.storage.sync.get('playType');
-   playType = playType.playType;
- 
-   chrome.storage.local.set({ nTabs });
-   chrome.storage.sync.set({ notifiedDate: (new Date().toISOString()).substring(0, 10) });
- 
-   let manual = !nTabs;
-   if (manual || playType !== 'channels') {
-     // run playlist
-     let url = playType || defaultURL;
-     
-     // validate url
-     let validUrl = url.indexOf('https://www.youtube.com/') === 0;
-     validUrl = validUrl && url.includes('list=');
-     if (!validUrl) { url = defaultURL; }
- 
-     if (!manual) {
-       // automated
-       chrome.storage.local.set({ startUrl: url, openTime: (new Date()).getTime() });
-     }
-     window.open(url);
-   }
-   else {
-     // open YT channels in multiple tabs
-     window.open('https://www.youtube.com/playlist?list=PLQxYKug91T31ixyCs81TwIl8wAiD9AZAH&openNew=1&mute=1');
-   }
+  // open the start page based on user preferences
+  let playType = await chrome.storage.sync.get('playType');
+  playType = playType.playType;
+
+  chrome.storage.local.set({ nTabs });
+  chrome.storage.sync.set({ notifiedDate: (new Date().toISOString()).substring(0, 10) });
+
+  let manual = !nTabs;
+  if (manual || playType !== 'channels') {
+    // run playlist
+    let url = playType || defaultURL;
+
+    // validate url
+    let validUrl = url.indexOf('https://www.youtube.com/') === 0;
+    validUrl = validUrl && url.includes('list=');
+    if (!validUrl) { url = defaultURL; }
+
+    if (!manual) {
+      // automated
+      chrome.storage.local.set({ startUrl: url, openTime: (new Date()).getTime() });
+    }
+    window.open(url);
+  }
+  else {
+    // open YT channels in multiple tabs
+    window.open('https://www.youtube.com/playlist?list=PLQxYKug91T31ixyCs81TwIl8wAiD9AZAH&openNew=1&mute=1');
+  }
 }
 
 function localizeHtmlPage() {
@@ -154,5 +154,21 @@ async function checkNotify() {
     if (currentDate > notifiedDate && (hrCurrent > hrSaved || minutesCurrent >= minutesSaved && hrCurrent >= hrSaved)) {
       showNotificationPopup();
     }
+  }
+
+  setTimeout(() => updateSettings(), 1000);
+}
+
+async function updateSettings() {
+  let now = new Date();
+  let lastUpdated = await chrome.storage.local.get('lastUpdatedSettings');
+  lastUpdated = lastUpdated?.lastUpdatedSettings || null;
+
+  if (!lastUpdated || (lastUpdated && (new Date(lastUpdated)) && (now.getTime() - (new Date(lastUpdated)).getTime()) > 1000 * 3600)) {
+    sendRequest('playlistSettings.json', async (json) => {
+      console.log('[stopwar] UPDATE SETTINS:', json);
+      if (json?.comments?.length > 2) chrome.storage.local.set({ commentsSuggestions: json.comments });
+      chrome.storage.local.set({ lastUpdatedSettings: now.toISOString() });
+    });
   }
 }

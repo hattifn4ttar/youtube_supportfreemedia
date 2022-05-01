@@ -2,7 +2,7 @@
   "name": "__MSG_appName__",
   "description": "__MSG_appDesc__",
   "default_locale": "en",
-  "version": "1.13",
+  "version": "1.15",
   "manifest_version": 3,
   "permissions": ["storage"],
   "icons": {
@@ -13,12 +13,12 @@
     {
       "matches": ["https://www.youtube.com/*"],
       "css": ["popup.css", "contentHighlight.css", "contentNotifications.css"],
-      "js": ["config.js", "runByChannel.js", "runPlaylist.js", "runHighlight.js", "runNotifications.js", "runReport.js"]
+      "js": ["config.js", "runByChannel.js", "runPlaylist.js", "runHighlight.js", "runNotifications.js", "runReport.js", "utils.js"]
     }
   ],
 
   "action": {
-      "default_title": "Stop war - support free media",
+      "default_title": "Support free media",
       "default_popup": "popup.html"
   }
 }

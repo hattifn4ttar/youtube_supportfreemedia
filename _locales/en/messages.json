@@ -4,7 +4,7 @@
     "description": ""
   },
   "appDesc": {
-    "message": "Support Independent YouTube channels - fight propaganda",
+    "message": "Support Independent YouTube channels",
     "description": ""
   },
   "popupTitle": {
@@ -39,13 +39,13 @@
     "message": "Playlist"
   },
   "popupBtnTabs3": {
-    "message": "3 tabs"
+    "message": "Open 3 tabs"
   },
   "popupBtnTabs2": {
-    "message": "2 tabs"
+    "message": "Open 2 tabs"
   },
   "popupBtnTabs1": {
-    "message": "1 tab"
+    "message": "Open 1 tab"
   },
 
 
@@ -53,7 +53,7 @@
     "message": "1. Open a playlist with videos"
   },
   "popupManual2": {
-    "message": "2. Click \"Like\" and leave a comment"
+    "message": "2. Click \"Like\" and write a comment"
   },
   "popupManual3": {
     "message": "3. Watch a video at least 30 seconds and repeat, or run a playlist from the start after commenting videos."
@@ -66,7 +66,7 @@
 
 
   "notifyTopDescription": {
-    "message": "Extension \"Stop war - support free media on YouTube\"<br />You can change notification time and select a playlist in the extension settings."
+    "message": "Extension \"Support free media on YouTube\"<br />You can change notification time and select a playlist in the extension settings."
   },
   "notifyTitle": {
     "message": "Reminder: &nbsp;run YouTube playlist, support independent media"

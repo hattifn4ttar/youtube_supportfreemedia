@@ -1,13 +1,13 @@
 // ----------------------------------------------------------
-// this part of the code is responsible for "Playlist" option
+// "Run Playlist" option
 // ----------------------------------------------------------
-
+let videoDurationSec = 120;
 
 // -- start helpers -----------------------------------------
 function getVideoStartB(video, isLastVideo) {
   // get random length
   const randomMultiplier = (0.5 + Math.random() * 1);
-  let watchTimeSec = Math.floor(randomMultiplier * 60 + 120, 0); // random time + ads
+  let watchTimeSec = Math.floor(randomMultiplier * 60 + videoDurationSec, 0); // random time + ads
   // watchTimeSec = 15;
 
   // get video duration
@@ -45,6 +45,33 @@ async function playNextVideoB(tab) {
     likeVideo();
   }, 2000);
 
+  // stop playing after ~300 iterations
+  let counter = await chrome.storage.local.get('playCounter');
+  let limitPlayCount = await chrome.storage.local.get('limitPlayCount');
+  counter = counter?.playCounter || 0;
+  limitPlayCount = limitPlayCount?.limitPlayCount || 300;
+  let randomLimit = limitPlayCount * (0.8 + Math.random() * 0.2);
+  console.log('[stopwar] PLAY LIMIT:', counter, Math.round(randomLimit, 0), limitPlayCount);
+  if (counter > randomLimit) {
+    window.close();
+    return;
+  }
+  chrome.storage.local.set({ playCounter: counter + 1 });
+  // save history, one week
+  let countHistory = await chrome.storage.local.get('playCountHistory');
+  countHistory = countHistory?.playCountHistory || [];
+  let today = (new Date()).toISOString().substr(0, 10);
+  let historyToday = countHistory.find(d => d.date === today);
+  if (!historyToday) {
+    countHistory.push({ date: today, count: 1 });
+  } else {
+    historyToday.count = (historyToday?.count || 1) + 1;
+  }
+  if (countHistory.length > 7) countHistory.shift();
+  // console.log('[stopwar] SAVE HISTORY:', countHistory);
+  chrome.storage.local.set({ playCountHistory: countHistory });
+
+  // run
   setTimeout(async () => {
     let tabs = await chrome.storage.local.get('tabs');
     tabs = tabs.tabs;
@@ -86,6 +113,14 @@ async function openLoadPlaylist() {
   // open playlist and wait to load videos, then generate videos list for all tabs
   let nTabs = await chrome.storage.local.get('nTabs');
   nTabs = nTabs.nTabs;
+
+  // load settings from GitHub
+  // start counter - limit number of videos by 300
+  chrome.storage.local.set({ playCounter: 0 });
+  sendRequest('playlistSettings.json', (json) => {
+    if (json?.limitPlayCount > 30) chrome.storage.local.set({ limitPlayCount: json.limitPlayCount });
+    if (json?.videoDurationSec > 60) videoDurationSec = json.videoDurationSec;
+  });
 
   setTimeout(async () => {
     // grab elements from the playlist
