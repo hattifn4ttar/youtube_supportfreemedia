@@ -7,17 +7,24 @@ function removeHighlightLike() {
   const likeBtnClose = document.getElementsByClassName('like-btn-close');
   if (likeBtnClose?.length) [...likeBtnClose].forEach(e => { e.remove(); });
   if (likeBtnBkg?.length) [...likeBtnBkg].forEach(e => { e.remove(); });
+
+  const commentsHighlight = document.getElementsByClassName('comment-highlight');
+  if (commentsHighlight) [...commentsHighlight].forEach(e => { e.remove(); });
 }
 
 function highlightLikeButton() {
   setTimeout(async () => {
     const channel = document.querySelector(".ytd-video-secondary-info-renderer .ytd-channel-name > .ytd-channel-name > a.yt-formatted-string");
-    const likeBtnAdded = document.getElementsByClassName('like-btn-highlight');
-    const highlightLike = channelsOriginal.find(d => d.url === channel?.href);
+    let channelsList = await getFromStorageLocal('channels');
+    if (!channelsList?.length) channelsList = channelsOriginal;
+    const likeBtnHighlighted = document.getElementsByClassName('like-btn-highlight');
+    const highlightLike = channelsList.find(d => d.urls.some(uu => channel?.href?.includes(uu)));
+    // console.log('channels:', channelsList, channel?.href);
 
     const likeUrl = await getFromStorageLocal('likeUrl');
     const likeUrlSkip = await getFromStorageLocal('likeUrlSkip');
-    if (likeUrl === window.location.href && !(highlightLike && !likeBtnAdded?.length && likeUrlSkip !== window.location.href)) {
+
+    if (likeUrl === window.location.href && !(highlightLike && !likeBtnHighlighted?.length && likeUrlSkip !== window.location.href)) {
       setTimeout(() => highlightLikeButton(), 100);
       return;
     }
@@ -28,7 +35,7 @@ function highlightLikeButton() {
     // add element to highlight like btn
     if (highlightLike) {
       const likeBtn = document.querySelector('.ytd-video-primary-info-renderer .ytd-menu-renderer.force-icon-button.style-text:first-child');
-      console.log('[stopwar] HIGHLIGHT:', channel?.href, likeBtn?.onClick);
+      console.log('[stopwar] HIGHLIGHT:', channel?.href);
       if (likeBtn) likeBtn.addEventListener('click', () => { highlightComment(); }, false);
 
       if (likeBtn?.children?.length) {
@@ -52,7 +59,7 @@ function highlightLikeButton() {
       }
     }
     setTimeout(() => highlightLikeButton(), 100);
-  }, 2000);
+  }, 2500);
 }
 
 const defaultComments = [

@@ -13,15 +13,15 @@ async function getFromStorage(name) {
 }
 
 // load settings when opening a popup
-var xhr = new XMLHttpRequest();
-xhr.onload = function() {
-    var json = xhr.responseText;  
-    json = json.replace(/^[^(]*\(([\S\s]+)\);?$/, '$1'); // Turn JSONP in JSON
-    json = JSON.parse(json);
-    console.log('json:', json);
+const xhr = new XMLHttpRequest();
+xhr.onload = () => {
+  let json = xhr.responseText;
+  json = json.replace(/^[^(]*\(([\S\s]+)\);?$/, '$1'); // Turn JSONP in JSON
+  json = JSON.parse(json);
+  console.log('json:', json);
 
-    playlistsDefault = json;
-    showSavedPlaylists();
+  playlistsDefault = json;
+  showSavedPlaylists();
 };
 xhr.open('GET', 'https://hattifn4ttar.github.io/supportfreemedia/playlists.json');
 xhr.send();

@@ -100,7 +100,7 @@ async function showNotificationPopup() {
 
 
 
-setTimeout(() => checkNotify(), 2000);
+setTimeout(() => checkNotify(), 5000);
 
 async function checkNotify() {
 
@@ -123,22 +123,9 @@ async function checkNotify() {
     minutesCurrent = Number(minutesCurrent);
 
     if (currentDate > notifiedDate && (hrCurrent > hrSaved || minutesCurrent >= minutesSaved && hrCurrent >= hrSaved)) {
-      showNotificationPopup();
+      // update settings before opening notifications popup
+      updateSettings();
+      setTimeout(() => showNotificationPopup(), 2000);
     }
-  }
-
-  setTimeout(() => updateSettings(), 1000);
-}
-
-async function updateSettings() {
-  let now = new Date();
-  const lastUpdated = await getFromStorageLocal('lastUpdatedSettings') || null;
-
-  if (!lastUpdated || (lastUpdated && (new Date(lastUpdated)) && (now.getTime() - (new Date(lastUpdated)).getTime()) > 1000 * 3600)) {
-    sendRequest('playlistSettings.json', async (json) => {
-      console.log('[stopwar] UPDATE SETTINS:', json);
-      if (json?.comments?.length > 2) chrome.storage.local.set({ commentsSuggestions: json.comments });
-      chrome.storage.local.set({ lastUpdatedSettings: now.toISOString() });
-    });
   }
 }

@@ -8,7 +8,6 @@ async function getFromStorageLocal(name) {
 }
 
 // load settings fromo GitHub
-// it takes 1-7 days to publish a new version in Chrome Store - need some flexibility without updating the version
 function sendRequest(filename, callback) {
   const xhr = new XMLHttpRequest();
   xhr.onload = () => {
