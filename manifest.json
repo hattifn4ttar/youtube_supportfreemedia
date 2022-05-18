@@ -1,8 +1,8 @@
 {
   "name": "__MSG_appName__",
   "description": "__MSG_appDesc__",
-  "default_locale": "en",
-  "version": "1.15",
+  "default_locale": "ru",
+  "version": "1.16",
   "manifest_version": 3,
   "permissions": ["storage"],
   "icons": {
@@ -12,8 +12,8 @@
   "content_scripts": [
     {
       "matches": ["https://www.youtube.com/*"],
-      "css": ["popup.css", "contentHighlight.css", "contentNotifications.css"],
-      "js": ["config.js", "runByChannel.js", "runPlaylist.js", "runHighlight.js", "runNotifications.js", "runReport.js", "utils.js"]
+      "css": ["popup.css", "contentHighlight.css", "contentNotifications.css", "contentExtensionButton.css"],
+      "js": ["utils.js", "config.js", "runByChannel.js", "runPlaylist.js", "runHighlight.js", "runNotifications.js", "showExtensionButton.js"]
     }
   ],
 

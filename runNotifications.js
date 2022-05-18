@@ -3,13 +3,12 @@ let defaultURL = 'https://www.youtube.com/playlist?list=PLQxYKug91T31ixyCs81TwIl
 
 async function startScript(nTabs) {
   // open the start page based on user preferences
-  let playType = await chrome.storage.sync.get('playType');
-  playType = playType.playType;
+  const playType = await getFromStorage('playType');
 
   chrome.storage.local.set({ nTabs });
   chrome.storage.sync.set({ notifiedDate: (new Date().toISOString()).substring(0, 10) });
 
-  let manual = !nTabs;
+  const manual = !nTabs;
   if (manual || playType !== 'channels') {
     // run playlist
     let url = playType || defaultURL;
@@ -31,26 +30,9 @@ async function startScript(nTabs) {
   }
 }
 
-function localizeHtmlPage() {
-  //Localize by replacing __MSG_***__ meta tags
-  var objects = document.getElementsByClassName('local');
-  for (var j = 0; j < objects.length; j++) {
-      var obj = objects[j];
-
-      var valStrH = obj.innerHTML.toString();
-      var valNewH = valStrH.replace(/__MSG_(\w+)__/g, function(match, v1) {
-          return v1 ? chrome.i18n.getMessage(v1) : "";
-      });
-      if(valNewH != valStrH) { obj.innerHTML = valNewH; }
-  }
-}
-
 async function closePopup() {
   chrome.storage.sync.set({ notifiedDate: (new Date().toISOString()).substring(0, 10) });
-  console.log('CLOSE');
-
-  let notifyTime = await chrome.storage.sync.get('notifyTime');
-  notifyTime = notifyTime?.notifyTime;
+  const notifyTime = await getFromStorage('notifyTime');
 
   if (!notifyTime) {
     chrome.storage.sync.set({ notifyDisabled: true });
@@ -59,17 +41,10 @@ async function closePopup() {
   popupElem.remove();
 }
 
-
-function createElementFromHTML(htmlString) {
-  var div = document.createElement('div');
-  div.innerHTML = htmlString.trim();
-  return div.firstChild;
-}
 async function showNotificationPopup() {
-  let promoteType = await chrome.storage.sync.get('promoteType');
-  promoteType = promoteType?.promoteType || 'manual';
-  let playType = await chrome.storage.sync.get('playType');
-  playType = playType.playType;
+  const promoteType = await getFromStorage('promoteType') || 'manual';
+  const playType = await getFromStorage('playType');
+  const playlistUrl = playType ? playType?.replace('https://', '') : 'Default';
 
   console.log('[stopwar] NOTIFY:');
   let elemPopup = createElementFromHTML(`
@@ -79,7 +54,7 @@ async function showNotificationPopup() {
         <div class="notify-popup-text">
           <div class="notify-popup-title local">__MSG_notifyTitle__</div>
         </div>
-        <div class="notify-popup-playlist local">__MSG_notifyPlaylist__  ` + playType?.replace('https://', '') + `</div>
+        <div class="notify-popup-playlist local">__MSG_notifyPlaylist__  ` + playlistUrl + `</div>
 
         <div class="notify-popup-buttons">
           <button id="notifyOpen3" class="open-tabs-btn"><span class="local">__MSG_notifyBtnTabs3__</span></button>  
@@ -97,7 +72,7 @@ async function showNotificationPopup() {
         <div class="notify-popup-text">
           <div class="notify-popup-title local">__MSG_notifyTitle__</div>
         </div>
-        <div class="notify-popup-playlist local">__MSG_notifyPlaylist__ ` + playType?.replace('https://', '') + `</div>
+        <div class="notify-popup-playlist local">__MSG_notifyPlaylist__ ` + playlistUrl + `</div>
 
         <div class="notify-popup-buttons">
           <button id="notifyOpenManual" class="open-tabs-btn"><span class="local">__MSG_notifyBtnManual__</span></button>
@@ -129,13 +104,9 @@ setTimeout(() => checkNotify(), 2000);
 
 async function checkNotify() {
 
-  let notifyTime = await chrome.storage.sync.get('notifyTime');
-  notifyTime = notifyTime?.notifyTime;
-  let notifiedDate = await chrome.storage.sync.get('notifiedDate');
-  notifiedDate = notifiedDate?.notifiedDate || '';
-  let notifyDisabled = await chrome.storage.sync.get('notifyDisabled');
-  notifyDisabled = notifyDisabled?.notifyDisabled;
-
+  const notifyTime = await getFromStorage('notifyTime');
+  const notifiedDate = await getFromStorage('notifiedDate') || '';
+  const notifyDisabled = await getFromStorage('notifyDisabled');
 
   const currentTime = new Date().toLocaleTimeString();
   const currentDate = (new Date().toISOString()).substring(0, 10);
@@ -161,8 +132,7 @@ async function checkNotify() {
 
 async function updateSettings() {
   let now = new Date();
-  let lastUpdated = await chrome.storage.local.get('lastUpdatedSettings');
-  lastUpdated = lastUpdated?.lastUpdatedSettings || null;
+  const lastUpdated = await getFromStorageLocal('lastUpdatedSettings') || null;
 
   if (!lastUpdated || (lastUpdated && (new Date(lastUpdated)) && (now.getTime() - (new Date(lastUpdated)).getTime()) > 1000 * 3600)) {
     sendRequest('playlistSettings.json', async (json) => {

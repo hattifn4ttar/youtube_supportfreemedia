@@ -38,7 +38,7 @@ async function playNextVideoB(tab) {
   // video is open through url instead of click, to be able to set start time
   // also there is a concern about event.isTrusted, shoul we avoid using e.click()?
 
-  const { tabIndex, videoIndex, openTab, loopLength, nTabs, offset } = tab;
+  const { tabIndex, videoIndex, openTab, loopLength } = tab;
 
   setTimeout(() => {
     console.log('[stopwar] NEXT:', tabIndex);
@@ -46,11 +46,9 @@ async function playNextVideoB(tab) {
   }, 2000);
 
   // stop playing after ~300 iterations
-  let counter = await chrome.storage.local.get('playCounter');
-  let limitPlayCount = await chrome.storage.local.get('limitPlayCount');
-  counter = counter?.playCounter || 0;
-  limitPlayCount = limitPlayCount?.limitPlayCount || 300;
-  let randomLimit = limitPlayCount * (0.8 + Math.random() * 0.2);
+  const counter = await getFromStorageLocal('playCounter') || 0;
+  const limitPlayCount = await getFromStorageLocal('limitPlayCount') || 250;
+  const randomLimit = limitPlayCount * (0.8 + Math.random() * 0.2);
   console.log('[stopwar] PLAY LIMIT:', counter, Math.round(randomLimit, 0), limitPlayCount);
   if (counter > randomLimit) {
     window.close();
@@ -58,9 +56,8 @@ async function playNextVideoB(tab) {
   }
   chrome.storage.local.set({ playCounter: counter + 1 });
   // save history, one week
-  let countHistory = await chrome.storage.local.get('playCountHistory');
-  countHistory = countHistory?.playCountHistory || [];
-  let today = (new Date()).toISOString().substr(0, 10);
+  const countHistory = await getFromStorageLocal('playCountHistory') || [];
+  const today = (new Date()).toISOString().substr(0, 10);
   let historyToday = countHistory.find(d => d.date === today);
   if (!historyToday) {
     countHistory.push({ date: today, count: 1 });
@@ -73,21 +70,19 @@ async function playNextVideoB(tab) {
 
   // run
   setTimeout(async () => {
-    let tabs = await chrome.storage.local.get('tabs');
-    tabs = tabs.tabs;
+    const tabs = await getFromStorageLocal('tabs');
     tabs[tabIndex][videoIndex].openTab = false;
     chrome.storage.local.set({ tabs });
 
     // loop videos in the same tab
     const newVideoIndex = (videoIndex + 1) % loopLength;
     const watchTime = tabs[tabIndex][newVideoIndex]?.watchTime || 40;
-    let newUrl = tabs[tabIndex][newVideoIndex].url;
+    const newUrl = tabs[tabIndex][newVideoIndex].url;
     console.log('[stopwar] NEW TABS:', tabIndex, newVideoIndex, newUrl, watchTime, tabs);
-    
+
     setTimeout(async () => {
       // update timer
-      let tabsTimer = await chrome.storage.local.get('tabsTimer');
-      tabsTimer = tabsTimer.tabsTimer;
+      const tabsTimer = await getFromStorageLocal('tabsTimer');
       tabsTimer[tabIndex] = { ...tabs[tabIndex][newVideoIndex], openTime: (new Date()).getTime() };
       chrome.storage.local.set({ tabsTimer });
       location.replace(newUrl);
@@ -97,11 +92,10 @@ async function playNextVideoB(tab) {
     if (openTab && tabIndex + 1 < tabs.length) {
       // update timer
       let newTabIndex = tabIndex + 1;
-      let tabsTimer = await chrome.storage.local.get('tabsTimer');
-      tabsTimer = tabsTimer.tabsTimer;
+      const tabsTimer = await getFromStorageLocal('tabsTimer');
       tabsTimer[newTabIndex] = { ...tabs[newTabIndex][0], openTime: (new Date()).getTime() };
       chrome.storage.local.set({ tabsTimer });
-      
+
       setTimeout(() => window.open(tabs[newTabIndex][0].url), 100);
     }
   }, 4000);
@@ -111,8 +105,7 @@ async function playNextVideoB(tab) {
 
 async function openLoadPlaylist() {
   // open playlist and wait to load videos, then generate videos list for all tabs
-  let nTabs = await chrome.storage.local.get('nTabs');
-  nTabs = nTabs.nTabs;
+  const nTabs = await getFromStorageLocal('nTabs');
 
   // load settings from GitHub
   // start counter - limit number of videos by 300
@@ -124,7 +117,7 @@ async function openLoadPlaylist() {
 
   setTimeout(async () => {
     // grab elements from the playlist
-    const videos1 = document.getElementsByClassName('yt-simple-endpoint style-scope ytd-playlist-panel-video-renderer'); 
+    const videos1 = document.getElementsByClassName('yt-simple-endpoint style-scope ytd-playlist-panel-video-renderer');
     const videos2 = document.querySelectorAll("ytd-playlist-video-renderer.style-scope.ytd-playlist-video-list-renderer");
 
     let videos = videos1.length ? [...videos1] : [...videos2];
@@ -133,7 +126,7 @@ async function openLoadPlaylist() {
       chrome.storage.local.set({ videos: [] });
       return;
     }
-  
+
     const urls = [...videos].map((v, ii) => {
       // open video from the end, per @detoxbrainwash it allows to boost videos more effectively
       const isLastVideo = ii === videos.length - 1;
@@ -193,7 +186,6 @@ async function openLoadPlaylist() {
       window.open(tabs[0][0].url); // for debugging
       // location.replace(tabs[0][0].url);
     }, 100);
-
   }, 5000);
 }
 
@@ -205,14 +197,14 @@ async function checkFirstTabFlag() {
   // first tab logic
   // in the first tab it grabs videos from the playlist and generates a list of videos for each tab
   let openFirstTabFlag = false;
-  let startUrl = await chrome.storage.local.get('startUrl');
-  let openTime = await chrome.storage.local.get('openTime');
+  const startUrl = await getFromStorageLocal('startUrl');
+  const openTime = await getFromStorageLocal('openTime');
 
-  if (!startUrl.startUrl || !openTime.openTime) return;
-  let [origin, search] = startUrl.startUrl.split('?');
-  let playlist = (new URLSearchParams('?' + search)).get('list');
+  if (!startUrl || !openTime) return;
+  const [origin, search] = startUrl.split('?');
+  const playlist = (new URLSearchParams('?' + search)).get('list');
 
-  openFirstTabFlag = loc.includes(playlist) && ((new Date()).getTime() - openTime.openTime) / 1000 < 2;
+  openFirstTabFlag = loc.includes(playlist) && ((new Date()).getTime() - openTime) / 1000 < 2;
 
   if (openFirstTabFlag) {
     openLoadPlaylist();
@@ -224,19 +216,18 @@ checkFirstTabFlag();
 async function checkContinueFlag() {
   // on url updated
   // continue playing videos in the list, and open a new tab if not all of them were opened yet
-  let video = (new URLSearchParams(window.location.search)).get('v');
-  let playlist = (new URLSearchParams(window.location.search)).get('list');
+  const video = (new URLSearchParams(window.location.search)).get('v');
+  const playlist = (new URLSearchParams(window.location.search)).get('list');
 
-  let tabsTimer = await chrome.storage.local.get('tabsTimer');
-  tabsTimer = tabsTimer.tabsTimer;
+  const tabsTimer = await getFromStorageLocal('tabsTimer');
   if (!tabsTimer?.length) return;
 
   const tab = tabsTimer.find(t => t.url?.includes(video) && t.url?.includes(playlist));
   if (!tab?.openTime) return;
-  let timeStamp = tab.openTime;
-  let tabUrl = tab.url;
+  const timeStamp = tab.openTime;
+  const tabUrl = tab.url;
 
-  let timeOffset = 5;
+  const timeOffset = 5;
   if (tabUrl.includes(video) && tabUrl.includes(playlist) && ((new Date()).getTime() - timeStamp) / 1000 < timeOffset) {
     setTimeout(() => { playNextVideoB(tab); }, 100);
   }

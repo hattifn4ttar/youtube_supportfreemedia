@@ -13,19 +13,7 @@ function getLoggedIn() {
 }
 
 async function likeVideo() {
-  // avoid bot-like behaviour
-  return;
-  let like = await chrome.storage.local.get('supportYTLike');
-  like = like.supportYTLike;
-
-  console.log('[stopwar] LIKE:', like);
-  if (!getLoggedIn() || !like) return;
-  let videoBtns = document.getElementsByClassName('style-scope ytd-video-primary-info-renderer');
-  videoBtns = videoBtns[0]?.children[5]?.children[2]?.children[0]?.children[0]?.children[0];
-  const likeBtn = videoBtns?.children[0];
-  if (likeBtn?.classList && !likeBtn.classList.contains('style-default-active')) {
-    likeBtn.click();
-  }
+  // removed - avoid bot-like behaviour
 }
 
 function getVideoStart(video) {
@@ -91,10 +79,10 @@ function clickPlayAll() {
   if (!membersOnlyContent && playBtn && playBtn.children[0]) {
     playBtn = playBtn.children[0]?.children[0];
     if (playBtn) { playBtn.click(); }
-    else { return false };
+    else { return false; }
 
-    setTimeout(() => { 
-      playNextVideo();     
+    setTimeout(() => {
+      playNextVideo();
     }, 1000);
     return true;
   }
@@ -107,7 +95,7 @@ function startPlayChannel() {
 
   const hasPlayAllButtonHome = clickPlayAll(videoIndex);
 
-  if (!hasPlayAllButtonHome)  {
+  if (!hasPlayAllButtonHome) {
     const tabsEl = document.getElementById('tabsContent');
     if (tabsEl) {
       tabsEl.children[3].click();
@@ -122,18 +110,17 @@ function startPlayChannel() {
         setTimeout(() => {
           let dd = document.getElementsByClassName('yt-dropdown-menu yt-simple-endpoint');
           dd[0].click();
-          
+
           setTimeout(() => {
             const playBtn = document.getElementById('play-button');
             playBtn.children[0].children[0].click();
 
             setTimeout(() => {
-              playNextVideo();     
+              playNextVideo();
             }, 1000);
           }, 700);
         }, 500);
       }
-
     }, 500);
   }
 }
@@ -144,8 +131,7 @@ async function openChannelPage() {
   let chOffset = (new URLSearchParams(window.location.search)).get('chOffset');
   tabIndex = isNaN(Number(tabIndex)) ? 0 : Number(tabIndex);
   chOffset = isNaN(Number(chOffset)) ? 0 : Number(chOffset);
-  let nTabs = await chrome.storage.local.get('nTabs');
-  nTabs = nTabs.nTabs;
+  const nTabs = await getFromStorageLocal('nTabs');
 
   setTimeout(() => {
     const channelsToPlay = channelsOriginal.filter(d => d.play);

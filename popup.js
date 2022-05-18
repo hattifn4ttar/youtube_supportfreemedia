@@ -1,13 +1,18 @@
 let defaultURL = 'https://www.youtube.com/playlist?list=PLQxYKug91T31ixyCs81TwIl8wAiD9AZAH';
-let playlistsDefault = [
-  { id: 1, name: 'Default', url: 'https://www.youtube.com/playlist?list=PLQxYKug91T31ixyCs81TwIl8wAiD9AZAH', default: true },
-];
+let playlistsDefault = [{ id: 1, name: 'Default', url: defaultURL, default: true }];
+
+// utils
 function getUrlValid(url) {
   let validUrl = url.indexOf('https://www.youtube.com/') === 0;
   validUrl = validUrl && url.includes('list=');
   return validUrl;
 }
+async function getFromStorage(name) {
+  const setting = await chrome.storage.sync.get(name);
+  return setting && setting[name];
+}
 
+// load settings when opening a popup
 var xhr = new XMLHttpRequest();
 xhr.onload = function() {
     var json = xhr.responseText;  
@@ -23,6 +28,7 @@ xhr.send();
 setTimeout(() => setForm(), 0);
 setTimeout(() => localizeHtmlPage(), 10);
 
+
 // load and display playlists
 function createElementFromHTML(htmlString) {
   var div = document.createElement('div');
@@ -32,11 +38,10 @@ function createElementFromHTML(htmlString) {
 async function showSavedPlaylists() {
   const elem = document.getElementById('radiobuttonsPlaylist');
   if (elem) {
-    let playlistsCustom = await chrome.storage.sync.get('playlistsCustom');
-    playlistsCustom = playlistsCustom.playlistsCustom || [];
+    let playlistsCustom = await getFromStorage('playlistsCustom') || [];
     playlistsCustom = playlistsCustom.filter(p => p.url && getUrlValid(p.url));
-    let n = playlistsCustom.length + 1;
-    playlistsCustom.push({ id: n, name: 'Custom_' + n, url: '' });
+    const nPlaylists = playlistsCustom.length + 1;
+    playlistsCustom.push({ id: nPlaylists, name: 'Custom_' + nPlaylists, url: '' });
     chrome.storage.sync.set({ playlistsCustom });
 
     playlistsDefault.forEach((p, i) => {
@@ -70,8 +75,7 @@ async function showSavedPlaylists() {
 
     });
   }
-  let playType = await chrome.storage.sync.get('playType');
-  playType = playType?.playType || defaultURL;
+  const playType = await getFromStorage('playType') || defaultURL;
   if (!document.getElementById(playType)) playType = defaultURL;
   if (document.getElementById(playType)) document.getElementById(playType).checked = true;
 }
@@ -80,13 +84,11 @@ async function showSavedPlaylists() {
 async function setForm() {
   chrome.storage.local.set({ supportYTLike: true });
 
-  let notifyTime = await chrome.storage.sync.get('notifyTime');
-  notifyTime = notifyTime?.notifyTime;
+  const notifyTime = await getFromStorage('notifyTime');
   if (notifyTime) {
     document.getElementById('time').value = notifyTime;
   }
-  let promoteType = await chrome.storage.sync.get('promoteType');
-  promoteType = promoteType?.promoteType || 'manual';
+  const promoteType = await getFromStorage('promoteType') || 'manual';
   document.getElementById('promoteType').value = promoteType;
   selectPromoteType(promoteType);
 }
@@ -131,8 +133,7 @@ if (formLike) {
       chrome.storage.sync.set({ playType: event.target.value });
     }
     if (event?.target?.name?.includes('Custom_')) {
-      let plCustom = await chrome.storage.sync.get('playlistsCustom');
-      playlistsCustom = plCustom?.playlistsCustom || [];
+      const playlistsCustom = await getFromStorage('playlistsCustom') || [];
       playlistsCustom.forEach(p => {
         if (p.name === event.target.name) p.url = event.target.value;
       });
@@ -175,8 +176,7 @@ document.getElementById('webLink').addEventListener('click', () => window.open('
 
 async function startScript(nTabs) {
   // open the start page based on user preferences
-  let playType = await chrome.storage.sync.get('playType');
-  playType = playType.playType;
+  const playType = await getFromStorage('playType');
 
   chrome.storage.local.set({ nTabs });
 

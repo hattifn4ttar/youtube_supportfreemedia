@@ -1,0 +1,12 @@
+#extensionButton {
+  padding: 10px;
+  cursor: pointer;
+  margin-right: 8px;
+  margin-left: 3px;
+}
+
+.extension-button__logo {
+  max-width: 21px;
+  max-height: 21px;
+  border-radius: 2px;
+}
