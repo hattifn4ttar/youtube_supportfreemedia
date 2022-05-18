@@ -1,5 +1,6 @@
 // ----------------------------------------------------------
 // "Run Playlist" option
+// disabled for now - too many options
 // ----------------------------------------------------------
 let videoDurationSec = 120;
 

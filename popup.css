@@ -106,6 +106,10 @@
   min-width: 210px;
   max-width: 210px;
 }
+.playlist-radio_custom {
+  margin-top: 3px;
+  margin-bottom: -4px;
+}
 .playlist-link-edit:hover,
 .playlist-link-edit:focus {
   background-color: rgba(255,255,255,0.1) !important;

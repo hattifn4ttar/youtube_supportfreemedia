@@ -61,9 +61,9 @@ async function showSavedPlaylists() {
     });
     playlistsCustom.forEach((p, i) => {
       let elemRadio = createElementFromHTML(`
-        <div>
+        <div class="playlist-radio-custom">
           <input type="radio" id="` + p.url + `" name="playType" value="` + p.url + `">
-          <label for="` + p.url + `" class="playlist-radio">
+          <label for="` + p.url + `" class="playlist-radio playlist-radio_custom">
             <span  class="promoteDetailsAuto playlist-word">Playlist:</span>
             <a class="defaultplaylist-link" href="` + p.url + `" id="` + p.name + `_link">` + p.name + `</a>
             <input type="text" class="playlist-link-edit" id="` + p.name + `" name="` + p.name + `" placeholder="Edit" value="` + p.url + `">
@@ -72,10 +72,9 @@ async function showSavedPlaylists() {
       `);
       elem.appendChild(elemRadio)
       if (p.url) document.getElementById(p.name + '_link').addEventListener('click', () => window.open(p.url));
-
     });
   }
-  const playType = await getFromStorage('playType') || defaultURL;
+  let playType = await getFromStorage('playType') || defaultURL;
   if (!document.getElementById(playType)) playType = defaultURL;
   if (document.getElementById(playType)) document.getElementById(playType).checked = true;
 }
@@ -94,16 +93,13 @@ async function setForm() {
 }
 
 function localizeHtmlPage() {
-  //Localize by replacing __MSG_***__ meta tags
-  var objects = document.getElementsByClassName('local');
-  for (var j = 0; j < objects.length; j++) {
-      var obj = objects[j];
-
-      var valStrH = obj.innerHTML.toString();
-      var valNewH = valStrH.replace(/__MSG_(\w+)__/g, function(match, v1) {
-          return v1 ? chrome.i18n.getMessage(v1) : "";
-      });
-      if(valNewH != valStrH) { obj.innerHTML = valNewH; }
+  // Localize by replacing __MSG_***__ meta tags
+  const objects = document.getElementsByClassName('local');
+  for (let j = 0; j < objects.length; j++) {
+    const obj = objects[j];
+    const valStrH = obj.innerHTML.toString();
+    const valNewH = valStrH.replace(/__MSG_(\w+)__/g, function(match, v1) { return v1 ? chrome.i18n.getMessage(v1) : ""; });
+    if (valNewH != valStrH) { obj.innerHTML = valNewH; }
   }
 }
 // end load settings
