@@ -10,3 +10,32 @@
   max-height: 21px;
   border-radius: 2px;
 }
+
+
+.extension-popup {
+  font-size: 13px;
+  position: absolute;
+  background-color: #21252b;
+  color: white !important;  
+  font-family: Inter,Helvetica Neue,Helvetica, roboto, Arial, Ubuntu, sans-serif;
+  min-width: 390px;
+  max-width: 470px;
+  top: 100%;
+  margin-top: -8px;
+  margin-right: 20px;
+  padding: 10px 0px 8px 10px;
+  border-radius: 3px;
+  box-shadow: 0px 2px 15px 0 rgb(0 0 0 / 20%), 0px 0px 3px 0 rgb(0 0 0 / 20%);
+}
+.extension-popup .playlist-radio {
+  max-width: 370px !important;
+}
+
+.extension-popup-close {
+  position: absolute;
+  right: 25px;
+  top: 17px;
+  font-size: 15px;
+  padding: 3px 5px;
+  cursor: pointer;
+}

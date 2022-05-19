@@ -58,6 +58,7 @@ function highlightLikeButton() {
         chrome.storage.local.set({ likeUrl: window.location.href });
       }
     }
+    // would be better to detect page change instead of timeout
     setTimeout(() => highlightLikeButton(), 100);
   }, 2500);
 }

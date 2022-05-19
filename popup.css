@@ -3,7 +3,8 @@
   background-color: #444444;
   background-color: #21252b;
   color: white !important;  
-  font-family: Inter,Helvetica Neue,Helvetica, roboto, Arial, Ubuntu, sans-serif;
+  /* font-family: Inter,Helvetica Neue,Helvetica, roboto, Arial, Ubuntu, sans-serif; */
+  font-family: Inter,Helvetica Neue,Helvetica, roboto, Arial, sans-serif;
 }
 .openchannels-popup {
   padding: 16px 30px 8px 30px;
@@ -22,7 +23,7 @@
 .open-tabs-btn {
   margin: 3px 1.5px;
   padding: 8px 16px;
-  font-size: 13px;
+  font-size: 14px;
   background-color: #444;
   background-color: rgba(255,255,255,0.1);
   color: white;
@@ -36,21 +37,21 @@
 }
 
 .ytsupport-top {
-  max-width: 280px;
+  max-width: 300px;
   display: inline-block;
   margin-right: 15px;
 }
 .ytsupport-title {
   width: 100%;
   font-size: 18px;
-  font-weight: 500;
+  font-weight: 600;
   line-height: 25px;
   display: inline-block;
   margin: 0px 0 0px 0;
 }
 .ytsupport-descr {
   line-height: 17px;
-  font-size: 12px;
+  font-size: 13px;
 }
 .openchannels-popup a {
   color: rgba(255,255,255,0.8);
@@ -58,14 +59,14 @@
 .openchannels-popup a:hover {
   color: rgba(255,255,255,1);
 }
-.openchannels-popup .logo {
+.openchannels-popup .logo_settings {
   margin: 0px -10px 0 0;
   max-width: 40px;
   display: inline-block;
   position: relative;
-  top: -15px;
+  top: -10px;
 }
-.openchannels-popup .logo img {
+.openchannels-popup .logo_settings img {
   max-width: 100%;
 }
 .openchannels-popup .links-bottom {
@@ -79,11 +80,11 @@
 .openchannels-popup p,
 .openchannels-popup .text {
   line-height: 20px;
-  font-size: 14px;
+  font-size: 15px;
 }
 #promoteDetailsManual {
   line-height: 20px;
-  font-size: 14px;
+  font-size: 15px;
 }
 .promote-details-li {
   margin-bottom: 5px;
@@ -101,7 +102,7 @@
   color: rgba(255,255,255,0.85);
   border-radius: 2px;
   border-color: transparent !important;
-  font-size: 12px;
+  font-size: 13px;
   text-overflow: ellipsis;
   min-width: 210px;
   max-width: 210px;
@@ -109,6 +110,9 @@
 .playlist-radio_custom {
   margin-top: 3px;
   margin-bottom: -4px;
+}
+.playlist-radio-custom {
+  margin-top: -3px;
 }
 .playlist-link-edit:hover,
 .playlist-link-edit:focus {
@@ -153,7 +157,7 @@
   overflow-x: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size: 12px;
+  font-size: 13px;
   text-decoration: none !important;
 }
 
@@ -176,7 +180,7 @@
 }
 .promoteDetailsManual {
   line-height: 20px;
-    font-size: 14px;
+  font-size: 15px;
 }
 
 .playlist-word {
@@ -188,4 +192,8 @@
   line-height: 18px;
 }
 .playlist-radiobuttons-container {
+}
+
+.popup-time-section {
+  margin-bottom: 35px;
 }

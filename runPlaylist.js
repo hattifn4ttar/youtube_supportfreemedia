@@ -43,7 +43,6 @@ async function playNextVideoB(tab) {
 
   setTimeout(() => {
     console.log('[stopwar] NEXT:', tabIndex);
-    likeVideo();
   }, 2000);
 
   // stop playing after ~300 iterations

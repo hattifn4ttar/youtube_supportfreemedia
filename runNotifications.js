@@ -1,5 +1,4 @@
 // show notifications
-let defaultURL = 'https://www.youtube.com/playlist?list=PLQxYKug91T31ixyCs81TwIl8wAiD9AZAH';
 
 async function startScript(nTabs) {
   // open the start page based on user preferences
@@ -57,10 +56,10 @@ async function showNotificationPopup() {
         <div class="notify-popup-playlist local">__MSG_notifyPlaylist__  ` + playlistUrl + `</div>
 
         <div class="notify-popup-buttons">
-          <button id="notifyOpen3" class="open-tabs-btn"><span class="local">__MSG_notifyBtnTabs3__</span></button>  
-          <button id="notifyOpen2" class="open-tabs-btn"><span class="local">__MSG_notifyBtnTabs2__</span></button>  
-          <button id="notifyOpen1" class="open-tabs-btn"><span class="local">__MSG_notifyBtnTabs1__</span></button>
-          <button id="notifyClose" class="open-tabs-btn notify-close"><span class="local">__MSG_notifyBtnClose__</span></button>
+          <div id="notifyOpen3" class="open-tabs-btn"><span class="local">__MSG_notifyBtnTabs3__</span></div>  
+          <div id="notifyOpen2" class="open-tabs-btn"><span class="local">__MSG_notifyBtnTabs2__</span></div>  
+          <div id="notifyOpen1" class="open-tabs-btn"><span class="local">__MSG_notifyBtnTabs1__</span></div>
+          <div id="notifyClose" class="open-tabs-btn notify-close"><span class="local">__MSG_notifyBtnClose__</span></div>
         </div>
       </div>
   `);
@@ -75,8 +74,8 @@ async function showNotificationPopup() {
         <div class="notify-popup-playlist local">__MSG_notifyPlaylist__ ` + playlistUrl + `</div>
 
         <div class="notify-popup-buttons">
-          <button id="notifyOpenManual" class="open-tabs-btn"><span class="local">__MSG_notifyBtnManual__</span></button>
-          <button id="notifyClose" class="open-tabs-btn notify-close"><span class="local">__MSG_notifyBtnClose__</span></button>
+          <div id="notifyOpenManual" class="open-tabs-btn"><span class="local">__MSG_notifyBtnManual__</span></div>
+          <div id="notifyClose" class="open-tabs-btn notify-close"><span class="local">__MSG_notifyBtnClose__</span></div>
         </div>
       </div>
   `);
@@ -100,7 +99,7 @@ async function showNotificationPopup() {
 
 
 
-setTimeout(() => checkNotify(), 5000);
+setTimeout(() => checkNotify(), 3000);
 
 async function checkNotify() {
 
@@ -125,6 +124,7 @@ async function checkNotify() {
     if (currentDate > notifiedDate && (hrCurrent > hrSaved || minutesCurrent >= minutesSaved && hrCurrent >= hrSaved)) {
       // update settings before opening notifications popup
       updateSettings();
+      //  would be better to detect page change instead of timeout
       setTimeout(() => showNotificationPopup(), 2000);
     }
   }

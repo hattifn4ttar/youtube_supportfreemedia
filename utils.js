@@ -39,3 +39,9 @@ function localizeHtmlPage() {
     if (valNewH != valStrH) { obj.innerHTML = valNewH; }
   }
 }
+
+function getUrlValid(url) {
+  let validUrl = url.indexOf('https://www.youtube.com/') === 0;
+  validUrl = validUrl && url.includes('list=');
+  return validUrl;
+}

@@ -46,7 +46,7 @@ async function showSavedPlaylists() {
 
     playlistsDefault.forEach((p, i) => {
       let elemRadio = createElementFromHTML(`
-        <div class="playlist-radio-default">
+        <div class="playlist-radio-default playlist-radio-item">
           <input type="radio" id="` + p.url + `" name="playType" value="` + p.url + `">
           <label for="` + p.url + `" class="playlist-radio">
             <span  class="promoteDetailsAuto playlist-word">Playlist:</span>
@@ -55,13 +55,12 @@ async function showSavedPlaylists() {
           </label>
         </div>
       `);
-      elem.appendChild(elemRadio)
+      elem.appendChild(elemRadio);
       document.getElementById(p.name + '_link').addEventListener('click', () => window.open(p.url));
-
     });
     playlistsCustom.forEach((p, i) => {
       let elemRadio = createElementFromHTML(`
-        <div class="playlist-radio-custom">
+        <div class="playlist-radio-custom playlist-radio-item">
           <input type="radio" id="` + p.url + `" name="playType" value="` + p.url + `">
           <label for="` + p.url + `" class="playlist-radio playlist-radio_custom">
             <span  class="promoteDetailsAuto playlist-word">Playlist:</span>
@@ -70,7 +69,7 @@ async function showSavedPlaylists() {
           </label>
         </div>
       `);
-      elem.appendChild(elemRadio)
+      elem.appendChild(elemRadio);
       if (p.url) document.getElementById(p.name + '_link').addEventListener('click', () => window.open(p.url));
     });
   }
@@ -107,9 +106,9 @@ function localizeHtmlPage() {
 
 
 // form change
-var formLike = document.getElementById("formLike");
+const formLike = document.getElementById('formLike');
 if (formLike) {
-  formLike.addEventListener("change", async function(event) {
+  formLike.addEventListener('change', async (event) => {
     console.log('ev:', event?.target?.name, event?.target?.value);
     if (event?.target?.name === 'like') {
       let like = await chrome.storage.local.get('supportYTLike');
@@ -134,7 +133,10 @@ if (formLike) {
         if (p.name === event.target.name) p.url = event.target.value;
       });
       chrome.storage.sync.set({ playlistsCustom });
-      console.log('set:', playlistsCustom);
+      // show new playlsts
+      const radioButtons = document.getElementsByClassName('playlist-radio-item');
+      if (radioButtons?.length) [...radioButtons].forEach(d => d.remove());
+      showSavedPlaylists();
     }
     event.preventDefault();
   }, false);
@@ -180,7 +182,7 @@ async function startScript(nTabs) {
   if (manual || playType !== 'channels') {
     // run playlist
     let url = playType || defaultURL;
-    
+
     // validate url
     if (!getUrlValid(url)) {
       alert('URL is invalid. Open YouTube playlist.');
@@ -192,9 +194,5 @@ async function startScript(nTabs) {
       chrome.storage.local.set({ startUrl: url, openTime: (new Date()).getTime() });
     }
     window.open(url);
-  }
-  else {
-    // open YT channels in multiple tabs
-    window.open('https://www.youtube.com/playlist?list=PLQxYKug91T31ixyCs81TwIl8wAiD9AZAH&openNew=1&mute=1');
   }
 }

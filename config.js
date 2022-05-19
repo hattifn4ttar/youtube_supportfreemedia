@@ -1,3 +1,7 @@
+let defaultURL = 'https://www.youtube.com/playlist?list=PLQxYKug91T31ixyCs81TwIl8wAiD9AZAH';
+let playlistsDefault = [{ id: 1, name: 'Default', url: defaultURL, default: true }];
+
+
 // list of independent channels
 // videoDuration and subs count are not used yet
 const channelsOriginal = [
