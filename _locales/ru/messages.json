@@ -21,19 +21,8 @@
   },
 
 
-  "popupPromotetypeLabel": {
-    "message": "Bыберите инструкции для продвижения видео"
-  },
-  "popupPromotetypeOpt1": {
-    "message": "В ручную"
-  },
-  "popupPromotetypeOpt2": {
-    "message": "Автоматически"
-  },
-
-
   "popupPlaytypeLabel": {
-    "message": "\"Открыть вкладки\" кнопка откроет несколько вкладок и будет запускать видео. Не отключайте звук видео или сайта!"
+    "message": "Нажмите \"Открыть вкладки\" чтобы открыть выбранный плейлист и начать автоматическое проигрывание. Не отключайте звук видео или сайта!"
   },
   "popupPlaytypeOptChannel": {
     "message": "По каналам"
@@ -64,6 +53,12 @@
 
   "popupManualBtn": {
     "message": "Открыть плейлист"
+  },
+  "popupMessagesLink": {
+    "message": "Сообщения"
+  },
+  "popupMessagesEmpty": {
+    "message": "Сообщения не найдены"
   },
 
 

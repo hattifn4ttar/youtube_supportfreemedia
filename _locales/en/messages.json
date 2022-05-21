@@ -21,19 +21,8 @@
   },
 
 
-  "popupPromotetypeLabel": {
-    "message": "Select instructions to promote videos"
-  },
-  "popupPromotetypeOpt1": {
-    "message": "Manually"
-  },
-  "popupPromotetypeOpt2": {
-    "message": "Automatically"
-  },
-
-
   "popupPlaytypeLabel": {
-    "message": "\"Open Tabs\" button will open multiple tabs and play videos. Do not mute the video and do not mute the browser tab!"
+    "message": "\"Open Tabs\" button will open playlist in multiple tabs and play videos. Do not mute the video and do not mute the browser tab!"
   },
   "popupPlaytypeOptChannel": {
     "message": "By channel"
@@ -64,6 +53,12 @@
 
   "popupManualBtn": {
     "message": "Open playlist"
+  },
+  "popupMessagesLink": {
+    "message": "Messages"
+  },
+  "popupMessagesEmpty": {
+    "message": "No messages found"
   },
   
 

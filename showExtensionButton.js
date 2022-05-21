@@ -96,12 +96,13 @@ const popupHtml = `
       <!--<button id="clickReset" class="open-tabs-btn">Reset</button>  -->
 
       <div class="links-bottom">
+        <a id="messagesLink"><span class="local">__MSG_popupMessagesLink__</span> <span class="expand-icon">^</span></a>&nbsp; &nbsp; &nbsp;
         <a target="_blank" href="https://hattifn4ttar.github.io/supportfreemedia/" id="webLink">About</a>&nbsp; &nbsp; &nbsp;
-        <a target="_blank" href="https://www.youtube.com/watch?v=jowEf5tSSyc" id="youtubeLink">YouTube</a>&nbsp; &nbsp; &nbsp;
         <a target="_blank" href="https://github.com/hattifn4ttar/youtube_supportfreemedia" id="githubLink">GitHub</a>
       </div>
       <script src="popup.js"></script> 
     </div>
+    <div id="popupMessagesSection" class="popup-messages-container"></div>
   </div>
 `;
 
@@ -180,6 +181,7 @@ async function showExtensionPopup() {
 
     setTimeout(() => localizeHtmlPage(), 10);
     setTimeout(() => addEventListeners(), 500);
+    setTimeout(() => showMessages(), 1000);
   }
 }
 

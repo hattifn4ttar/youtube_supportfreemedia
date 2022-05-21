@@ -70,11 +70,14 @@
   max-width: 100%;
 }
 .openchannels-popup .links-bottom {
-  float: right;
-  margin-top: 20px;
-  position: absolute;
-  bottom: 20px;
-  right: 20px;
+  margin-top: -15px;
+  position: relative;
+  width: 100%;
+  text-align: right;
+  margin-bottom: 7px;
+}
+.openchannels-popup .links-bottom a {
+  text-decoration: underline;
 }
 
 .openchannels-popup p,
