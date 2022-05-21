@@ -138,10 +138,13 @@
 .playlist-radio {
   display: inline-block;
   max-width: 350px !important;
-  min-width: 110px !important;
+  min-width: 350px !important;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+.playlist-radio input {
+  min-width: 260px !important;
 }
 .defaultplaylist-link {
   text-decoration: none !important;
@@ -162,13 +165,17 @@
 }
 
 .time-remove {
-  padding: 2px 6px 4px 6px;
+  padding: 0.5px 6px 2px 6px;
+  border: 2px solid rgb(118, 118, 118, 0);
+  border-top-width: 1px;
   cursor: pointer;
-  margin-left: 3px;
+  margin-left: 1px;
   border-radius: 3px;
+  margin-right: 8px;
+  background-color: rgba(255,255,255,0.2);
 }
 .time-remove:hover {
-  background-color: rgba(255,255,255,0.2);
+  background-color: rgba(255,255,255,0.3);
 }
 
 #playlistURLAdd {
@@ -196,4 +203,26 @@
 
 .popup-time-section {
   margin-bottom: 35px;
+}
+
+.promote-type-checkbox {
+  font-size: 13px !important;
+  width: 100%;
+  text-align: right;
+  margin-bottom: 8px;
+  margin-left: -4px;
+  display: inline-block;
+  margin-top: -10px;
+  margin-right: 5px;
+}
+.promote-type-checkbox label {
+  opacity: 0.7;
+  cursor: pointer;
+}
+.promote-type-checkbox label:hover {
+  opacity: 1;
+}
+.promote-type-checkbox input {
+  position: relative;
+  top: 2px;
 }

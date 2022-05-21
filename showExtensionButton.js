@@ -50,21 +50,16 @@ const popupHtml = `
 
       <form id="formLike">
         <p>
-          <label for="time" class="local">__MSG_popupSchedule__</label><br />
           <input type="time" id="time" name="time" min="00:00" max="24:00" class="timepicker">
           <span class="time-remove" id="timeRemoveBtn">x</span>
+          <label for="time" class="local">__MSG_popupSchedule__</label><br />
         </p>
         <br />
         <br />
-        <p>
-          <div class="local text">__MSG_popupPromotetypeLabel__</div>
-          <select name="promoteType" id="promoteType">
-            <option value="manual" class="local">__MSG_popupPromotetypeOpt1__</option>
-            <option value="auto" class="local">__MSG_popupPromotetypeOpt2__</option>
-          </select>
+        <p class="promote-type-checkbox">
+          <label for="promoteType" class="local">__MSG_popupAutoplayCheckbox__</label>
+          <input type="checkbox" id="promoteType" name="promoteType">
         </p>
-        <br />
-
 
         <div class="promoteDetailsAuto">
           <div class="local promote-instructions">__MSG_popupPlaytypeLabel__</div>
@@ -128,24 +123,19 @@ function addEventListeners() {
   if (formLike) {
     formLike.addEventListener('change', async (event) => {
       console.log('ev:', event?.target?.name, event?.target?.value);
-      if (event?.target?.name === 'like') {
-        let like = await chrome.storage.local.get('supportYTLike');
-        like = like.supportYTLike;
-        chrome.storage.local.set({ supportYTLike: !like });
-      }
+      // notifications time
       if (event?.target?.name === 'time') {
         chrome.storage.sync.set({ notifyTime: event?.target?.value });
         chrome.storage.sync.set({ notifiedDate: null });
       }
       if (event?.target?.name === 'promoteType') {
-        chrome.storage.sync.set({ promoteType: event.target.value });
-        selectPromoteType(event.target.value);
+        const promoteType = event.target.checked ? 'auto' : 'manual';
+        chrome.storage.sync.set({ promoteType });
+        selectPromoteType(promoteType);
       }
-
       // radio buttons
       if (event?.target?.name === 'playType') {
         chrome.storage.sync.set({ playType: event.target.value });
-        console.log('select:', event.target.value);
       }
       // edit playlist url
       if (event?.target?.name?.includes('Custom_')) {
@@ -215,7 +205,6 @@ async function showSavedPlaylists() {
         <div class="playlist-radio-default playlist-radio-item">
           <input type="radio" id="` + p.url + '" name="playType" value="' + p.url + `">
           <label for="` + p.url + `" class="playlist-radio">
-            <span  class="promoteDetailsAuto playlist-word">Playlist:</span>
             ` + p.name + `:
             <a class="defaultplaylist-link" target="_blank" href="` + p.url + '" id="' + p.name + '_link">' + p.url.replace('https://', '') + `</a>
           </label>
@@ -228,9 +217,8 @@ async function showSavedPlaylists() {
         <div class="playlist-radio-custom playlist-radio-item">
           <input type="radio" id="` + p.url + '" name="playType" value="' + p.url + `">
           <label for="` + p.url + `" class="playlist-radio playlist-radio_custom">
-            <span  class="promoteDetailsAuto playlist-word">Playlist:</span>
             <a class="defaultplaylist-link" target="_blank" id="` + p.name + '_link">' + p.name + `:</a>
-            <input type="text" class="playlist-link-edit" id="` + p.name + '" name="' + p.name + '" placeholder="Edit" value="' + p.url + `">
+            <input type="text" class="playlist-link-edit" id="` + p.name + '" name="' + p.name + '" placeholder="Edit" value="' + p.url.replace('https://', '') + `">
           </label>
         </div>
       `);
@@ -251,7 +239,8 @@ async function setForm() {
     document.getElementById('time').value = notifyTime;
   }
   const promoteType = await getFromStorage('promoteType') || 'manual';
-  document.getElementById('promoteType').value = promoteType;
+  const formValue = promoteType === 'auto';
+  document.getElementById('promoteType').checked = formValue;
   selectPromoteType(promoteType);
 }
 

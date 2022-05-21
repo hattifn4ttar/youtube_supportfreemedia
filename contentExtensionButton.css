@@ -33,9 +33,16 @@
 
 .extension-popup-close {
   position: absolute;
-  right: 25px;
-  top: 17px;
+  right: 16px;
+  top: 21px;
   font-size: 15px;
   padding: 3px 5px;
   cursor: pointer;
+}
+
+.extension-popup .promote-type-checkbox {
+  margin-top: 0px;
+}
+.extension-popup .promote-type-checkbox input {
+  margin-right: 5px !important;
 }

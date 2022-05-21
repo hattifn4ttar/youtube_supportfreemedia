@@ -49,7 +49,6 @@ async function showSavedPlaylists() {
         <div class="playlist-radio-default playlist-radio-item">
           <input type="radio" id="` + p.url + `" name="playType" value="` + p.url + `">
           <label for="` + p.url + `" class="playlist-radio">
-            <span  class="promoteDetailsAuto playlist-word">Playlist:</span>
             ` + p.name + `
             <a class="defaultplaylist-link" href="` + p.url + `" id="` + p.name + `_link">` + p.url.replace('https://', '') + `</a>
           </label>
@@ -63,7 +62,6 @@ async function showSavedPlaylists() {
         <div class="playlist-radio-custom playlist-radio-item">
           <input type="radio" id="` + p.url + `" name="playType" value="` + p.url + `">
           <label for="` + p.url + `" class="playlist-radio playlist-radio_custom">
-            <span  class="promoteDetailsAuto playlist-word">Playlist:</span>
             <a class="defaultplaylist-link" href="` + p.url + `" id="` + p.name + `_link">` + p.name + `</a>
             <input type="text" class="playlist-link-edit" id="` + p.name + `" name="` + p.name + `" placeholder="Edit" value="` + p.url + `">
           </label>
@@ -87,7 +85,8 @@ async function setForm() {
     document.getElementById('time').value = notifyTime;
   }
   const promoteType = await getFromStorage('promoteType') || 'manual';
-  document.getElementById('promoteType').value = promoteType;
+  const formValue = promoteType === 'auto';
+  document.getElementById('promoteType').checked = formValue;
   selectPromoteType(promoteType);
 }
 
@@ -110,18 +109,16 @@ const formLike = document.getElementById('formLike');
 if (formLike) {
   formLike.addEventListener('change', async (event) => {
     console.log('ev:', event?.target?.name, event?.target?.value);
-    if (event?.target?.name === 'like') {
-      let like = await chrome.storage.local.get('supportYTLike');
-      like = like.supportYTLike;
-      chrome.storage.local.set({ supportYTLike: !like });
-    }
+    // notifications time
     if (event?.target?.name === 'time') {
       chrome.storage.sync.set({ notifyTime: event?.target?.value });
       chrome.storage.sync.set({ notifiedDate: null });
     }
+    // manual vs automated
     if (event?.target?.name === 'promoteType') {
-      chrome.storage.sync.set({ promoteType: event.target.value });
-      selectPromoteType(event.target.value);
+      const promoteType = event.target.checked ? 'auto' : 'manual';
+      chrome.storage.sync.set({ promoteType });
+      selectPromoteType(promoteType);
     }
 
     if (event?.target?.name === 'playType') {
@@ -142,11 +139,12 @@ if (formLike) {
   }, false);
 }
 
-function selectPromoteType(tabName) {
+function selectPromoteType(promoteType) {
+  console.log('promoteType:', promoteType);
   let type1, type2;
 
-  type2 = document.getElementsByClassName(tabName === 'manual' ? 'promoteDetailsAuto' : 'promoteDetailsManual');
-  type1 = document.getElementsByClassName(tabName === 'manual' ? 'promoteDetailsManual' : 'promoteDetailsAuto');
+  type2 = document.getElementsByClassName(promoteType === 'manual' ? 'promoteDetailsAuto' : 'promoteDetailsManual');
+  type1 = document.getElementsByClassName(promoteType === 'manual' ? 'promoteDetailsManual' : 'promoteDetailsAuto');
 
   [...type1].forEach(d => { d.style.display = 'inline-block'; d.style.maxHeight = 'none'; d.style.maxWidth = 'none'; });
   [...type2].forEach(d => { d.style.display = 'none'; d.style.maxHeight = 0; d.style.maxWidth = 0; });

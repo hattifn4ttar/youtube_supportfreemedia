@@ -17,10 +17,16 @@
 
     <form id="formLike">
       <p class="popup-time-section">
-        <label for="time" class="local">__MSG_popupSchedule__</label><br />
         <input type="time" id="time" name="time" min="00:00" max="24:00" class="timepicker">
         <span class="time-remove" id="timeRemoveBtn">x</span>
+        <label for="time" class="local">__MSG_popupSchedule__</label><br />
       </p>
+
+      <p class="promote-type-checkbox">
+        <label for="promoteType" class="local">__MSG_popupAutoplayCheckbox__</label>
+        <input type="checkbox" id="promoteType" name="promoteType">
+      </p>
+      <!--
       <p>
         <div class="local text">__MSG_popupPromotetypeLabel__</div>
         <select name="promoteType" id="promoteType">
@@ -28,6 +34,7 @@
           <option value="auto" class="local">__MSG_popupPromotetypeOpt2__</option>
         </select>
       </p>
+    -->
 
 
 

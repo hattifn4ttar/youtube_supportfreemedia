@@ -14,7 +14,10 @@
     "message": "Reminds to \"Like\" and comment YouTube videos from recommended channels."
   },
   "popupSchedule": {
-    "message": "Set a reminder to promote videos"
+    "message": "Set a reminder"
+  },
+  "popupAutoplayCheckbox": {
+    "message": "Use auto-play function"
   },
 
 
@@ -56,7 +59,7 @@
     "message": "2. Click \"Like\" and write a comment"
   },
   "popupManual3": {
-    "message": "3. Watch a video at least 30 seconds and repeat, or run a playlist from the start after commenting videos."
+    "message": "3. Watch a video at least 30 seconds and repeat same steps for the next video"
   },
 
   "popupManualBtn": {
